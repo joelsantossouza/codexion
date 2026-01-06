@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:06:06 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/06 16:07:12 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/06 16:42:56 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	codexion_parser(t_codexion *codexion, int argc, char **argv)
 	if (argc != 8)
 		return (ARGC_ERROR);
 	argc--;
-	if (strcmp(argv[argc], "fifo") != 0 || strcmp(argv[argc], "edf") != 0)
+	if (strcmp(argv[argc], "fifo") != 0 && strcmp(argv[argc], "edf") != 0)
 		return (SCHEDULER_ERROR);
 	while (argc--)
 	{
