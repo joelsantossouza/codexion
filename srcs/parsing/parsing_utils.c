@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:58:46 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/06 16:04:48 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/06 20:40:39 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int	nbrcmp(const char *nbr1, const char *nbr2)
 	while (*nbr2 == ' ' || (*nbr2 >= '\t' && *nbr2 <= '\r'))
 		nbr2++;
 	cmp = (*nbr2 == '-') - (*nbr1 == '-');
-	if (cmp != 0)
-		return (cmp);
 	sign = 1 - 2 * (*nbr1 == '-');
 	nbr1 += *nbr1 == '-' || *nbr1 == '+';
 	nbr2 += *nbr2 == '-' || *nbr2 == '+';
@@ -46,6 +44,8 @@ int	nbrcmp(const char *nbr1, const char *nbr2)
 		nbr1++;
 	while (*nbr2 == '0')
 		nbr2++;
+	if ((*nbr1 || *nbr2) && cmp != 0)
+		return (cmp);
 	while (*nbr1 == *nbr2 && *nbr1 && (nbr1++, nbr2++))
 		;
 	cmp = strlen(nbr1) - strlen(nbr2);
