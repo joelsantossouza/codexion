@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:41:04 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/06 16:12:07 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/06 21:31:42 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,9 @@ typedef struct s_codexion
 // PARSER
 const char *parsing_error(unsigned int error_code);
 int			codexion_parser(t_codexion *codexion, int argc, char **argv);
+
+// GET RULES
+int	get_coder_rules(int *burnout, int *compile, int *debug, int *refactor);
+int	get_monitor_rules(int *ncoders, int *cooldown, int *ncompiles_required);
 
 #endif

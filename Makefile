@@ -6,7 +6,7 @@
 #    By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/03 17:19:47 by joesanto          #+#    #+#              #
-#    Updated: 2026/01/06 16:40:50 by joesanto         ###   ########.fr        #
+#    Updated: 2026/01/06 21:34:26 by joesanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,13 @@ PARSING = $(addprefix $(PARSING_DIR)/, codexion_parser.c parsing_errors.c \
 INCLUDES += -I$(PARSING_DIR)/includes
 HEADERS += $(PARSING_HEADERS)
 OBJS += $(PARSING:.c=.o)
+
+# ----------------------------- GET RULES ---------------------------------- #
+GET_RULES_DIR = $(SRCS_DIR)/get_rules
+GET_RULES = $(addprefix $(GET_RULES_DIR)/, get_coder_rules.c \
+			get_monitor_rules.c \
+)
+OBJS += $(GET_RULES:.c=.o)
 
 # -------------------------------- MAIN ------------------------------------ #
 MAIN = $(SRCS_DIR)/main.c
