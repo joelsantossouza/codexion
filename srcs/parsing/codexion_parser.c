@@ -6,26 +6,29 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:06:06 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/06 13:48:01 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/06 16:07:12 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "codexion.h"
+#include "codexion_parser.h"
 #include "parsing_errors.h"
 #include <string.h>
+#include <stdlib.h>
 
 int	codexion_parser(t_codexion *codexion, int argc, char **argv)
 {
 	if (argc != 8)
 		return (ARGC_ERROR);
 	argc--;
-	if (strcmp(argv[argc], "fifo") || strcmp(argv[argc], "edf"))
+	if (strcmp(argv[argc], "fifo") != 0 || strcmp(argv[argc], "edf") != 0)
 		return (SCHEDULER_ERROR);
 	while (argc--)
 	{
-		if (!str_is_numeric(argv[argc]))
+		if (!is_str_numeric(argv[argc]))
 			return (NONNUMERIC_ERROR);
-		if (nbrcmp(argv[argc], INT_MIN) < 0)
-			return (INT_UNDERFLOW);
+		if (nbrcmp(argv[argc], ZERO) < 0)
+			return (NEGATIVE_INT_ERROR);
 		if (nbrcmp(argv[argc], INT_MAX) > 0)
 			return (INT_OVERFLOW);
 	}
