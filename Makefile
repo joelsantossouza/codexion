@@ -6,7 +6,7 @@
 #    By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/03 17:19:47 by joesanto          #+#    #+#              #
-#    Updated: 2026/01/06 21:34:26 by joesanto         ###   ########.fr        #
+#    Updated: 2026/01/07 13:36:01 by joesanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ PARSING_DIR = $(SRCS_DIR)/parsing
 PARSING_HEADERS = $(addprefix $(PARSING_DIR)/includes/, codexion_parser.h \
 				  parsing_errors.h \
 )
-PARSING = $(addprefix $(PARSING_DIR)/, codexion_parser.c parsing_errors.c \
+PARSING = $(addprefix $(PARSING_DIR)/, codexion_parser.c get_error_str.c \
 		  parsing_utils.c \
 )
 INCLUDES += -I$(PARSING_DIR)/includes
