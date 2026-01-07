@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:10:53 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/06 16:02:58 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/07 13:50:28 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define ZERO		"0"
 # define INT_MAX	"2147483647"
 
-# define USAGE \
+# define PROGRAM_USAGE \
 	"Usage:\n" \
 	" - <number_of_coders>\n" \
 	" - <time_to_burnout>\n" \

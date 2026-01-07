@@ -6,14 +6,14 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:49:52 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/07 13:34:28 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/07 13:47:42 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing_errors.h"
 #include <stdlib.h>
 
-const char *get_error_str(unsigned int error_code)
+const char	*get_error_str(unsigned int error_code)
 {
 	if (error_code == ARGC_ERROR)
 		return (ARGC_ERROR_MSG);

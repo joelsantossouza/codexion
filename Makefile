@@ -6,7 +6,7 @@
 #    By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/03 17:19:47 by joesanto          #+#    #+#              #
-#    Updated: 2026/01/07 13:36:01 by joesanto         ###   ########.fr        #
+#    Updated: 2026/01/07 13:45:35 by joesanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,14 +18,17 @@ INCLUDES = -Iincludes
 HEADERS = includes/codexion.h
 SRCS_DIR = srcs
 
+# ----------------------------- ERRORS ------------------------------------- #
+ERRORS_DIR = $(SRCS_DIR)/errors
+ERRORS_HEADERS = $(ERRORS_DIR)/includes/parsing_errors.h
+ERRORS = $(addprefix $(ERRORS_DIR)/, get_error_str.c)
+INCLUDES += -I$(ERRORS_DIR)/includes
+OBJS += $(ERRORS:.c=.o)
+
 # ----------------------------- PARSING ------------------------------------ #
 PARSING_DIR = $(SRCS_DIR)/parsing
-PARSING_HEADERS = $(addprefix $(PARSING_DIR)/includes/, codexion_parser.h \
-				  parsing_errors.h \
-)
-PARSING = $(addprefix $(PARSING_DIR)/, codexion_parser.c get_error_str.c \
-		  parsing_utils.c \
-)
+PARSING_HEADERS = $(PARSING_DIR)/includes/codexion_parser.h
+PARSING = $(addprefix $(PARSING_DIR)/, codexion_parser.c parsing_utils.c)
 INCLUDES += -I$(PARSING_DIR)/includes
 HEADERS += $(PARSING_HEADERS)
 OBJS += $(PARSING:.c=.o)

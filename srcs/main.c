@@ -32,7 +32,7 @@ int	main(int argc, char **argv)
 	if (parse_stats != 0)
 	{
 		fprintf(stderr, "%s", get_error_str(parse_stats));
-		fprintf(stderr, "%s", USAGE);
+		fprintf(stderr, "%s", PROGRAM_USAGE);
 		return (1);
 	}
 	return (0);
