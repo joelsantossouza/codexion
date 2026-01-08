@@ -2,7 +2,41 @@
 #include "parsing_errors.h"
 #include <stdio.h>
 
-void	*start_working()
+typedef char	t_byte;
+
+typedef struct s_coder
+{
+	int				id;
+	t_byte			is_ready_to_compile;
+	pthread_mutex_t	local_mutex;
+	pthread_mutex_t	*global_mutex;
+}	t_coder;
+
+int	timed_wait(t_byte *flag, int max_time)
+{
+	while (*flag == FALSE)
+	{
+		max_time -= time_passed;
+		if (max_time <= 0)
+			return (-1);
+	}
+	return (0);
+}
+
+void	spend_time(unsigned int time, int *total_life_time)
+{
+	if (*total_life_time <= 0)
+		return ;
+	if (time < *total_life_time)
+	{
+		*total_life_time -= time;
+		return (sleep(time));
+	}
+	sleep(*total_life_time);
+	*total_life_time = 0;
+}
+
+void	*start_working(t_coder *coder)
 {
 	int	life_time;
 	int	burnout_time;
@@ -12,15 +46,21 @@ void	*start_working()
 
 	get_coder_rules(&burnout_time, &compiling, &debuging, &refactoring);
 	life_time = burnout_time;
-	while (life_time)
+	while (life_time > 0)
 	{
-		pthread_cond_timedwait(ready_to_compile, life_time);
+		if (timed_wait(&ready_to_compile, life_time) == -1)
+			return (0);
 		life_time = burnout_time;
 		spend_time(compiling, life_time);
 		spend_time(debuging, life_time);
 		spend_time(refactoring, life_time);
 	}
 	return (0);
+}
+
+void	*monitor()
+{
+
 }
 
 int	main(int argc, char **argv)
