@@ -58,9 +58,26 @@ void	*start_working(t_coder *coder)
 	return (0);
 }
 
-void	*monitor()
-{
+// CREATE THE FUNCTION millis()
 
+void	*monitor(t_coder *coders[])
+{
+	int	number_of_coders;
+	int	dongle_cooldown;
+	int	number_of_compiles_required;
+	int	available_dongles;
+	int	i;
+
+	get_monitor_rules(&number_of_coders, &dongle_cooldown, &number_of_compiles_required);
+	available_dongles = number_of_coders;
+	while (1)
+	{
+		i = -1;
+		while (++i < number_of_coders)
+		{
+			share_dongles(&availables_dongles, coders[i]);
+		}
+	}
 }
 
 int	main(int argc, char **argv)
