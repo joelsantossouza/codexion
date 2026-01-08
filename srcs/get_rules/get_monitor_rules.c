@@ -6,18 +6,19 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:26:20 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/06 21:31:22 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/08 18:03:56 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <stdint.h>
 
-int	get_monitor_rules(int *ncoders, int *cooldown, int *ncompiles_required)
+int	get_monitor_rules(uint32_t *ncoders, uint32_t *cooldown, uint32_t *ncompiles_required)
 {
-	static int	already_initialized = FALSE;
-	static int	number_of_coders;
-	static int	dongle_cooldown;
-	static int	number_of_compiles_required;
+	static uint8_t	already_initialized = FALSE;
+	static uint32_t	number_of_coders;
+	static uint32_t	dongle_cooldown;
+	static uint32_t	number_of_compiles_required;
 
 	if (already_initialized == FALSE)
 	{
