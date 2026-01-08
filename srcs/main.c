@@ -75,9 +75,12 @@ void	*monitor(t_coder *coders[])
 		i = -1;
 		while (++i < number_of_coders)
 		{
+			if (all_coders_compiled_required_times())
+				return (0);
 			share_dongles(&availables_dongles, coders[i]);
 		}
 	}
+	return (0);
 }
 
 int	main(int argc, char **argv)
