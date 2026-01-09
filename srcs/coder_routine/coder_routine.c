@@ -1,0 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   coder_routine.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/09 12:16:26 by joesanto          #+#    #+#             */
+/*   Updated: 2026/01/09 12:34:18 by joesanto         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "codexion.h"
+
+void	*start_working(t_coder *coder)
+{
+	uint32_t	life_time;
+	uint32_t	burnout_time;
+	uint32_t	compiling;
+	uint32_t	debugging;
+	uint32_t	refactoring;
+
+	get_coder_rules(&burnout_time, &compiling, &debugging, &refactoring);
+	life_time = burnout_time;
+	while (life_time > 0)
+	{
+		if (!timed_wait(&coder->is_ready_to_compile, &coder->local_mutex, &life_time))
+			return (0);
+		life_time = burnout_time;
+		spend_time(compiling, &life_time);
+		spend_time(debugging, &life_time);
+		spend_time(refactoring, &life_time);
+	}
+	return (0);
+}

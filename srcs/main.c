@@ -2,86 +2,86 @@
 #include "parsing_errors.h"
 #include <stdio.h>
 
-typedef char	t_byte;
-
-typedef struct s_coder
-{
-	int				id;
-	t_byte			is_ready_to_compile;
-	pthread_mutex_t	local_mutex;
-	pthread_mutex_t	*global_mutex;
-}	t_coder;
-
-int	timed_wait(t_byte *flag, int max_time)
-{
-	while (*flag == FALSE)
-	{
-		max_time -= time_passed;
-		if (max_time <= 0)
-			return (-1);
-	}
-	return (0);
-}
-
-void	spend_time(unsigned int time, int *total_life_time)
-{
-	if (*total_life_time <= 0)
-		return ;
-	if (time < *total_life_time)
-	{
-		*total_life_time -= time;
-		return (sleep(time));
-	}
-	sleep(*total_life_time);
-	*total_life_time = 0;
-}
-
-void	*start_working(t_coder *coder)
-{
-	int	life_time;
-	int	burnout_time;
-	int	compiling;
-	int	debuging;
-	int	refactoring;
-
-	get_coder_rules(&burnout_time, &compiling, &debuging, &refactoring);
-	life_time = burnout_time;
-	while (life_time > 0)
-	{
-		if (timed_wait(&ready_to_compile, life_time) == -1)
-			return (0);
-		life_time = burnout_time;
-		spend_time(compiling, life_time);
-		spend_time(debuging, life_time);
-		spend_time(refactoring, life_time);
-	}
-	return (0);
-}
-
-// CREATE THE FUNCTION millis()
-
-void	*monitor(t_coder *coders[])
-{
-	int	number_of_coders;
-	int	dongle_cooldown;
-	int	number_of_compiles_required;
-	int	available_dongles;
-	int	i;
-
-	get_monitor_rules(&number_of_coders, &dongle_cooldown, &number_of_compiles_required);
-	available_dongles = number_of_coders;
-	while (1)
-	{
-		i = -1;
-		while (++i < number_of_coders)
-		{
-			if (all_coders_compiled_required_times())
-				return (0);
-			share_dongles(&availables_dongles, coders[i]);
-		}
-	}
-	return (0);
-}
+//typedef char	t_byte;
+//
+//typedef struct s_coder
+//{
+//	int				id;
+//	t_byte			is_ready_to_compile;
+//	pthread_mutex_t	local_mutex;
+//	pthread_mutex_t	*global_mutex;
+//}	t_coder;
+//
+//int	timed_wait(t_byte *flag, int max_time)
+//{
+//	while (*flag == FALSE)
+//	{
+//		max_time -= time_passed;
+//		if (max_time <= 0)
+//			return (-1);
+//	}
+//	return (0);
+//}
+//
+//void	spend_time(unsigned int time, int *total_life_time)
+//{
+//	if (*total_life_time <= 0)
+//		return ;
+//	if (time < *total_life_time)
+//	{
+//		*total_life_time -= time;
+//		return (sleep(time));
+//	}
+//	sleep(*total_life_time);
+//	*total_life_time = 0;
+//}
+//
+//void	*start_working(t_coder *coder)
+//{
+//	int	life_time;
+//	int	burnout_time;
+//	int	compiling;
+//	int	debuging;
+//	int	refactoring;
+//
+//	get_coder_rules(&burnout_time, &compiling, &debuging, &refactoring);
+//	life_time = burnout_time;
+//	while (life_time > 0)
+//	{
+//		if (timed_wait(&ready_to_compile, life_time) == -1)
+//			return (0);
+//		life_time = burnout_time;
+//		spend_time(compiling, life_time);
+//		spend_time(debuging, life_time);
+//		spend_time(refactoring, life_time);
+//	}
+//	return (0);
+//}
+//
+//// CREATE THE FUNCTION millis()
+//
+//void	*monitor(t_coder *coders[])
+//{
+//	int	number_of_coders;
+//	int	dongle_cooldown;
+//	int	number_of_compiles_required;
+//	int	available_dongles;
+//	int	i;
+//
+//	get_monitor_rules(&number_of_coders, &dongle_cooldown, &number_of_compiles_required);
+//	available_dongles = number_of_coders;
+//	while (1)
+//	{
+//		i = -1;
+//		while (++i < number_of_coders)
+//		{
+//			if (all_coders_compiled_required_times())
+//				return (0);
+//			share_dongles(&availables_dongles, coders[i]);
+//		}
+//	}
+//	return (0);
+//}
 
 int	main(int argc, char **argv)
 {
@@ -92,8 +92,8 @@ int	main(int argc, char **argv)
 	if (parse_stats != 0)
 	{
 		fprintf(stderr, "%s", get_error_str(parse_stats));
-		fprintf(stderr, "%s", PROGRAM_USAGE);
 		return (1);
 	}
+	printf("%lu\n", sizeof(pthread_mutex_t));
 	return (0);
 }
