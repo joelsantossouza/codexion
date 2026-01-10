@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:41:04 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/09 12:33:26 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/09 16:06:05 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,16 @@ const char	*get_error_str(uint32_t error_code);
 int			codexion_parser(t_codexion *codexion, int argc, char **argv);
 
 // GET RULES
-int	get_coder_rules(uint32_t *burnout, uint32_t *compile, uint32_t *debug, uint32_t *refactor);
-int	get_monitor_rules(uint32_t *ncoders, uint32_t *cooldown, uint32_t *ncompiles_required);
+int			get_coder_rules(uint32_t *burnout, uint32_t *compile, uint32_t *debug, uint32_t *refactor);
+int			get_monitor_rules(uint32_t *ncoders, uint32_t *cooldown, uint32_t *ncompiles_required);
 
 // TIME MANIPULATION
-size_t	millis(void);
-void	spend_time(uint32_t time, uint32_t *time_left);
-int		timed_wait(uint8_t *is_ready_flag, pthread_mutex_t *mutex, uint32_t *time_left);
+uint64_t	millis(void);
+void		spend_time(uint32_t time, uint32_t *time_left);
+int			timed_wait(uint8_t *is_ready_flag, pthread_mutex_t *mutex, uint32_t *time_left);
+uint64_t	time_elapsed(uint64_t *new_start);
 
-// THREAD ROUTINES
-
+// CODER ROUTINE
+void		*start_working(t_coder *coder);
 
 #endif

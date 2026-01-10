@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 18:27:17 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/09 12:13:19 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/09 15:45:03 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 int	timed_wait(uint8_t *is_ready_flag, pthread_mutex_t *mutex, uint32_t *time_left)
 {
-	size_t	last_time;
-	size_t	current_time;
-	size_t	elapsed_time;
+	uint64_t	last_time;
+	uint64_t	current_time;
+	uint64_t	elapsed_time;
 
 	if (*time_left == 0)
 		return (FALSE);
