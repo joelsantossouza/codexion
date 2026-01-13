@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:41:04 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/09 16:06:05 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/13 17:55:27 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@
 # include <stdint.h>
 # include <sys/types.h>
 
+// UTILS
 # define TRUE	1
 # define FALSE	0
+
+// CODER STATES
+
 
 typedef struct s_codexion
 {
@@ -36,7 +40,7 @@ typedef struct s_coder
 	uint32_t		id;
 	pthread_mutex_t	local_mutex;
 	pthread_mutex_t	*global_mutex;
-	uint8_t			is_ready_to_compile;
+	uint8_t			state;
 	uint32_t		compilations_done;
 	uint64_t		last_compilation_time;
 }	t_coder;
