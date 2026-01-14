@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:41:04 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/13 17:55:27 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/14 10:12:43 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ typedef struct s_coder
 	uint64_t		last_compilation_time;
 }	t_coder;
 
+typedef int	(*t_monitor)(uint32_t size, t_coder *coders[size], uint32_t dongle_cooldown, uint32_t ncompiles_required);
+
 // ERRORS
 const char	*get_error_str(uint32_t error_code);
 
@@ -53,7 +55,7 @@ int			codexion_parser(t_codexion *codexion, int argc, char **argv);
 
 // GET RULES
 int			get_coder_rules(uint32_t *burnout, uint32_t *compile, uint32_t *debug, uint32_t *refactor);
-int			get_monitor_rules(uint32_t *ncoders, uint32_t *cooldown, uint32_t *ncompiles_required);
+int			get_monitor_rules(uint32_t *ncoders, uint32_t *cooldown, uint32_t *ncompiles_required, t_monitor *monitor_func);
 
 // TIME MANIPULATION
 uint64_t	millis(void);
