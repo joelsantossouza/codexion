@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:41:04 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/14 10:12:43 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/14 19:46:28 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@
 # define FALSE	0
 
 // CODER STATES
-
+# define GIVE_ONE_DONGLE	0x1
+# define DONGLES_RELEASED	0x2
+# define HAS_TWO_DONGLES	0x4
+# define WAITING_TO_COMPILE	0x8
 
 typedef struct s_codexion
 {
@@ -38,6 +41,7 @@ typedef struct s_codexion
 typedef struct s_coder
 {
 	uint32_t		id;
+	pthread_t		thread;
 	pthread_mutex_t	local_mutex;
 	pthread_mutex_t	*global_mutex;
 	uint8_t			state;
@@ -45,7 +49,7 @@ typedef struct s_coder
 	uint64_t		last_compilation_time;
 }	t_coder;
 
-typedef int	(*t_monitor)(uint32_t size, t_coder *coders[size], uint32_t dongle_cooldown, uint32_t ncompiles_required);
+typedef int	(*t_monitor)(uint32_t size, t_coder coders[size], uint32_t dongle_cooldown, uint32_t ncompiles_required);
 
 // ERRORS
 const char	*get_error_str(uint32_t error_code);
@@ -64,6 +68,10 @@ int			timed_wait(uint8_t *is_ready_flag, pthread_mutex_t *mutex, uint32_t *time_
 uint64_t	time_elapsed(uint64_t *new_start);
 
 // CODER ROUTINE
-void		*start_working(t_coder *coder);
+void		*start_working(void *coder);
+
+// MONITOR ROUTINE
+int			fifo_monitor(uint32_t size, t_coder coders[size], uint32_t dongle_cooldown, uint32_t ncompiles_required);
+void		*start_monitoring(t_coder coders[]);
 
 #endif

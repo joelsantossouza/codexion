@@ -1,5 +1,6 @@
 #include "codexion.h"
 #include "parsing_errors.h"
+#include <pthread.h>
 #include <stdio.h>
 
 //typedef char	t_byte;
@@ -85,8 +86,11 @@
 
 int	main(int argc, char **argv)
 {
-	int			parse_stats;
 	t_codexion	codexion;
+	t_coder		coders[200];
+	int			parse_stats;
+	int			i = -1;
+	pthread_mutex_t	global_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 	parse_stats = codexion_parser(&codexion, argc - 1, argv + 1);
 	if (parse_stats != 0)
@@ -94,6 +98,18 @@ int	main(int argc, char **argv)
 		fprintf(stderr, "%s", get_error_str(parse_stats));
 		return (1);
 	}
-	printf("%lu\n", sizeof(pthread_mutex_t));
+	while (++i < codexion.number_of_coders)
+	{
+		coders[i].id = i + 1;
+		pthread_mutex_init(&coders[i].local_mutex, NULL);
+		coders[i].global_mutex = &global_mutex;
+		coders[i].state = 0;
+		coders[i].compilations_done = 0;
+		coders[i].last_compilation_time = 0;
+		pthread_create(&coders[i].thread, NULL, start_working, &coders[i]);
+	}
+	pthread_create(&monitor_thread, NULL, start_monitoring());
+	while (++i < codexion.number_of_coders)
+		pthread_join(coders[i].thread, NULL);
 	return (0);
 }
