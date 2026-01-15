@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:41:04 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/14 19:46:28 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/15 09:46:35 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,6 @@
 # define HAS_TWO_DONGLES	0x4
 # define WAITING_TO_COMPILE	0x8
 
-typedef struct s_codexion
-{
-	uint32_t	number_of_coders;
-	uint32_t	time_to_burnout;
-	uint32_t	time_to_compile;
-	uint32_t	time_to_debug;
-	uint32_t	time_to_refactor;
-	uint32_t	number_of_compiles_required;
-	uint32_t	dongle_cooldown;
-	const char	*scheduler;
-}	t_codexion;
-
 typedef struct s_coder
 {
 	uint32_t		id;
@@ -49,7 +37,21 @@ typedef struct s_coder
 	uint64_t		last_compilation_time;
 }	t_coder;
 
-typedef int	(*t_monitor)(uint32_t size, t_coder coders[size], uint32_t dongle_cooldown, uint32_t ncompiles_required);
+typedef int	(*t_scheduler)(uint32_t size, t_coder coders[size], uint32_t dongle_cooldown, uint32_t ncompiles_required);
+
+typedef struct s_codexion
+{
+	uint32_t	number_of_coders;
+	uint32_t	time_to_burnout;
+	uint32_t	time_to_compile;
+	uint32_t	time_to_debug;
+	uint32_t	time_to_refactor;
+	uint32_t	number_of_compiles_required;
+	uint32_t	dongle_cooldown;
+	t_scheduler	scheduler;
+}	t_codexion;
+
+typedef void	*(*t_routine)(void *);
 
 // ERRORS
 const char	*get_error_str(uint32_t error_code);
@@ -59,7 +61,7 @@ int			codexion_parser(t_codexion *codexion, int argc, char **argv);
 
 // GET RULES
 int			get_coder_rules(uint32_t *burnout, uint32_t *compile, uint32_t *debug, uint32_t *refactor);
-int			get_monitor_rules(uint32_t *ncoders, uint32_t *cooldown, uint32_t *ncompiles_required, t_monitor *monitor_func);
+int			get_monitor_rules(uint32_t *ncoders, uint32_t *cooldown, uint32_t *ncompiles_required, t_scheduler *scheduler_func);
 
 // TIME MANIPULATION
 uint64_t	millis(void);
@@ -68,10 +70,10 @@ int			timed_wait(uint8_t *is_ready_flag, pthread_mutex_t *mutex, uint32_t *time_
 uint64_t	time_elapsed(uint64_t *new_start);
 
 // CODER ROUTINE
-void		*start_working(void *coder);
+void		*start_working(t_coder *coder);
 
 // MONITOR ROUTINE
-int			fifo_monitor(uint32_t size, t_coder coders[size], uint32_t dongle_cooldown, uint32_t ncompiles_required);
+int			fifo_scheduler(uint32_t size, t_coder coders[size], uint32_t dongle_cooldown, uint32_t ncompiles_required);
 void		*start_monitoring(t_coder coders[]);
 
 #endif

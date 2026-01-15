@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fifo_monitor.c                                     :+:      :+:    :+:   */
+/*   fifo_scheduler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 10:00:43 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/14 19:29:50 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/15 09:31:21 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <pthread.h>
 #include "codexion.h"
 
-int	fifo_monitor(uint32_t size, t_coder coders[size], uint32_t dongle_cooldown, uint32_t ncompiles_required)
+int	fifo_scheduler(uint32_t size, t_coder coders[size], uint32_t dongle_cooldown, uint32_t ncompiles_required)
 {
 	uint32_t	available_dongles;
 	uint32_t	coders_finish_required_compiles;

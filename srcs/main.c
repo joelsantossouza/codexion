@@ -89,7 +89,8 @@ int	main(int argc, char **argv)
 	t_codexion	codexion;
 	t_coder		coders[200];
 	int			parse_stats;
-	int			i = -1;
+	uint32_t	i = -1;
+	pthread_t	monitor_thread;
 	pthread_mutex_t	global_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 	parse_stats = codexion_parser(&codexion, argc - 1, argv + 1);
@@ -98,6 +99,8 @@ int	main(int argc, char **argv)
 		fprintf(stderr, "%s", get_error_str(parse_stats));
 		return (1);
 	}
+	get_coder_rules(&codexion.time_to_burnout, &codexion.time_to_compile, &codexion.time_to_debug, &codexion.time_to_refactor);
+	get_monitor_rules(&codexion.number_of_coders, &codexion.dongle_cooldown, &codexion.number_of_compiles_required, &codexion.scheduler);
 	while (++i < codexion.number_of_coders)
 	{
 		coders[i].id = i + 1;
@@ -106,10 +109,11 @@ int	main(int argc, char **argv)
 		coders[i].state = 0;
 		coders[i].compilations_done = 0;
 		coders[i].last_compilation_time = 0;
-		pthread_create(&coders[i].thread, NULL, start_working, &coders[i]);
+		pthread_create(&coders[i].thread, NULL, (t_routine)start_working, &coders[i]);
 	}
-	pthread_create(&monitor_thread, NULL, start_monitoring());
+	pthread_create(&monitor_thread, NULL, (t_routine)start_monitoring, coders);
 	while (++i < codexion.number_of_coders)
 		pthread_join(coders[i].thread, NULL);
+	pthread_join(monitor_thread, NULL);
 	return (0);
 }

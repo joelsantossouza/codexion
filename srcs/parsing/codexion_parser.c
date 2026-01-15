@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:06:06 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/09 12:25:05 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/15 09:44:33 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,9 @@
 
 int	codexion_parser(t_codexion *codexion, int argc, char **argv)
 {
-	if (argc != 8)
+	if (argc-- != 8)
 		return (ARGC_ERROR);
-	argc--;
-	if (strcmp(argv[argc], "fifo") != 0 && strcmp(argv[argc], "edf") != 0)
-		return (SCHEDULER_ERROR);
-	while (argc--)
+	while (argc-- > 0)
 	{
 		if (!is_str_numeric(argv[argc]))
 			return (NONNUMERIC_ERROR);
@@ -39,6 +36,11 @@ int	codexion_parser(t_codexion *codexion, int argc, char **argv)
 	codexion->time_to_refactor = atoi(argv[4]);
 	codexion->number_of_compiles_required = atoi(argv[5]);
 	codexion->dongle_cooldown = atoi(argv[6]);
-	codexion->scheduler = argv[7];
+	if (strcmp(argv[7], "fifo") == 0)
+		codexion->scheduler = fifo_scheduler;
+	else if (strcmp(argv[7], "edf") == 0)
+		return (0);
+	else
+		return (SCHEDULER_ERROR);
 	return (SUCCESS);
 }

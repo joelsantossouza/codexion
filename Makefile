@@ -6,7 +6,7 @@
 #    By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/03 17:19:47 by joesanto          #+#    #+#              #
-#    Updated: 2026/01/07 13:45:35 by joesanto         ###   ########.fr        #
+#    Updated: 2026/01/15 09:56:11 by joesanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,14 +35,35 @@ OBJS += $(PARSING:.c=.o)
 
 # ----------------------------- GET RULES ---------------------------------- #
 GET_RULES_DIR = $(SRCS_DIR)/get_rules
-GET_RULES = $(addprefix $(GET_RULES_DIR)/, get_coder_rules.c \
+GET_RULES = $(addprefix $(GET_RULES_DIR)/, \
+			get_coder_rules.c \
 			get_monitor_rules.c \
 )
 OBJS += $(GET_RULES:.c=.o)
 
+# --------------------------- CODER ROUTINE -------------------------------- #
+CODER_ROUTINE_DIR = $(SRCS_DIR)/coder_routine
+CODER_ROUTINE_HEADERS = $(CODER_ROUTINE_DIR)/includes/coder_routine.h
+CODER_ROUTINE = $(addprefix $(CODER_ROUTINE_DIR)/, \
+				coder_routine.c \
+				coder_routine_utils.c \
+)
+OBJS += $(CODER_ROUTINE:.c=.o)
+
+# --------------------------- MONITOR ROUTINE ------------------------------ #
+MONITOR_ROUTINE_DIR = $(SRCS_DIR)/monitor_routine
+MONITOR_ROUTINE = $(addprefix $(MONITOR_ROUTINE_DIR)/, \
+				  fifo_scheduler.c \
+				  start_monitoring.c \
+)
+OBJS += $(MONITOR_ROUTINE:.c=.o)
+
+
 # -------------------------------- MAIN ------------------------------------ #
 MAIN = $(SRCS_DIR)/main.c
 OBJS += $(MAIN:.c=.o)
+
+# ----------------------------- COMPILATION -------------------------------- #
 
 all: $(NAME)
 
