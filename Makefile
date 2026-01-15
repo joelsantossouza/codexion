@@ -6,13 +6,13 @@
 #    By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/03 17:19:47 by joesanto          #+#    #+#              #
-#    Updated: 2026/01/15 10:11:48 by joesanto         ###   ########.fr        #
+#    Updated: 2026/01/15 10:33:54 by joesanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = codexion
 CC = cc
-FLAGS = -Wall -Wextra -Werror -pthread
+FLAGS = -Wall -Wextra -Werror -pthread -g
 
 INCLUDES = -Iincludes
 HEADERS = includes/codexion.h
@@ -46,7 +46,6 @@ TIME_MANIPULATION_DIR = $(SRCS_DIR)/time_manipulation
 TIME_MANIPULATION = $(addprefix $(TIME_MANIPULATION_DIR)/, \
 					millis.c \
 					spend_time.c \
-					timed_waitflag.c \
 					time_elapsed.c \
 )
 OBJS += $(TIME_MANIPULATION:.c=.o)

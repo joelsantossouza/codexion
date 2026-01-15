@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:41:04 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/15 10:06:19 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/15 10:32:17 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int			get_monitor_rules(uint32_t *ncoders, uint32_t *cooldown, uint32_t *ncompil
 // TIME MANIPULATION
 uint64_t	millis(void);
 void		spend_time(uint32_t time, uint32_t *time_left);
-int			timed_waitflag(uint8_t *flags, uint8_t flag, pthread_mutex_t *mutex, uint32_t *time_left);
 uint64_t	time_elapsed(uint64_t *new_start);
 
 // CODER ROUTINE

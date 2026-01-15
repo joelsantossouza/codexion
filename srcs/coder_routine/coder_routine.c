@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:16:26 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/15 10:02:06 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/15 10:33:23 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	*start_working(t_coder *coder)
 	life_time = burnout_time;
 	while (life_time > 0)
 	{
-		if (!timed_waitflag(&coder->state, READY_TO_COMPILE, &coder->local_mutex, &life_time))
+		if (!wait_to_compile(&coder->state, &coder->local_mutex, &life_time))
 			return (0);
 		life_time = burnout_time;
 		log_message(time_elapsed(NULL), coder->id, COMPILING_MSG, coder->global_mutex);
