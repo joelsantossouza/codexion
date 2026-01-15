@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:41:04 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/15 19:45:30 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/15 21:27:19 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_coder
 	uint64_t		last_compilation_time;
 }	t_coder;
 
-typedef int	(*t_scheduler)(uint32_t size, t_coder coders[size], uint32_t dongle_cooldown, uint32_t ncompiles_required);
+typedef uint32_t	(*t_scheduler)(uint32_t *available_dongles, uint32_t size, t_coder coders[size], uint32_t dongle_cooldown);
 
 typedef struct s_codexion
 {
@@ -72,7 +72,7 @@ uint64_t	time_elapsed(uint64_t *new_start);
 void		*start_working(t_coder *coder);
 
 // MONITOR ROUTINE
-int			fifo_scheduler(uint32_t size, t_coder coders[size], uint32_t dongle_cooldown, uint32_t ncompiles_required);
+uint32_t	fifo_scheduler(uint32_t *available_dongles, uint32_t size, t_coder coders[size], uint32_t dongle_cooldown);
 void		*start_monitoring(t_coder coders[]);
 
 #endif

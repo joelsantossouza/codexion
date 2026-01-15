@@ -92,6 +92,7 @@ int	main(int argc, char **argv)
 	uint32_t	i = -1;
 	pthread_t	monitor_thread;
 	pthread_mutex_t	global_mutex = PTHREAD_MUTEX_INITIALIZER;
+	uint64_t	program_start = millis();
 
 	parse_stats = codexion_parser(&codexion, argc - 1, argv + 1);
 	if (parse_stats != 0)
@@ -101,6 +102,7 @@ int	main(int argc, char **argv)
 	}
 	get_coder_rules(&codexion.time_to_burnout, &codexion.time_to_compile, &codexion.time_to_debug, &codexion.time_to_refactor);
 	get_monitor_rules(&codexion.number_of_coders, &codexion.dongle_cooldown, &codexion.number_of_compiles_required, &codexion.scheduler);
+	time_elapsed(&program_start);
 	while (++i < codexion.number_of_coders)
 	{
 		coders[i].id = i + 1;

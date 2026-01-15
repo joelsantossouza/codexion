@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 10:00:43 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/15 20:43:26 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/15 21:22:43 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,31 @@
 #include <pthread.h>
 #include "codexion.h"
 
-int	fifo_scheduler(uint32_t size, t_coder coders[size], uint32_t dongle_cooldown, uint32_t ncompiles_required)
+uint32_t	fifo_scheduler(uint32_t *available_dongles, uint32_t size, t_coder coders[size], uint32_t dongle_cooldown)
 {
-	uint32_t	available_dongles;
-	uint32_t	coders_finish_required_compiles;
+	uint32_t	min_compilations_done;
 	uint64_t	i;
 	(void)   dongle_cooldown;
 
-	available_dongles = size;
-	coders_finish_required_compiles = 0;
 	i = -1;
+	min_compilations_done = coders[0].compilations_done;
 	while (++i < size)
 	{
 		pthread_mutex_lock(&coders[i].local_mutex);
 		if (coders[i].state & DONGLES_RELEASED)
-			available_dongles += TWO_DONGLES;
+			*available_dongles += TWO_DONGLES;
 		coders[i].state &= ~(DONGLES_RELEASED);
 		if (coders[i].state & WAITING_TO_COMPILE)
 		{
-			while (!(coders[i].state & TWO_DONGLES) && available_dongles > 0)
+			while (!(coders[i].state & TWO_DONGLES) && *available_dongles > 0)
 			{
-				available_dongles--;
+				(*available_dongles)--;
 				coders[i].state += GIVE_ONE_DONGLE;
 			}
 		}
-		coders_finish_required_compiles += coders[i].compilations_done == ncompiles_required;
+		if (coders[i].compilations_done < min_compilations_done)
+			min_compilations_done = coders[i].compilations_done;
 		pthread_mutex_unlock(&coders[i].local_mutex);
 	}
-	return (coders_finish_required_compiles == size);
+	return (min_compilations_done);
 }
