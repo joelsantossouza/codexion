@@ -6,15 +6,15 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:06:06 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/15 09:44:33 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/15 10:07:42 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
+#include <stdlib.h>
 #include "codexion.h"
 #include "codexion_parser.h"
 #include "parsing_errors.h"
-#include <string.h>
-#include <stdlib.h>
 
 int	codexion_parser(t_codexion *codexion, int argc, char **argv)
 {
@@ -39,7 +39,7 @@ int	codexion_parser(t_codexion *codexion, int argc, char **argv)
 	if (strcmp(argv[7], "fifo") == 0)
 		codexion->scheduler = fifo_scheduler;
 	else if (strcmp(argv[7], "edf") == 0)
-		return (0);
+		codexion->scheduler = NULL;
 	else
 		return (SCHEDULER_ERROR);
 	return (SUCCESS);

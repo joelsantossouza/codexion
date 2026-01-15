@@ -6,7 +6,7 @@
 #    By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/03 17:19:47 by joesanto          #+#    #+#              #
-#    Updated: 2026/01/15 09:56:11 by joesanto         ###   ########.fr        #
+#    Updated: 2026/01/15 10:11:48 by joesanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,16 @@ GET_RULES = $(addprefix $(GET_RULES_DIR)/, \
 )
 OBJS += $(GET_RULES:.c=.o)
 
+# --------------------------TIME MANIPULATION ------------------------------ #
+TIME_MANIPULATION_DIR = $(SRCS_DIR)/time_manipulation
+TIME_MANIPULATION = $(addprefix $(TIME_MANIPULATION_DIR)/, \
+					millis.c \
+					spend_time.c \
+					timed_waitflag.c \
+					time_elapsed.c \
+)
+OBJS += $(TIME_MANIPULATION:.c=.o)
+
 # --------------------------- CODER ROUTINE -------------------------------- #
 CODER_ROUTINE_DIR = $(SRCS_DIR)/coder_routine
 CODER_ROUTINE_HEADERS = $(CODER_ROUTINE_DIR)/includes/coder_routine.h
@@ -48,6 +58,8 @@ CODER_ROUTINE = $(addprefix $(CODER_ROUTINE_DIR)/, \
 				coder_routine.c \
 				coder_routine_utils.c \
 )
+INCLUDES += -I$(CODER_ROUTINE_DIR)/includes
+HEADERS += $(CODER_ROUTINE_HEADERS)
 OBJS += $(CODER_ROUTINE:.c=.o)
 
 # --------------------------- MONITOR ROUTINE ------------------------------ #
@@ -57,7 +69,6 @@ MONITOR_ROUTINE = $(addprefix $(MONITOR_ROUTINE_DIR)/, \
 				  start_monitoring.c \
 )
 OBJS += $(MONITOR_ROUTINE:.c=.o)
-
 
 # -------------------------------- MAIN ------------------------------------ #
 MAIN = $(SRCS_DIR)/main.c
