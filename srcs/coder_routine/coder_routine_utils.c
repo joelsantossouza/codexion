@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:40:53 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/15 11:13:29 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/15 19:46:01 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	wait_to_compile(uint8_t *coder_state, pthread_mutex_t *mutex, uint32_t *time
 	while (TRUE)
 	{
 		pthread_mutex_lock(mutex);
-		if (*coder_state & READY_TO_COMPILE)
+		if (*coder_state & TWO_DONGLES)
 			break ;
 		pthread_mutex_unlock(mutex);
 		current_time = millis();
@@ -38,6 +38,6 @@ int	wait_to_compile(uint8_t *coder_state, pthread_mutex_t *mutex, uint32_t *time
 		*time_left -= elapsed_time;
 		last_time = current_time;
 	}
-	*coder_state &= ~(WAITING_TO_COMPILE | READY_TO_COMPILE);
+	*coder_state &= ~(WAITING_TO_COMPILE | TWO_DONGLES);
 	return (pthread_mutex_unlock(mutex), TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:41:04 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/15 10:32:17 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/15 19:45:30 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,10 @@
 # define FALSE	0
 
 // CODER STATES
-# define GIVE_ONE_DONGLE	0x1
-# define DONGLES_RELEASED	0x2
-# define HAS_TWO_DONGLES	0x4
-# define WAITING_TO_COMPILE	0x8
-# define READY_TO_COMPILE	0Xf
+# define GIVE_ONE_DONGLE	0x01
+# define TWO_DONGLES		0x02
+# define DONGLES_RELEASED	0x04
+# define WAITING_TO_COMPILE	0x08
 
 typedef struct s_coder
 {

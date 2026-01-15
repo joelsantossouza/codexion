@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 10:00:43 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/15 10:08:58 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/15 20:43:26 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,12 @@ int	fifo_scheduler(uint32_t size, t_coder coders[size], uint32_t dongle_cooldown
 	while (++i < size)
 	{
 		pthread_mutex_lock(&coders[i].local_mutex);
-		available_dongles += coders[i].state & DONGLES_RELEASED;
+		if (coders[i].state & DONGLES_RELEASED)
+			available_dongles += TWO_DONGLES;
 		coders[i].state &= ~(DONGLES_RELEASED);
 		if (coders[i].state & WAITING_TO_COMPILE)
 		{
-			while (!(coders[i].state & HAS_TWO_DONGLES) && available_dongles > 0)
+			while (!(coders[i].state & TWO_DONGLES) && available_dongles > 0)
 			{
 				available_dongles--;
 				coders[i].state += GIVE_ONE_DONGLE;
