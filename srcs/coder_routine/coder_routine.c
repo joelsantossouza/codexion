@@ -6,12 +6,14 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:16:26 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/15 10:33:23 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/15 11:12:09 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 #include "coder_routine.h"
+#include "mutex_log_msg.h"
+#include "mutex_set_flag.h"
 
 void	*start_working(t_coder *coder)
 {
@@ -28,11 +30,12 @@ void	*start_working(t_coder *coder)
 		if (!wait_to_compile(&coder->state, &coder->local_mutex, &life_time))
 			return (0);
 		life_time = burnout_time;
-		log_message(time_elapsed(NULL), coder->id, COMPILING_MSG, coder->global_mutex);
+		mutex_log_msg(time_elapsed(0), coder->id, COMPILING_MSG, coder->global_mutex);
 		spend_time(compiling, &life_time);
-		log_message(time_elapsed(NULL), coder->id, DEBUGGING_MSG, coder->global_mutex);
+		mutex_set_flag(&coder->state, DONGLES_RELEASED, &coder->local_mutex);
+		mutex_log_msg(time_elapsed(0), coder->id, DEBUGGING_MSG, coder->global_mutex);
 		spend_time(debugging, &life_time);
-		log_message(time_elapsed(NULL), coder->id, REFACTORING_MSG, coder->global_mutex);
+		mutex_log_msg(time_elapsed(0), coder->id, REFACTORING_MSG, coder->global_mutex);
 		spend_time(refactoring, &life_time);
 	}
 	return (0);

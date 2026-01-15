@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   coder_routine.h                                    :+:      :+:    :+:   */
+/*   mutex_log_msg.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/09 15:58:30 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/15 11:09:11 by joesanto         ###   ########.fr       */
+/*   Created: 2026/01/15 10:57:14 by joesanto          #+#    #+#             */
+/*   Updated: 2026/01/15 11:00:25 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CODER_ROUTINE_H
-# define CODER_ROUTINE_H
+#ifndef LOG_MESSAGE_H
+# define LOG_MESSAGE_H
 
-# include <stdint.h>
-# include <pthread.h>
+#include <stdint.h>
+#include <pthread.h>
+#include <stdio.h>
 
-# define COMPILING_MSG		"Compiling"
-# define DEBUGGING_MSG		"Debugging"
-# define REFACTORING_MSG	"Refactoring"
+static inline
+void	mutex_log_msg(uint64_t timestamp_in_ms, uint32_t coder_id, const char *msg, pthread_mutex_t *mutex)
+{
+	pthread_mutex_lock(mutex);
+	printf("%lu %d %s\n", timestamp_in_ms, coder_id, msg);
+	pthread_mutex_unlock(mutex);
+}
 
-int		wait_to_compile(uint8_t *coder_state, pthread_mutex_t *mutex, uint32_t *time_left);
 
 #endif

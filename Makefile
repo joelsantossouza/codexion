@@ -6,7 +6,7 @@
 #    By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/03 17:19:47 by joesanto          #+#    #+#              #
-#    Updated: 2026/01/15 10:33:54 by joesanto         ###   ########.fr        #
+#    Updated: 2026/01/15 11:19:02 by joesanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,15 @@ TIME_MANIPULATION = $(addprefix $(TIME_MANIPULATION_DIR)/, \
 					time_elapsed.c \
 )
 OBJS += $(TIME_MANIPULATION:.c=.o)
+
+# ---------------------------- MUTEX UTILS --------------------------------- #
+MUTEX_UTILS_DIR = $(SRCS_DIR)/mutex_utils
+MUTEX_UTILS = $(addprefix $(MUTEX_UTILS_DIR)/, \
+			  mutex_log_msg.h \
+			  mutex_set_flag.h \
+)
+INCLUDES += -I$(MUTEX_UTILS_DIR)
+HEADERS += $(MUTEX_UTILS)
 
 # --------------------------- CODER ROUTINE -------------------------------- #
 CODER_ROUTINE_DIR = $(SRCS_DIR)/coder_routine

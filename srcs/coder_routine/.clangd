@@ -3,3 +3,4 @@ CompileFlags:
     - "-I../../includes"
     - "-Iincludes"
     - "-I../errors/includes/"
+    - "-I../mutex_utils"

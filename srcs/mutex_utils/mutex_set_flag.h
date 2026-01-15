@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   coder_routine.h                                    :+:      :+:    :+:   */
+/*   mutex_set_flag.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/09 15:58:30 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/15 11:09:11 by joesanto         ###   ########.fr       */
+/*   Created: 2026/01/15 11:00:55 by joesanto          #+#    #+#             */
+/*   Updated: 2026/01/15 11:12:39 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CODER_ROUTINE_H
-# define CODER_ROUTINE_H
+#ifndef MUTEX_SET_FLAG_H
+# define MUTEX_SET_FLAG_H
 
 # include <stdint.h>
 # include <pthread.h>
 
-# define COMPILING_MSG		"Compiling"
-# define DEBUGGING_MSG		"Debugging"
-# define REFACTORING_MSG	"Refactoring"
-
-int		wait_to_compile(uint8_t *coder_state, pthread_mutex_t *mutex, uint32_t *time_left);
+static inline
+void	mutex_set_flag(uint8_t *flags, uint8_t set, pthread_mutex_t *mutex)
+{
+	pthread_mutex_lock(mutex);
+	*flags |= set;
+	pthread_mutex_unlock(mutex);
+}
 
 #endif
