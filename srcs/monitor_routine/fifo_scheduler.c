@@ -6,13 +6,15 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 10:00:43 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/15 21:22:43 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/16 09:39:12 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdint.h>
 #include <pthread.h>
 #include "codexion.h"
+#include "coder_routine.h"
+#include "mutex_log_msg.h"
 
 uint32_t	fifo_scheduler(uint32_t *available_dongles, uint32_t size, t_coder coders[size], uint32_t dongle_cooldown)
 {
@@ -34,6 +36,7 @@ uint32_t	fifo_scheduler(uint32_t *available_dongles, uint32_t size, t_coder code
 			{
 				(*available_dongles)--;
 				coders[i].state += GIVE_ONE_DONGLE;
+				mutex_log_msg(time_elapsed(0), coders[i].id, TAKEN_DONGLE_MSG, coders[i].global_mutex);
 			}
 		}
 		if (coders[i].compilations_done < min_compilations_done)

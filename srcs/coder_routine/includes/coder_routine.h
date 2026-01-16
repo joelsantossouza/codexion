@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 15:58:30 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/15 11:09:11 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/16 09:37:48 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdint.h>
 # include <pthread.h>
 
+# define TAKEN_DONGLE_MSG	"Has taken 1 dongle"
 # define COMPILING_MSG		"Compiling"
 # define DEBUGGING_MSG		"Debugging"
 # define REFACTORING_MSG	"Refactoring"
