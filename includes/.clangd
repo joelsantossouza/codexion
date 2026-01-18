@@ -1,0 +1,4 @@
+CompileFlags:
+  Add:
+    - "-I../srcs/queue_manipulation/"
+    - "-I../srcs/errors/includes"

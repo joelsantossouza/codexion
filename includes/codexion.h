@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:41:04 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/15 21:27:19 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 01:33:31 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 
 # include <stdint.h>
 # include <sys/types.h>
+# include "queue.h"
 
 // UTILS
-# define TRUE	1
-# define FALSE	0
+# define TRUE				1
+# define FALSE				0
 
 // CODER STATES
 # define GIVE_ONE_DONGLE	0x01
@@ -34,7 +35,7 @@ typedef struct s_coder
 	pthread_mutex_t	*global_mutex;
 	uint8_t			state;
 	uint32_t		compilations_done;
-	uint64_t		last_compilation_time;
+	t_queue			last_compilation_time;
 }	t_coder;
 
 typedef uint32_t	(*t_scheduler)(uint32_t *available_dongles, uint32_t size, t_coder coders[size], uint32_t dongle_cooldown);

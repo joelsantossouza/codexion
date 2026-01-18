@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:06:06 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/15 10:07:42 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 01:30:13 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "codexion.h"
 #include "codexion_parser.h"
-#include "parsing_errors.h"
+#include "errors.h"
 
 int	codexion_parser(t_codexion *codexion, int argc, char **argv)
 {
@@ -27,7 +27,7 @@ int	codexion_parser(t_codexion *codexion, int argc, char **argv)
 		if (nbrcmp(argv[argc], ZERO) < 0)
 			return (NEGATIVE_INT_ERROR);
 		if (nbrcmp(argv[argc], INT_MAX) > 0)
-			return (INT_OVERFLOW);
+			return (INT_OVERFLOW_ERROR);
 	}
 	codexion->number_of_coders = atoi(argv[0]);
 	codexion->time_to_burnout = atoi(argv[1]);

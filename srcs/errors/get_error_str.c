@@ -6,12 +6,13 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:49:52 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/08 18:06:50 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 01:28:24 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing_errors.h"
+#include "errors.h"
 #include <stdlib.h>
+#include <stdint.h>
 
 const char	*get_error_str(uint32_t error_code)
 {
@@ -23,7 +24,11 @@ const char	*get_error_str(uint32_t error_code)
 		return (NONNUMERIC_ERROR_MSG);
 	if (error_code == NEGATIVE_INT_ERROR)
 		return (NEGATIVE_INT_ERROR_MSG);
-	if (error_code == INT_OVERFLOW)
-		return (INT_OVERFLOW_MSG);
+	if (error_code == INT_OVERFLOW_ERROR)
+		return (INT_OVERFLOW_ERROR_MSG);
+	if (error_code == FULL_QUEUE_ERROR)
+		return (FULL_QUEUE_ERROR_MSG);
+	if (error_code == EMPTY_QUEUE_ERROR)
+		return (EMPTY_QUEUE_ERROR_MSG);
 	return (NULL);
 }
