@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 10:00:43 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/16 09:39:12 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 01:36:51 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ uint32_t	fifo_scheduler(uint32_t *available_dongles, uint32_t size, t_coder code
 {
 	uint32_t	min_compilations_done;
 	uint64_t	i;
-	(void)   dongle_cooldown;
+	(void)   dongle_cooldown;	// remove me
 
 	i = -1;
 	min_compilations_done = coders[0].compilations_done;

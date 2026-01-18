@@ -1,0 +1,5 @@
+DONT FORGET TO ADAPT THE CHANGES ON MAKEFILE
+
+- Move the spend_time to the coder_routine_utils.c (make more sense)
+- Maybe turn all manipulations into a utils directory (MAYBE)
+- put the get_coder_rules and get_monitor_rules under its respective files_utils.c
