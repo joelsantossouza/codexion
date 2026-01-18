@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   codexion_parser_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:58:46 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/06 20:40:39 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 19:26:40 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "codexion.h"
 #include <string.h>
+#include "errors.h"
 
 int	is_str_numeric(const char *str)
 {
 	str += *str == '-' || *str == '+';
 	if (!*str)
-		return (FALSE);
+		return (NONNUMERIC_ERROR);
 	while (*str)
 	{
 		if (*str < '0' || *str > '9')
-			return (FALSE);
+			return (NONNUMERIC_ERROR);
 		str++;
 	}
-	return (TRUE);
+	return (SUCCESS);
 }
 
 int	nbrcmp(const char *nbr1, const char *nbr2)

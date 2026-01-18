@@ -6,13 +6,13 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:49:52 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 01:28:24 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 19:52:33 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "errors.h"
 #include <stdlib.h>
 #include <stdint.h>
+#include "errors.h"
 
 const char	*get_error_str(uint32_t error_code)
 {

@@ -6,14 +6,13 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 17:37:06 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 18:01:36 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 19:53:32 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdint.h>
 #include <unistd.h>
-#include "codexion.h"
-#include "monitor_routine.h"
+#include "private_monitor_routine.h"
 
 void	*start_monitoring(t_coder coders[])
 {

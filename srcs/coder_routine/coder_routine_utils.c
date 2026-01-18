@@ -6,16 +6,14 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:40:53 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 14:21:10 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 19:52:12 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pthread.h>
 #include <stdint.h>
 #include <unistd.h>
-#include "codexion.h"
-#include "coder_routine.h"
-#include "mutex_set_flag.h"
+#include "private_coder_routine.h"
 
 const t_coder_config	*coder_config(uint32_t *compile, uint32_t *debug, uint32_t *refactor, uint32_t *burnout)
 {
@@ -32,6 +30,8 @@ const t_coder_config	*coder_config(uint32_t *compile, uint32_t *debug, uint32_t 
 	return ((const  t_coder_config *)&coder_config);
 }
 
+// PASS CODER STRUCTURE
+// INSTEAD OF TRUE/FALSE, USE RELEVANT RETURN ERRROS WARNING OR INFO
 int	wait_to_compile(uint8_t *coder_state, pthread_mutex_t *mutex, uint32_t *time_left)
 {
 	uint64_t	last_time;

@@ -1,22 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion_parser.h                                  :+:      :+:    :+:   */
+/*   private_coder_routine.h                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/06 16:03:28 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 18:47:09 by joesanto         ###   ########.fr       */
+/*   Created: 2026/01/18 18:57:36 by joesanto          #+#    #+#             */
+/*   Updated: 2026/01/18 19:10:59 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CODEXION_PARSER_H
-# define CODEXION_PARSER_H
+#ifndef PRIVATE_CODER_ROUTINE_H
+# define PRIVATE_CODER_ROUTINE_H
 
-# include "codexion.h"
+# include "public_coder_routine.h"
 
-int	is_str_numeric(const char *str);
-int	nbrcmp(const char *nbr1, const char *nbr2);
-int	codexion_parser(t_codexion *codexion, int argc, char **argv);
+// CODER TASKS
+enum
+{
+	COMPILE,
+	DEBUG,
+	REFACTOR,
+	NUMBER_OF_TASKS
+};
+
+typedef struct s_coder_config
+{
+	uint32_t	tasks[NUMBER_OF_TASKS];
+	uint32_t	burnout;
+}	t_coder_config;
+
+const t_coder_config	*coder_config(uint32_t *compile, uint32_t *debug, uint32_t *refactor, uint32_t *burnout);
 
 #endif

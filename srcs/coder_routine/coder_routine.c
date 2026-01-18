@@ -6,14 +6,11 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:16:26 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 13:58:11 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 19:15:56 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "codexion.h"
-#include "coder_routine.h"
-#include "mutex_log_msg.h"
-#include "mutex_set_flag.h"
+#include "private_coder_routine.h"
 
 void	*start_working(t_coder *coder)
 {

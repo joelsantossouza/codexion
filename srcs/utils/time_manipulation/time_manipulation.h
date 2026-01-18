@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion.h                                         :+:      :+:    :+:   */
+/*   time_manipulation.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/06 15:41:04 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 20:00:41 by joesanto         ###   ########.fr       */
+/*   Created: 2026/01/18 19:59:13 by joesanto          #+#    #+#             */
+/*   Updated: 2026/01/18 19:59:43 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CODEXION_H
-# define CODEXION_H
+#ifndef TIME_MANIPULATION_H
+# define TIME_MANIPULATION_H
 
-typedef void	*(*t_routine)(void *);
+# include <stdint.h>
+
+uint64_t	millis(void);
+uint64_t	time_elapsed(uint64_t *new_start);
 
 #endif

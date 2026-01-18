@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion.h                                         :+:      :+:    :+:   */
+/*   public_monitor_routine.h                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/06 15:41:04 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 20:00:41 by joesanto         ###   ########.fr       */
+/*   Created: 2026/01/18 19:31:26 by joesanto          #+#    #+#             */
+/*   Updated: 2026/01/18 19:33:42 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CODEXION_H
-# define CODEXION_H
+#ifndef PUBLIC_MONITOR_ROUTINE_H
+# define PUBLIC_MONITOR_ROUTINE_H
 
-typedef void	*(*t_routine)(void *);
+# include "public_coder_routine.h"
+
+void	*start_monitoring(t_coder coders[]);
 
 #endif

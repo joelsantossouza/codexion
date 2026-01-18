@@ -1,3 +1,4 @@
 CompileFlags:
   Add:
     - "-I../../utils/queue_manipulation/"
+    - "-I../../errors/includes"

@@ -1,7 +1,5 @@
 CompileFlags:
   Add:
-    - "-I../../includes"
-    - "-Iincludes"
+    - "-I./includes"
+    - "-I../utils/queue_manipulation"
     - "-I../errors/includes/"
-    - "-I../utils/mutex_manipulation/"
-    - "-I../utils/queue_manipulation/"

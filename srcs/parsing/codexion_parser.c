@@ -6,15 +6,14 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:06:06 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 01:30:13 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 19:24:05 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 #include <stdlib.h>
-#include "codexion.h"
-#include "codexion_parser.h"
 #include "errors.h"
+#include "private_codexion_parser.h"
 
 int	codexion_parser(t_codexion *codexion, int argc, char **argv)
 {
@@ -22,7 +21,7 @@ int	codexion_parser(t_codexion *codexion, int argc, char **argv)
 		return (ARGC_ERROR);
 	while (argc-- > 0)
 	{
-		if (!is_str_numeric(argv[argc]))
+		if (is_str_numeric(argv[argc]) != 0)
 			return (NONNUMERIC_ERROR);
 		if (nbrcmp(argv[argc], ZERO) < 0)
 			return (NEGATIVE_INT_ERROR);

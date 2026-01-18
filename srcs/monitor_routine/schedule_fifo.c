@@ -6,15 +6,14 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 10:00:43 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 17:50:54 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 19:45:03 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdint.h>
-#include "codexion.h"
-#include "monitor_routine.h"
+#include "private_monitor_routine.h"
 
-int	schedule_fifo(const t_monitor_config *config, t_coder coders[config->ncoders], uint32_t *available_dongles, t_coder **priority_coder)
+int	schedule_fifo(t_coder coders[], const t_monitor_config *config, uint32_t *available_dongles, t_coder **priority_coder)
 {
 	const uint32_t	ncoders = config->ncoders;
 	static uint64_t	priority_coder_idx = 0;
@@ -34,6 +33,7 @@ int	schedule_fifo(const t_monitor_config *config, t_coder coders[config->ncoders
 	priority_coder_idx %= ncoders;
 	return (CONTINUE_SIMULATION);
 }
+
 {
 	uint32_t	min_compilations_done;
 	uint64_t	i;

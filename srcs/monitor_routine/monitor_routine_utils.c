@@ -6,13 +6,12 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:26:20 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 14:06:37 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 19:53:49 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdint.h>
-#include "codexion.h"
-#include "monitor_routine.h"
+#include "private_monitor_routine.h"
 
 const t_monitor_config	*monitor_config(uint32_t *ncoders, uint32_t *dongle_cooldown, uint32_t *ncompiles_required, t_scheduler *scheduler)
 {

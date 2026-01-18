@@ -1,5 +1,0 @@
-CompileFlags:
-  Add:
-    - "-I../../includes"
-    - "-Iincludes"
-    - "-I../errors/includes/"
