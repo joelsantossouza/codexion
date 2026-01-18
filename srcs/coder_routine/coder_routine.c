@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:16:26 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/15 11:12:09 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 13:58:11 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	*start_working(t_coder *coder)
 	uint32_t	debugging;
 	uint32_t	refactoring;
 
-	get_coder_rules(&burnout_time, &compiling, &debugging, &refactoring);
+	coder_config(&burnout_time, &compiling, &debugging, &refactoring);
 	life_time = burnout_time;
 	while (life_time > 0)
 	{

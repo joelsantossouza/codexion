@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 15:58:30 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/16 09:37:48 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 14:21:41 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,18 @@
 # include <stdint.h>
 # include <pthread.h>
 
-# define TAKEN_DONGLE_MSG	"Has taken 1 dongle"
-# define COMPILING_MSG		"Compiling"
-# define DEBUGGING_MSG		"Debugging"
-# define REFACTORING_MSG	"Refactoring"
+# define COMPILE			0
+# define DEBUG				1
+# define REFACTOR			2
+# define NUMBER_OF_TASKS	3
 
-int		wait_to_compile(uint8_t *coder_state, pthread_mutex_t *mutex, uint32_t *time_left);
+typedef struct s_coder_config
+{
+	uint32_t	tasks[NUMBER_OF_TASKS];
+	uint32_t	burnout;
+}	t_coder_config;
+
+const t_coder_config	*coder_config(uint32_t *compile, uint32_t *debug, uint32_t *refactor, uint32_t *burnout);
+int						wait_to_compile(uint8_t *coder_state, pthread_mutex_t *mutex, uint32_t *time_left);
 
 #endif

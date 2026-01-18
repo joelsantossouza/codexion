@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:40:53 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 13:02:38 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 14:21:10 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,22 @@
 #include <stdint.h>
 #include <unistd.h>
 #include "codexion.h"
+#include "coder_routine.h"
 #include "mutex_set_flag.h"
 
-int	coder_tasks(uint32_t *burnout, uint32_t *compile, uint32_t *debug, uint32_t *refactor)
+const t_coder_config	*coder_config(uint32_t *compile, uint32_t *debug, uint32_t *refactor, uint32_t *burnout)
 {
-	static uint8_t	already_initialized = FALSE;
-	static uint32_t	time_to_burnout;
-	static uint32_t	time_to_compile;
-	static uint32_t	time_to_debug;
-	static uint32_t	time_to_refactor;
+	static t_coder_config	coder_config;
 
-	if (already_initialized == FALSE)
-	{
-		already_initialized = TRUE;
-		time_to_burnout = *burnout;
-		time_to_compile = *compile;
-		time_to_debug = *debug;
-		time_to_refactor = *refactor;
-		return (FALSE);
-	}
-	*burnout = time_to_burnout;
-	*compile = time_to_compile;
-	*debug = time_to_debug;
-	*refactor = time_to_refactor;
-	return (TRUE);
+	if (compile)
+		coder_config.tasks[COMPILE] = *compile;
+	if (debug)
+		coder_config.tasks[DEBUG] = *debug;
+	if (refactor)
+		coder_config.tasks[REFACTOR] = *refactor;
+	if (burnout)
+		coder_config.burnout = *burnout;
+	return ((const  t_coder_config *)&coder_config);
 }
 
 int	wait_to_compile(uint8_t *coder_state, pthread_mutex_t *mutex, uint32_t *time_left)
