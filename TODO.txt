@@ -5,3 +5,4 @@ DONT FORGET TO ADAPT THE CHANGES ON MAKEFILE
 - Put the get_coder_rules and get_monitor_rules under its respective files_utils.c
 - Improve separate responsability on schedulers
 	- schedulers reclaim all released dongles and then return the priority coder
+- Fix enqueue!! and probably remove dequeue

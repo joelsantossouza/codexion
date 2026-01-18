@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 00:13:44 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 12:28:04 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 20:48:38 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,19 @@ int	enqueue(t_queue *queue, uint64_t data)
 
 	if (next == queue->first)
 		return (FULL_QUEUE_ERROR);
-	queue->data[next] = data;
+	queue->data[queue->last] = data;
 	queue->last = next;
 	return (SUCCESS);
 }
 
 static inline
-int	dequeue(t_queue *queue, uint64_t *data)
+int	queue_peek(t_queue *queue, uint64_t *data)
 {
-	if (queue->first == queue->last)
+	const uint64_t	first = queue->first;
+
+	if (first == queue->last)
 		return (EMPTY_QUEUE_ERROR);
-	*data = queue->data[queue->first++];
-	queue->first %= BUFFER_SIZE;
+	*data = queue->data[first];
 	return (SUCCESS);
 }
 

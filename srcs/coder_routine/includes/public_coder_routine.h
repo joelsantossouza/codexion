@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 15:58:30 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 19:08:28 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 21:17:17 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_coder
 	pthread_mutex_t	local_mutex;
 	pthread_mutex_t	*global_mutex;
 	uint8_t			state;
+	uint32_t		burnout_remaining;
 	uint32_t		compilations_done;
 	t_queue			compilations_history;
 }	t_coder;
