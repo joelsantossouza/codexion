@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:41:04 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 14:43:26 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 18:47:39 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,10 @@
 
 # include <stdint.h>
 # include <sys/types.h>
-# include "queue.h"
 
 // UTILS
 # define TRUE				1
 # define FALSE				0
-
-// CODER STATES
-# define GIVE_ONE_DONGLE	0x01
-# define TWO_DONGLES		0x02
-# define DONGLES_RELEASED	0x04
-# define WAITING_TO_COMPILE	0x08
-
-typedef struct s_coder
-{
-	uint32_t		id;
-	pthread_t		thread;
-	pthread_mutex_t	local_mutex;
-	pthread_mutex_t	*global_mutex;
-	uint8_t			state;
-	uint32_t		compilations_done;
-	t_queue			last_compilation_time;
-}	t_coder;
-
-typedef uint32_t	(*t_scheduler)(uint32_t *available_dongles, uint32_t size, t_coder coders[size], uint32_t dongle_cooldown);
 
 typedef struct s_codexion
 {
@@ -54,20 +34,8 @@ typedef struct s_codexion
 
 typedef void	*(*t_routine)(void *);
 
-// ERRORS
-const char	*get_error_str(uint32_t error_code);
-
-// PARSER
-int			codexion_parser(t_codexion *codexion, int argc, char **argv);
-
 // TIME MANIPULATION
 uint64_t	millis(void);
 uint64_t	time_elapsed(uint64_t *new_start);
-
-// CODER ROUTINE
-void		*start_working(t_coder *coder);
-
-// MONITOR ROUTINE
-void		*start_monitoring(t_coder coders[]);
 
 #endif

@@ -6,16 +6,34 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 10:00:43 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 14:48:47 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 17:50:54 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdint.h>
-#include <pthread.h>
 #include "codexion.h"
-#include "mutex_log_msg.h"
+#include "monitor_routine.h"
 
-int	schedule_fifo(uint32_t *available_dongles, uint32_t size, t_coder coders[size], uint32_t dongle_cooldown)
+int	schedule_fifo(const t_monitor_config *config, t_coder coders[config->ncoders], uint32_t *available_dongles, t_coder **priority_coder)
+{
+	const uint32_t	ncoders = config->ncoders;
+	static uint64_t	priority_coder_idx = 0;
+	uint64_t		i;
+
+	i = -1;
+	while (++i < ncoders)
+	{
+		if (coders[i].burnout_remaining == 0)
+		{
+			*priority_coder = &coders[i];
+			return (STOP_SIMULATION);
+		}
+		collect_released_dongles();
+	}
+	*priority_coder = &coders[priority_coder_idx++];
+	priority_coder_idx %= ncoders;
+	return (CONTINUE_SIMULATION);
+}
 {
 	uint32_t	min_compilations_done;
 	uint64_t	i;

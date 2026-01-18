@@ -6,12 +6,14 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:10:53 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 01:27:11 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 18:44:39 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERRORS_H
 # define ERRORS_H
+
+# include <stdint.h>
 
 # define ZERO		"0"
 # define INT_MAX	"2147483647"
@@ -51,5 +53,7 @@
 
 # define EMPTY_QUEUE_ERROR		7
 # define EMPTY_QUEUE_ERROR_MSG	"ERROR [7]: Cannot get data from empty queue\n"
+
+const char	*get_error_str(uint32_t error_code);
 
 #endif
