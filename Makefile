@@ -6,7 +6,7 @@
 #    By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/03 17:19:47 by joesanto          #+#    #+#              #
-#    Updated: 2026/01/18 12:41:55 by joesanto         ###   ########.fr        #
+#    Updated: 2026/01/18 14:47:21 by joesanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,7 @@ OBJS += $(CODER_ROUTINE:.c=.o)
 # --------------------------- MONITOR ROUTINE ------------------------------ #
 MONITOR_ROUTINE_DIR = $(SRCS_DIR)/monitor_routine
 MONITOR_ROUTINE = $(addprefix $(MONITOR_ROUTINE_DIR)/, \
-				  fifo_scheduler.c \
+				  schedule_fifo.c \
 				  monitor_routine.c \
 				  monitor_routine_utils.c \
 )

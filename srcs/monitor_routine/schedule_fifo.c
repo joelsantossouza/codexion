@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fifo_scheduler.c                                   :+:      :+:    :+:   */
+/*   schedule_fifo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 10:00:43 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 01:36:51 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 14:48:47 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdint.h>
 #include <pthread.h>
 #include "codexion.h"
-#include "coder_routine.h"
 #include "mutex_log_msg.h"
 
-uint32_t	fifo_scheduler(uint32_t *available_dongles, uint32_t size, t_coder coders[size], uint32_t dongle_cooldown)
+int	schedule_fifo(uint32_t *available_dongles, uint32_t size, t_coder coders[size], uint32_t dongle_cooldown)
 {
 	uint32_t	min_compilations_done;
 	uint64_t	i;

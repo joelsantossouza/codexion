@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:41:04 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 12:22:25 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 14:43:26 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ uint64_t	time_elapsed(uint64_t *new_start);
 void		*start_working(t_coder *coder);
 
 // MONITOR ROUTINE
-uint32_t	fifo_scheduler(uint32_t *available_dongles, uint32_t size, t_coder coders[size], uint32_t dongle_cooldown);
 void		*start_monitoring(t_coder coders[]);
 
 #endif
