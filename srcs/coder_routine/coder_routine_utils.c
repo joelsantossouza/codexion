@@ -6,14 +6,39 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:40:53 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/15 19:46:01 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 13:02:38 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pthread.h>
 #include <stdint.h>
+#include <unistd.h>
 #include "codexion.h"
 #include "mutex_set_flag.h"
+
+int	coder_tasks(uint32_t *burnout, uint32_t *compile, uint32_t *debug, uint32_t *refactor)
+{
+	static uint8_t	already_initialized = FALSE;
+	static uint32_t	time_to_burnout;
+	static uint32_t	time_to_compile;
+	static uint32_t	time_to_debug;
+	static uint32_t	time_to_refactor;
+
+	if (already_initialized == FALSE)
+	{
+		already_initialized = TRUE;
+		time_to_burnout = *burnout;
+		time_to_compile = *compile;
+		time_to_debug = *debug;
+		time_to_refactor = *refactor;
+		return (FALSE);
+	}
+	*burnout = time_to_burnout;
+	*compile = time_to_compile;
+	*debug = time_to_debug;
+	*refactor = time_to_refactor;
+	return (TRUE);
+}
 
 int	wait_to_compile(uint8_t *coder_state, pthread_mutex_t *mutex, uint32_t *time_left)
 {
@@ -40,4 +65,18 @@ int	wait_to_compile(uint8_t *coder_state, pthread_mutex_t *mutex, uint32_t *time
 	}
 	*coder_state &= ~(WAITING_TO_COMPILE | TWO_DONGLES);
 	return (pthread_mutex_unlock(mutex), TRUE);
+}
+
+void	spend_time(uint32_t time, uint32_t *time_left)
+{
+	if (*time_left == 0)
+		return ;
+	if (time < *time_left)
+	{
+		*time_left -= time;
+		usleep(time);
+		return ;
+	}
+	usleep(*time_left);
+	*time_left = 0;
 }

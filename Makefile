@@ -6,7 +6,7 @@
 #    By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/03 17:19:47 by joesanto          #+#    #+#              #
-#    Updated: 2026/01/15 11:19:02 by joesanto         ###   ########.fr        #
+#    Updated: 2026/01/18 12:41:55 by joesanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,29 @@ INCLUDES = -Iincludes
 HEADERS = includes/codexion.h
 SRCS_DIR = srcs
 
+# -------------------------------- UTILS ----------------------------------- #
+UTILS_DIR = $(SRCS_DIR)/utils
+
+# ------ TIME MANIPULATION ------- #
+TIME_MANIPULATION_DIR = $(UTILS_DIR)/time_manipulation
+TIME_MANIPULATION = $(addprefix $(TIME_MANIPULATION_DIR)/, \
+					millis.c \
+					time_elapsed.c \
+)
+OBJS += $(TIME_MANIPULATION:.c=.o)
+
+# ----- MUTEX MANIPULATION ------- #
+MUTEX_MANIPULATION_DIR = $(UTILS_DIR)/mutex_manipulation
+MUTEX_MANIPULATION = $(addprefix $(MUTEX_MANIPULATION_DIR)/, \
+			  mutex_log_msg.h \
+			  mutex_set_flag.h \
+)
+INCLUDES += -I$(MUTEX_MANIPULATION_DIR)
+HEADERS += $(MUTEX_MANIPULATION)
+
 # ----------------------------- ERRORS ------------------------------------- #
 ERRORS_DIR = $(SRCS_DIR)/errors
-ERRORS_HEADERS = $(ERRORS_DIR)/includes/parsing_errors.h
+ERRORS_HEADERS = $(ERRORS_DIR)/includes/errors.h
 ERRORS = $(addprefix $(ERRORS_DIR)/, get_error_str.c)
 INCLUDES += -I$(ERRORS_DIR)/includes
 OBJS += $(ERRORS:.c=.o)
@@ -32,32 +52,6 @@ PARSING = $(addprefix $(PARSING_DIR)/, codexion_parser.c parsing_utils.c)
 INCLUDES += -I$(PARSING_DIR)/includes
 HEADERS += $(PARSING_HEADERS)
 OBJS += $(PARSING:.c=.o)
-
-# ----------------------------- GET RULES ---------------------------------- #
-GET_RULES_DIR = $(SRCS_DIR)/get_rules
-GET_RULES = $(addprefix $(GET_RULES_DIR)/, \
-			get_coder_rules.c \
-			get_monitor_rules.c \
-)
-OBJS += $(GET_RULES:.c=.o)
-
-# --------------------------TIME MANIPULATION ------------------------------ #
-TIME_MANIPULATION_DIR = $(SRCS_DIR)/time_manipulation
-TIME_MANIPULATION = $(addprefix $(TIME_MANIPULATION_DIR)/, \
-					millis.c \
-					spend_time.c \
-					time_elapsed.c \
-)
-OBJS += $(TIME_MANIPULATION:.c=.o)
-
-# ---------------------------- MUTEX UTILS --------------------------------- #
-MUTEX_UTILS_DIR = $(SRCS_DIR)/mutex_utils
-MUTEX_UTILS = $(addprefix $(MUTEX_UTILS_DIR)/, \
-			  mutex_log_msg.h \
-			  mutex_set_flag.h \
-)
-INCLUDES += -I$(MUTEX_UTILS_DIR)
-HEADERS += $(MUTEX_UTILS)
 
 # --------------------------- CODER ROUTINE -------------------------------- #
 CODER_ROUTINE_DIR = $(SRCS_DIR)/coder_routine
@@ -74,7 +68,8 @@ OBJS += $(CODER_ROUTINE:.c=.o)
 MONITOR_ROUTINE_DIR = $(SRCS_DIR)/monitor_routine
 MONITOR_ROUTINE = $(addprefix $(MONITOR_ROUTINE_DIR)/, \
 				  fifo_scheduler.c \
-				  start_monitoring.c \
+				  monitor_routine.c \
+				  monitor_routine_utils.c \
 )
 OBJS += $(MONITOR_ROUTINE:.c=.o)
 
@@ -83,7 +78,6 @@ MAIN = $(SRCS_DIR)/main.c
 OBJS += $(MAIN:.c=.o)
 
 # ----------------------------- COMPILATION -------------------------------- #
-
 all: $(NAME)
 
 $(NAME): $(OBJS)

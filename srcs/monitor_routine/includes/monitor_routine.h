@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   spend_time.c                                       :+:      :+:    :+:   */
+/*   monitor_routine.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/08 17:47:52 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/08 18:24:12 by joesanto         ###   ########.fr       */
+/*   Created: 2026/01/18 12:46:00 by joesanto          #+#    #+#             */
+/*   Updated: 2026/01/18 13:00:24 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdint.h>
+#ifndef MONITOR_ROUTINE_H
+# define MONITOR_ROUTINE_H
 
-void	spend_time(uint32_t time, uint32_t *time_left)
-{
-	if (*time_left == 0)
-		return ;
-	if (time < *time_left)
-	{
-		*time_left -= time;
-		usleep(time);
-		return ;
-	}
-	usleep(*time_left);
-	*time_left = 0;
-}
+# include <stdint.h>
+# include "codexion.h"
+
+int	monitor_config(uint32_t *ncoders, uint32_t *cooldown, uint32_t *ncompiles_required, t_scheduler *scheduler_func);
+
+#endif

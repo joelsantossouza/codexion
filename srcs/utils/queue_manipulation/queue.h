@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 00:13:44 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 01:31:05 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/18 12:28:04 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,12 @@ typedef struct s_queue
 static inline
 int	enqueue(t_queue *queue, uint64_t data)
 {
-	static uint64_t	next = (queue->last + 1) % BUFFER_SIZE;
+	const uint64_t	next = (queue->last + 1) % BUFFER_SIZE;
 
 	if (next == queue->first)
 		return (FULL_QUEUE_ERROR);
 	queue->data[next] = data;
 	queue->last = next;
-	next = (next + 1) % BUFFER_SIZE;
 	return (SUCCESS);
 }
 

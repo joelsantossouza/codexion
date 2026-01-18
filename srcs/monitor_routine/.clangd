@@ -3,5 +3,6 @@ CompileFlags:
     - "-I../../includes"
     - "-Iincludes"
     - "-I../errors/includes/"
-    - "-I../mutex_utils/"
+    - "-I../utils/mutex_manipulation/"
     - "-I../coder_routine/includes/"
+    - "-I../utils/queue_manipulation/"
