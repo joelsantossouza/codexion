@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:26:20 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/19 13:31:50 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/19 20:43:56 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ const t_monitor_config	*monitor_config(uint32_t *ncoders, uint32_t *dongle_coold
 	return ((const t_monitor_config *)&monitor_config);
 }
 
-void	stop_simulation(uint64_t size, t_coder coders[size], t_coder *burned_out_coder)
+void	*stop_simulation(uint32_t size, t_coder coders[size], t_coder *burned_out_coder)
 {
 	while (size--)
 	{
@@ -38,28 +38,25 @@ void	stop_simulation(uint64_t size, t_coder coders[size], t_coder *burned_out_co
 		pthread_mutex_unlock(&coders[size].local_mutex);
 	}
 	if (burned_out_coder)
-		mutex_log_msg(time_elapsed(NOW), burned_out_coder->id,  BURNOUT_MSG, burned_out_coder->global_mutex);
+		mutex_log_msg(time_elapsed(NULL), burned_out_coder->id,  BURNOUT_MSG, burned_out_coder->global_mutex);
+	return (NULL);
 }
 
-int	required_compilations(t_coder *coder, uint32_t *new_compiles_required, uint32_t *new_total_coders)
-{
-	static uint32_t	total_coders;
-	static uint32_t	compiles_required;
-	static uint32_t	finished_coders_count;
-
-	if (new_compiles_required)
-	{
-		compiles_required = *new_compiles_required;
-		finished_coders_count = 0;
-	}
-	if (new_total_coders)
-	{
-		total_coders = *new_total_coders;
-		finished_coders_count = 0;
-	}
-	pthread_mutex_lock(&coder->local_mutex);
-	if (coder->state & WAITING_TO_COMPILE)
-		finished_coders_count += coder->compilations_done == compiles_required;
-	pthread_mutex_unlock(&coder->local_mutex);
-	return (finished_coders_count == total_coders);
-}
+// int	required_compilations(t_coder *coder, const t_monitor_config *new_config)
+// {
+// 	static uint32_t	total_coders;
+// 	static uint32_t	compiles_required;
+// 	static uint32_t	finished_coders_count;
+// 
+// 	if (new_config)
+// 	{
+// 		total_coders = new_config->ncoders;
+// 		compiles_required = new_config->ncompiles_required;
+// 		finished_coders_count = 0;
+// 	}
+// 	pthread_mutex_lock(&coder->local_mutex);
+// 	if (coder->state & WAITING_TO_COMPILE)
+// 		finished_coders_count += coder->compilations_done == compiles_required;
+// 	pthread_mutex_unlock(&coder->local_mutex);
+// 	return (finished_coders_count == total_coders);
+// }

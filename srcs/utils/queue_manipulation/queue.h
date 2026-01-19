@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 00:13:44 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/19 10:00:27 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/19 20:08:31 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@
 typedef struct s_queue
 {
 	uint64_t		data[BUFFER_SIZE];
-	uint64_t		first;
-	uint64_t		last;
+	uint32_t		first;
+	uint32_t		last;
 }	t_queue;
 
 static inline
 __attribute__((always_inline))
 int	enqueue(t_queue *queue, uint64_t data)
 {
-	const uint64_t	next = (queue->last + 1) % BUFFER_SIZE;
+	const uint32_t	next = (queue->last + 1) % BUFFER_SIZE;
 
 	if (next == queue->first)
 		return (FULL_QUEUE_ERROR);
@@ -42,7 +42,7 @@ static inline
 __attribute__((always_inline))
 int	queue_peek(t_queue *queue, uint64_t *data)
 {
-	const uint64_t	first = queue->first;
+	const uint32_t	first = queue->first;
 
 	if (first == queue->last)
 		return (EMPTY_QUEUE_ERROR);

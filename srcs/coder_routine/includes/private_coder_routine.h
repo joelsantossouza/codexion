@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 18:57:36 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 19:10:59 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/19 21:02:22 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ enum
 	DEBUG,
 	REFACTOR,
 	NUMBER_OF_TASKS
+};
+
+// CODER SIGNALS
+enum
+{
+	CONTINUE_EXECUTION,
+	STOP_EXECUTION
 };
 
 typedef struct s_coder_config
