@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:26:20 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/19 10:35:54 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/19 13:31:50 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,25 @@ void	stop_simulation(uint64_t size, t_coder coders[size], t_coder *burned_out_co
 		mutex_log_msg(time_elapsed(NOW), burned_out_coder->id,  BURNOUT_MSG, burned_out_coder->global_mutex);
 }
 
-int	required_compilations(t_coder *coder, uint32_t *set_ncompiles_required_per_coder, uint32_t *set_ncoders)
+int	required_compilations(t_coder *coder, uint32_t *new_compiles_required, uint32_t *new_total_coders)
 {
-	static uint32_t	ncoders;
-	static uint32_t	ncompiles_required_per_coder;
-	static uint32_t	coders_finished_compilations;
+	static uint32_t	total_coders;
+	static uint32_t	compiles_required;
+	static uint32_t	finished_coders_count;
 
-	if (set_ncompiles_required_per_coder)
+	if (new_compiles_required)
 	{
-		ncompiles_required_per_coder = *set_ncompiles_required_per_coder;
-		coders_finished_compilations = 0;
+		compiles_required = *new_compiles_required;
+		finished_coders_count = 0;
 	}
-	if (set_ncoders)
+	if (new_total_coders)
 	{
-		ncoders = *set_ncoders;
-		coders_finished_compilations = 0;
+		total_coders = *new_total_coders;
+		finished_coders_count = 0;
 	}
 	pthread_mutex_lock(&coder->local_mutex);
 	if (coder->state & WAITING_TO_COMPILE)
-		coders_finished_compilations += coder->compilations_done == ncompiles_required_per_coder;
+		finished_coders_count += coder->compilations_done == compiles_required;
 	pthread_mutex_unlock(&coder->local_mutex);
-	return (coders_finished_compilations == ncoders);
+	return (finished_coders_count == total_coders);
 }

@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 10:00:43 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/19 10:14:15 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/19 13:36:27 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	schedule_fifo(t_coder coders[], const t_monitor_config *config, uint32_t *av
 			*priority_coder = &coders[i];
 			return (STOP_SIMULATION);
 		}
-		if (required_compilations(IS_DONE) == TRUE)
+		if (required_compilations(##TODO##) == TRUE)
 		{
 			*priority_coder = NULL;
 			return (STOP_SIMULATION);
