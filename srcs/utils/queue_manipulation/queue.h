@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 00:13:44 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 20:48:38 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/19 10:00:27 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_queue
 }	t_queue;
 
 static inline
+__attribute__((always_inline))
 int	enqueue(t_queue *queue, uint64_t data)
 {
 	const uint64_t	next = (queue->last + 1) % BUFFER_SIZE;
@@ -38,6 +39,7 @@ int	enqueue(t_queue *queue, uint64_t data)
 }
 
 static inline
+__attribute__((always_inline))
 int	queue_peek(t_queue *queue, uint64_t *data)
 {
 	const uint64_t	first = queue->first;

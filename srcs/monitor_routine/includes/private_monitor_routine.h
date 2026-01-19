@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 12:46:00 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 21:13:52 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/19 10:36:36 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ typedef struct s_monitor_config
 }	t_monitor_config;
 
 const t_monitor_config	*monitor_config(uint32_t *ncoders, uint32_t *dongle_cooldown, uint32_t *ncompiles_required, t_scheduler *scheduler);
+void					stop_simulation(uint64_t size, t_coder coders[size], t_coder *burned_out_coder);
 
 static inline
+__attribute__((always_inline))
 uint32_t	collect_released_dongles(t_queue *compilations_history, uint32_t dongle_cooldown)
 {
 	uint64_t	oldest_compilation;

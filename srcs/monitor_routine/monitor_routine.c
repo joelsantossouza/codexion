@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 17:37:06 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 21:43:02 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/19 09:50:54 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ void	*start_monitoring(t_coder coders[])
 	{
 		
 		if (scheduler(coders, config, &available_dongles, &priority_coder) == STOP_SIMULATION)
-		{
-			// TODO: set all coder as dead, then print the priority_coder that die
-		}
+			stop_simulation(config->ncoders, coders, priority_coder);
 		pthread_mutex_lock(&priority_coder->local_mutex);
 		if (priority_coder->state & WAITING_TO_COMPILE)
 		{
@@ -36,7 +34,7 @@ void	*start_monitoring(t_coder coders[])
 			{
 				available_dongles--;
 				priority_coder->state += ONE_DONGLE;
-				mutex_log_msg(time_elapsed(0), priority_coder->id, TAKEN_DONGLE_MSG, priority_coder->global_mutex);
+				mutex_log_msg(time_elapsed(NOW), priority_coder->id, TAKEN_DONGLE_MSG, priority_coder->global_mutex);
 			}
 		}
 		pthread_mutex_unlock(&priority_coder->local_mutex);
