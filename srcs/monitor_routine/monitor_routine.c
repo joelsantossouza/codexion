@@ -6,13 +6,14 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 17:37:06 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/19 19:58:46 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/20 22:56:36 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdint.h>
 #include <unistd.h>
 #include "private_monitor_routine.h"
+#include "private_coder_routine.h"
 
 void	*start_monitoring(t_coder coders[])
 {
@@ -33,7 +34,7 @@ void	*start_monitoring(t_coder coders[])
 			{
 				available_dongles--;
 				priority_coder->state += ONE_DONGLE;
-				mutex_log_msg(time_elapsed(NULL), priority_coder->id, TAKEN_DONGLE_MSG, priority_coder->global_mutex);
+				log_coder_activity(priority_coder, TAKEN_DONGLE_MSG);
 			}
 		}
 		pthread_mutex_unlock(&priority_coder->local_mutex);

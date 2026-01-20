@@ -1,7 +1,8 @@
 #include "codexion.h"
-#include "parsing_errors.h"
 #include <pthread.h>
 #include <stdio.h>
+#include "private_coder_routine.h"
+#include "private_monitor_routine.h"
 
 //typedef char	t_byte;
 //
@@ -92,7 +93,6 @@ int	main(int argc, char **argv)
 	uint32_t	i = -1;
 	pthread_t	monitor_thread;
 	pthread_mutex_t	global_mutex = PTHREAD_MUTEX_INITIALIZER;
-	uint64_t	program_start = millis();
 
 	parse_stats = codexion_parser(&codexion, argc - 1, argv + 1);
 	if (parse_stats != 0)
@@ -100,9 +100,10 @@ int	main(int argc, char **argv)
 		fprintf(stderr, "%s", get_error_str(parse_stats));
 		return (1);
 	}
-	get_coder_rules(&codexion.time_to_burnout, &codexion.time_to_compile, &codexion.time_to_debug, &codexion.time_to_refactor);
-	get_monitor_rules(&codexion.number_of_coders, &codexion.dongle_cooldown, &codexion.number_of_compiles_required, &codexion.scheduler);
-	time_elapsed(&program_start);
+	coder_config(&codexion.time_to_burnout, &codexion.time_to_compile, &codexion.time_to_debug, &codexion.time_to_refactor);
+	monitor_config(&codexion.number_of_coders, &codexion.dongle_cooldown, &codexion.number_of_compiles_required, &codexion.scheduler);
+	uint64_t	program_start = millis();
+	timestamp(&program_start);
 	while (++i < codexion.number_of_coders)
 	{
 		coders[i].id = i + 1;
@@ -110,7 +111,9 @@ int	main(int argc, char **argv)
 		coders[i].global_mutex = &global_mutex;
 		coders[i].state = 0;
 		coders[i].compilations_done = 0;
-		coders[i].last_compilation_time = 0;
+		coders[i].compilations_history.first = 0;
+		coders[i].compilations_history.last = 0;
+		coders[i].execution_remaining = codexion.time_to_burnout;
 		pthread_create(&coders[i].thread, NULL, (t_routine)start_working, &coders[i]);
 	}
 	pthread_create(&monitor_thread, NULL, (t_routine)start_monitoring, coders);

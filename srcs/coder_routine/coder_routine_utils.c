@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:40:53 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/20 20:58:22 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/20 22:58:10 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdint.h>
 #include <unistd.h>
 #include "private_coder_routine.h"
+#include "mutex_set_flag.h"
 
 const t_coder_config	*coder_config(const uint32_t *compile, const uint32_t *debug, const uint32_t *refactor, const uint32_t *burnout)
 {

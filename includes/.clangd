@@ -1,0 +1,8 @@
+CompileFlags:
+  Add:
+    - "-I../srcs/parsing/includes"
+    - "-I../srcs/coder_routine/includes"
+    - "-I../srcs/monitor_routine/includes"
+    - "-I../srcs/errors/includes"
+    - "-I../srcs/utils/queue_manipulation"
+    - "-I../srcs/utils/time_manipulation"

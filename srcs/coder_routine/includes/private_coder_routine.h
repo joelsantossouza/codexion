@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 18:57:36 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/20 19:19:52 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/20 21:42:07 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_coder_config
 
 const t_coder_config	*coder_config(const uint32_t *compile, const uint32_t *debug, const uint32_t *refactor, const uint32_t *burnout);
 int						wait_to_compile(t_coder	*coder);
+int						do_task(t_coder *coder, uint32_t task_duration);
 
 static inline
 void	log_coder_activity(const t_coder *coder, const char *log)

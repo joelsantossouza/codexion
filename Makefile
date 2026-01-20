@@ -6,7 +6,7 @@
 #    By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/03 17:19:47 by joesanto          #+#    #+#              #
-#    Updated: 2026/01/20 19:14:48 by joesanto         ###   ########.fr        #
+#    Updated: 2026/01/20 21:29:14 by joesanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,10 +24,7 @@ UTILS_DIR = $(SRCS_DIR)/utils
 # ------ TIME MANIPULATION ------- #
 TIME_MANIPULATION_DIR = $(UTILS_DIR)/time_manipulation
 TIME_MANIPULATION_HEADERS = $(TIME_MANIPULATION_DIR)/time_manipulation.h
-TIME_MANIPULATION = $(addprefix $(TIME_MANIPULATION_DIR)/, \
-					millis.c \
-					timestamp.c \
-)
+TIME_MANIPULATION = $(TIME_MANIPULATION_DIR)/timestamp.c
 INCLUDES += -I$(TIME_MANIPULATION_DIR)
 HEADERS += $(TIME_MANIPULATION_HEADERS)
 OBJS += $(TIME_MANIPULATION:.c=.o)

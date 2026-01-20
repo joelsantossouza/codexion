@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:16:26 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/20 10:12:22 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/20 22:59:49 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	*start_working(t_coder *coder)
 		while (task < NUMBER_OF_TASKS)
 		{
 			log_coder_activity(coder, msg[task]);
-			if (do_task(tasks[task++], &coder->execution_remaining) == STOP_EXECUTION)
+			if (do_task(coder, tasks[task++]) == STOP_EXECUTION)
 				return (NULL);
 		}
 	}
