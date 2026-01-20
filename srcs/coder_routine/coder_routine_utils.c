@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:40:53 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/19 19:56:19 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/20 10:15:09 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <unistd.h>
 #include "private_coder_routine.h"
 
-const t_coder_config	*coder_config(uint32_t *compile, uint32_t *debug, uint32_t *refactor, uint32_t *burnout)
+const t_coder_config	*coder_config(const uint32_t *compile, const uint32_t *debug, const uint32_t *refactor, const uint32_t *burnout)
 {
 	static t_coder_config	coder_config;
 
@@ -30,8 +30,6 @@ const t_coder_config	*coder_config(uint32_t *compile, uint32_t *debug, uint32_t 
 	return ((const  t_coder_config *)&coder_config);
 }
 
-// PASS CODER STRUCTURE
-// INSTEAD OF TRUE/FALSE, USE RELEVANT RETURN ERRROS WARNING OR INFO
 int	wait_to_compile(t_coder	*coder)
 {
 	uint64_t	last_time;
@@ -61,7 +59,7 @@ int	wait_to_compile(t_coder	*coder)
 	}
 }
 
-void	spend_time(uint32_t time, uint32_t *time_left)
+void	do_task(t_coder *coder)
 {
 	if (*time_left == 0)
 		return ;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time_elapsed.c                                     :+:      :+:    :+:   */
+/*   timestamp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 15:40:43 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/09 15:54:41 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/20 09:54:48 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdint.h>
 #include <unistd.h>
 
-uint64_t	time_elapsed(uint64_t *new_start)
+uint64_t	timestamp(const uint64_t *new_start)
 {
 	static struct timeval	tv;
 	static uint64_t			start_saved;

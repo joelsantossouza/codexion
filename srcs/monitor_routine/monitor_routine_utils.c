@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:26:20 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/19 20:43:56 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/20 10:00:39 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "private_monitor_routine.h"
 #include "mutex_log_msg.h"
 
-const t_monitor_config	*monitor_config(uint32_t *ncoders, uint32_t *dongle_cooldown, uint32_t *ncompiles_required, t_scheduler *scheduler)
+const t_monitor_config	*monitor_config(const uint32_t *ncoders, const uint32_t *dongle_cooldown, const uint32_t *ncompiles_required, const t_scheduler *scheduler)
 {
 	static t_monitor_config	monitor_config;
 
