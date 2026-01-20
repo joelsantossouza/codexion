@@ -2,3 +2,5 @@ CompileFlags:
   Add:
     - "-I../errors/includes"
     - "-I./includes"
+    - "-I../monitor_routine/includes"
+    - "-I../utils/time_manipulation"

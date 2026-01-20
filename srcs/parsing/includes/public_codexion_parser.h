@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 16:03:28 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 19:56:47 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/20 18:59:35 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define CODEXION_PARSER_H
 
 # include <stdint.h>
+# include "public_coder_routine.h"
 
-typedef struct s_coder t_coder;
 typedef struct s_monitor_config t_monitor_config;
 typedef int	(*t_scheduler)(t_coder coders[], const t_monitor_config *config, uint32_t *available_dongles, t_coder **priority_coder);
 

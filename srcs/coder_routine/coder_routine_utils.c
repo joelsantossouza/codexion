@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:40:53 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/20 10:15:09 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/20 20:58:22 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,28 +47,42 @@ int	wait_to_compile(t_coder	*coder)
 		if (elapsed_time >= coder->execution_remaining)
 		{
 			coder->execution_remaining = 0;
-			return (pthread_mutex_unlock(&coder->local_mutex), CODER_STOP);
+			return (pthread_mutex_unlock(&coder->local_mutex), STOP_EXECUTION);
 		}
 		coder->execution_remaining -= elapsed_time;
 		if (coder->state & TWO_DONGLES)
 		{
 			coder->state &= ~(WAITING_TO_COMPILE | TWO_DONGLES);
-			return (pthread_mutex_unlock(&coder->local_mutex), CODER_CONTINUE);
+			return (pthread_mutex_unlock(&coder->local_mutex), CONTINUE_EXECUTION);
 		}
 		pthread_mutex_unlock(&coder->local_mutex);
 	}
 }
 
-void	do_task(t_coder *coder)
+int	do_task(t_coder *coder, uint32_t task_duration)
 {
-	if (*time_left == 0)
-		return ;
-	if (time < *time_left)
+	uint32_t	task_start_ms;
+	int			exit_status;
+
+	pthread_mutex_lock(&coder->local_mutex);
+	if (task_duration >= coder->execution_remaining)
 	{
-		*time_left -= time;
-		usleep(time);
-		return ;
+		task_duration = coder->execution_remaining;
+		exit_status = CONTINUE_EXECUTION;
 	}
-	usleep(*time_left);
-	*time_left = 0;
+	else
+		exit_status = STOP_EXECUTION;
+	pthread_mutex_unlock(&coder->local_mutex);
+	task_start_ms = millis();
+	while (millis() - task_start_ms < task_duration)
+	{
+		pthread_mutex_lock(&coder->local_mutex);
+		if (coder->execution_remaining == 0)
+			return (pthread_mutex_unlock(&coder->local_mutex), STOP_EXECUTION);
+		pthread_mutex_unlock(&coder->local_mutex);
+	}
+	pthread_mutex_lock(&coder->local_mutex);
+	coder->execution_remaining -= task_duration;
+	pthread_mutex_unlock(&coder->local_mutex);
+	return (exit_status);
 }

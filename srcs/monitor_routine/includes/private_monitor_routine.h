@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 12:46:00 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/20 10:01:15 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/20 19:17:12 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_monitor_config
 
 const t_monitor_config	*monitor_config(const uint32_t *ncoders, const uint32_t *dongle_cooldown, const uint32_t *ncompiles_required, const t_scheduler *scheduler);
 void					*stop_simulation(uint32_t size, t_coder coders[size], t_coder *burned_out_coder);
+int						schedule_fifo(t_coder coders[], const t_monitor_config *config, uint32_t *available_dongles, t_coder **priority_coder);
 
 static inline
 __attribute__((always_inline))

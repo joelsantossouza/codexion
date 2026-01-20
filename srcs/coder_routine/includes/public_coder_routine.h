@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 15:58:30 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/19 09:22:04 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/20 19:19:11 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@
 # include <stdint.h>
 # include <pthread.h>
 # include "queue.h"
+
+// BOOLEAN UTILS
+enum
+{
+	FALSE,
+	TRUE
+};
 
 // CODER STATES
 enum
