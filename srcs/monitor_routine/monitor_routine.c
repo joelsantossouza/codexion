@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 17:37:06 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/21 19:27:49 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/21 22:39:57 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ void	*start_monitoring(t_coder coders[])
 		if (scheduler(coders, config, &available_dongles, &priority_coder) == STOP_SIMULATION)
 			return (stop_simulation(config->ncoders, coders, priority_coder));
 		pthread_mutex_lock(&priority_coder->local_mutex);
-		if (priority_coder->state & WAITING_TO_COMPILE)
-		{
+		// if (priority_coder->state & WAITING_TO_COMPILE)
+		// {
 			while (!(priority_coder->state & TWO_DONGLES) && available_dongles > 0)
 			{
 				available_dongles--;
 				priority_coder->state += ONE_DONGLE;
 				log_coder_activity(priority_coder, TAKEN_DONGLE_MSG);
 			}
-		}
+		// }
 		pthread_mutex_unlock(&priority_coder->local_mutex);
 	}
 }
