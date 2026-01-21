@@ -117,6 +117,7 @@ int	main(int argc, char **argv)
 		pthread_create(&coders[i].thread, NULL, (t_routine)start_working, &coders[i]);
 	}
 	pthread_create(&monitor_thread, NULL, (t_routine)start_monitoring, coders);
+	i = -1;
 	while (++i < codexion.number_of_coders)
 		pthread_join(coders[i].thread, NULL);
 	pthread_join(monitor_thread, NULL);

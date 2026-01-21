@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 00:13:44 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/19 20:08:31 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/21 10:10:43 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdint.h>
 # include "errors.h"
 
-# define BUFFER_SIZE	1024
+#define BUFFER_SIZE	1024 // TODO: CHANGABLE WITH COMPILATION
 
 typedef struct s_queue
 {
