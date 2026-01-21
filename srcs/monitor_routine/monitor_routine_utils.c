@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:26:20 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/20 23:03:36 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/21 19:27:28 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	*stop_simulation(uint32_t size, t_coder coders[size], t_coder *burned_out_c
 		pthread_mutex_lock(&coders[size].local_mutex);
 		coders[size].execution_remaining = 0;
 		pthread_mutex_unlock(&coders[size].local_mutex);
-		printf("Stoping_simulation of %d\n", size);
 	}
 	if (burned_out_coder)
 		log_coder_activity(burned_out_coder, BURNOUT_MSG);

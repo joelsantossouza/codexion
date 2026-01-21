@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:40:53 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/21 10:03:16 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/21 19:29:02 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ int	do_task(t_coder *coder, uint32_t task_duration)
 	if (task_duration >= coder->execution_remaining)
 	{
 		task_duration = coder->execution_remaining;
-		exit_status = CONTINUE_EXECUTION;
+		exit_status = STOP_EXECUTION;
 	}
 	else
-		exit_status = STOP_EXECUTION;
+		exit_status = CONTINUE_EXECUTION;
 	pthread_mutex_unlock(&coder->local_mutex);
 	task_start_ms = millis();
 	while (millis() - task_start_ms < task_duration)

@@ -6,13 +6,15 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 12:46:00 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/20 19:17:12 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/21 21:28:36 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MONITOR_ROUTINE_H
 # define MONITOR_ROUTINE_H
 
+	#include <stdlib.h> // TODO: REMOVE IT
+	#include <stdio.h> // TODO: REMOVE IT
 # include <stdint.h>
 # include "time_manipulation.h"
 # include "public_coder_routine.h"
@@ -43,10 +45,14 @@ __attribute__((always_inline))
 uint32_t	collect_released_dongles(t_queue *compilations_history, uint32_t dongle_cooldown)
 {
 	uint64_t	oldest_compilation;
+	uint64_t	current_time;
 
 	if (queue_peek(compilations_history, &oldest_compilation) == EMPTY_QUEUE_ERROR)
 		return (0);
-	if (millis() - oldest_compilation < dongle_cooldown)
+	current_time = millis();
+	if (oldest_compilation >= current_time)
+		return (0);
+	if (current_time - oldest_compilation < dongle_cooldown)
 		return (0);
 	compilations_history->first = (compilations_history->first + 1) % BUFFER_SIZE;
 	return (TWO_DONGLES);

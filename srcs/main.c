@@ -100,7 +100,7 @@ int	main(int argc, char **argv)
 		fprintf(stderr, "%s", get_error_str(parse_stats));
 		return (1);
 	}
-	coder_config(&codexion.time_to_burnout, &codexion.time_to_compile, &codexion.time_to_debug, &codexion.time_to_refactor);
+	coder_config(&codexion.time_to_compile, &codexion.time_to_debug, &codexion.time_to_refactor, &codexion.time_to_burnout);
 	monitor_config(&codexion.number_of_coders, &codexion.dongle_cooldown, &codexion.number_of_compiles_required, &codexion.scheduler);
 	uint64_t	program_start = millis();
 	timestamp(&program_start);

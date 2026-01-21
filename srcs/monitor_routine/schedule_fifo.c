@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 10:00:43 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/19 20:07:15 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/21 19:42:56 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int	schedule_fifo(t_coder coders[], const t_monitor_config *config, uint32_t *av
 	{
 		pthread_mutex_lock(&coders[i].local_mutex);
 		if (coders[i].execution_remaining == 0)
+		{
+			pthread_mutex_unlock(&coders[i].local_mutex);
 			return (*priority_coder = &coders[i], STOP_SIMULATION);
+		}
 		coders_with_required_compilations += coders[i].compilations_done >= ncompiles_required;
 		*available_dongles += collect_released_dongles(&coders[i].compilations_history, dongle_cooldown);
 		pthread_mutex_unlock(&coders[i].local_mutex);
