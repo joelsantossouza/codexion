@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 10:00:43 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/21 22:25:48 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/22 10:09:34 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ int	schedule_fifo(t_coder coders[], const t_monitor_config *config, uint32_t *av
 	// priority_coder_idx += ((*priority_coder)->state & WAITING_TO_COMPILE) == 0;
 	// priority_coder_idx %= config->ncoders;
 	// pthread_mutex_unlock(&(*priority_coder)->local_mutex);
+	/*
+	 * SO I THINK THIS FUNCTION SHOULD BE LIKE THAT: IT WILL GET THE PRIORITY
+	 * CODER WITH AN SHEDULER. AFTER THAT, IT WILL INFINITLY CHECK IF THE
+	 * OTHER CODERS RELEASED DONGLES TO GIVE TO THE PRIORITY ONE*/
 	coders_with_required_compilations = 0;
 	i = -1;
 	while (++i < ncoders)
@@ -38,7 +42,8 @@ int	schedule_fifo(t_coder coders[], const t_monitor_config *config, uint32_t *av
 			return (*priority_coder = &coders[i], STOP_SIMULATION);
 		}
 		coders_with_required_compilations += coders[i].compilations_done >= ncompiles_required;
-		*available_dongles += collect_released_dongles(&coders[i].compilations_history, dongle_cooldown);
+		*available_dongles += collect_released_dongles(&coders[i], dongle_cooldown);
+		// WARNING: *priority_coder = 'scheduler()'
 		pthread_mutex_unlock(&coders[i].local_mutex);
 	}
 	if (coders_with_required_compilations == ncoders)

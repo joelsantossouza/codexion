@@ -1,8 +1,17 @@
 DONT FORGET TO ADAPT THE CHANGES ON MAKEFILE
 
-- Move the spend_time to the coder_routine_utils.c (make more sense)
-- Maybe turn all manipulations into a utils directory (MAYBE)
-- Put the get_coder_rules and get_monitor_rules under its respective files_utils.c
-- Improve separate responsability on schedulers
-	- schedulers reclaim all released dongles and then return the priority coder
-- Fix enqueue!! and probably remove dequeue
+- COMPILATIONS_HISTORY MUST NOT BE A QUEUE
+- THE ORDER OF MONITOR WILL BE:
+	- GET PRIORITY CODER (EDF OR FIFO)
+		- EDF STORES A QUEUE INSIDE IT THAT REPRESENTS THE DEADLINES
+		OR INITIALIZE AN ARRAY WITH ONE BY ONE EARLIEST DEADLINES,
+		THEN THEN ARRAY WILL JUST BE ITERATE CIRCULARLY INTO THE ARRAY
+		ONCE IT WILL COMPILE AS PRIORITY ONE BY ONE
+		
+		- FIFO WILL STATICALLY RETURN ONE BY ONE ON CODER ARRAY ORDER
+		AS PRIORITY
+
+	- WHILE DOES NOT HAVE 2 AVAILABLE DONGLES, LOOP THROUGH EVERY
+	CODER TO GET RELEASED DONGLES
+
+	- PUT TWO DONGLES ON PRIORITY CODER AND REMOVE IT FROM AVAILABLES

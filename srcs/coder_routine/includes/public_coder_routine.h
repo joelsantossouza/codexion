@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 15:58:30 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/20 19:19:11 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/22 10:53:38 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdint.h>
 # include <pthread.h>
-# include "queue.h"
+# include "queue.h" // WARNING: A CODER DONT NEED A QUEUE OF COMPILATIONS HISTORY
 
 // BOOLEAN UTILS
 enum
@@ -41,7 +41,7 @@ typedef struct s_coder
 	uint8_t			state;
 	uint32_t		execution_remaining;
 	uint32_t		compilations_done;
-	t_queue			compilations_history;
+	t_queue			compilations_history; // WARNING: A CODER DONT NEED A QUEUE OF COMPILATIONS HISTORY
 }	t_coder;
 
 void	*start_working(t_coder *coder);
