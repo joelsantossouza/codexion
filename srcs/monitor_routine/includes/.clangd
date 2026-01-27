@@ -1,6 +1,0 @@
-CompileFlags:
-  Add:
-    - "-I../../coder_routine/includes"
-    - "-I../../utils/queue_manipulation/"
-    - "-I../../errors/includes/"
-    - "-I../../utils/time_manipulation/"

@@ -1,7 +1,0 @@
-CompileFlags:
-  Add:
-    - "-I./includes"
-    - "-I../utils/queue_manipulation"
-    - "-I../utils/time_manipulation/"
-    - "-I../utils/mutex_manipulation/"
-    - "-I../errors/includes/"

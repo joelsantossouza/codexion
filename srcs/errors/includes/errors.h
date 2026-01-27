@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:10:53 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 18:44:39 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/27 14:41:11 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,6 @@
 
 # define INT_OVERFLOW_ERROR		5
 # define INT_OVERFLOW_ERROR_MSG	"ERROR [5]: Passed a number greater then INT_MAX\n"
-
-// QUEUE
-# define FULL_QUEUE_ERROR		6
-# define FULL_QUEUE_ERROR_MSG	"ERROR [6]: Cannot add more data in full queue\n"
-
-# define EMPTY_QUEUE_ERROR		7
-# define EMPTY_QUEUE_ERROR_MSG	"ERROR [7]: Cannot get data from empty queue\n"
 
 const char	*get_error_str(uint32_t error_code);
 

@@ -1,0 +1,57 @@
+main()
+	start_odd_coder_ids()
+	start_even_coder_ids()
+
+coder_routine()
+	while (true)
+		if (request_two_dongles(coder, deadline) == TIMED_OUT)
+			return (NULL);
+		do task({COMPILE})
+		grant_two_dongles()
+		do_tasks({DEBUG, REFACTOR})
+
+am_i_priority_fifo()
+	return queue_left->first == &me && queue_right->first == &me
+
+shedule_fifo()
+	enter_on_priority_queue()
+	while (!am_i_priority_fifo())
+		if (pthread_cond_timedwait(&priority_cond, &priority_mutex, &deadline) == TIMEOUT)
+			return (TIMEOUT);
+
+am_i_priority_edf()
+	return me->deadline < coder_left->deadline && me->deadline < coder_right->deadline
+
+schedule_edf()
+	while (!am_i_priority_edf())
+		if (pthread_cond_timedwait(&priority_cond, &priority_mutex, &deadline) == TIMEOUT)
+			return (TIMEOUT);
+
+wait_for_dongle_cooldown()
+	/*IF THIS VERIFICATION IS REPETITIVE, YOU CAN ADD AS CONSTANT
+	  THE END_TIME INSTEAD OF DOING now() - start < duration*/
+	if now() - last_dongle_used_time < dongle_cooldown
+		usleep(dongle_cooldown_remaining)
+
+request_two_dongles()
+	wait_my_turn() ---> [schedule_fifo | schedule_edf]
+	wait_for_dongle_cooldown(me->left_dongle)
+	wait_for_dongle_cooldown(me->right_dongle)
+	dongle_left = BEING_USED
+	dongle_right = BEING_USED
+	return (SUCCESS)
+
+grant_two_dongles()
+	last_time_used_left_dongle = time_now()
+	last_time_used_left_dongle = time_now()
+	dequeue_from_priority(&me)
+	pthread_cond_broadcast(&right_coder->priority_cond)
+	pthread_cond_broadcast(&left_coder->priority_cond)
+
+monitor_routine:
+	while (true)
+		while (i < ncoders)
+			if (now() - coders[i].last_compile >= TIME_TO_BURNOUT)
+				simulation_is_running = false
+				print(WHO_DIED)
+				return;

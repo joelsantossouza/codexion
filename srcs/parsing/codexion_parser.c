@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:06:06 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/20 18:55:56 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/27 15:03:12 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include "errors.h"
 #include "private_codexion_parser.h"
-#include "private_monitor_routine.h"
 
 int	codexion_parser(t_codexion *codexion, int argc, char **argv)
 {
@@ -37,9 +36,11 @@ int	codexion_parser(t_codexion *codexion, int argc, char **argv)
 	codexion->number_of_compiles_required = atoi(argv[5]);
 	codexion->dongle_cooldown = atoi(argv[6]);
 	if (strcmp(argv[7], "fifo") == 0)
-		codexion->scheduler = schedule_fifo;
+		;
+		//codexion->wait_turn = NULL;
 	else if (strcmp(argv[7], "edf") == 0)
-		codexion->scheduler = NULL;
+		;
+		//codexion->wait_turn = NULL;
 	else
 		return (SCHEDULER_ERROR);
 	return (SUCCESS);

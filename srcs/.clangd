@@ -1,9 +1,0 @@
-CompileFlags:
-  Add:
-    - "-I../includes"
-    - "-I./parsing/includes"
-    - "-I./coder_routine/includes"
-    - "-I./monitor_routine/includes"
-    - "-I./errors/includes"
-    - "-I./utils/queue_manipulation"
-    - "-I./utils/time_manipulation"
