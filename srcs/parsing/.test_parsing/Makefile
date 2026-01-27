@@ -5,7 +5,7 @@ FLAGS = -Wall -Wextra -Werror -g
 HEADERS = ../includes/public_codexion_parser.h ../../errors/includes/errors.h
 INCLUDES = -I../includes -I../../errors/includes
 SRCS = test_parsing.c ../codexion_parser.c ../codexion_parser_utils.c \
-	   ../../errors/get_error_str.c
+	   ../../errors/get_error_msg.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

@@ -6,27 +6,26 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:06:06 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/27 15:03:12 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/27 17:43:46 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 #include <stdlib.h>
-#include "errors.h"
 #include "private_codexion_parser.h"
 
-int	codexion_parser(t_codexion *codexion, int argc, char **argv)
+enum e_exit_status	codexion_parser(t_codexion *codexion, int argc, char **argv)
 {
 	if (argc-- != 8)
-		return (ARGC_ERROR);
+		return (ERR_PARSER_ARGC);
 	while (argc-- > 0)
 	{
-		if (is_str_numeric(argv[argc]) != 0)
-			return (NONNUMERIC_ERROR);
-		if (nbrcmp(argv[argc], ZERO) < 0)
-			return (NEGATIVE_INT_ERROR);
+		if (is_str_numeric(argv[argc]) == false)
+			return (ERR_PARSER_NOT_DIGIT);
+		if (nbrcmp(argv[argc], "0") < 0)
+			return (ERR_PARSER_NEG_INT);
 		if (nbrcmp(argv[argc], INT_MAX) > 0)
-			return (INT_OVERFLOW_ERROR);
+			return (ERR_PARSER_OVERFLOW);
 	}
 	codexion->number_of_coders = atoi(argv[0]);
 	codexion->time_to_burnout = atoi(argv[1]);
@@ -42,6 +41,6 @@ int	codexion_parser(t_codexion *codexion, int argc, char **argv)
 		;
 		//codexion->wait_turn = NULL;
 	else
-		return (SCHEDULER_ERROR);
+		return (ERR_PARSER_SCHEDULER);
 	return (SUCCESS);
 }

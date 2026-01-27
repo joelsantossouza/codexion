@@ -6,25 +6,25 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:58:46 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/18 19:26:40 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/27 17:37:40 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
-#include "errors.h"
+#include <stdbool.h>
 
-int	is_str_numeric(const char *str)
+bool	is_str_numeric(const char *str)
 {
 	str += *str == '-' || *str == '+';
 	if (!*str)
-		return (NONNUMERIC_ERROR);
+		return (false);
 	while (*str)
 	{
 		if (*str < '0' || *str > '9')
-			return (NONNUMERIC_ERROR);
+			return (false);
 		str++;
 	}
-	return (SUCCESS);
+	return (true);
 }
 
 int	nbrcmp(const char *nbr1, const char *nbr2)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_error_str.c                                    :+:      :+:    :+:   */
+/*   get_error_msg.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:49:52 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/27 14:42:05 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/27 17:34:50 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 #include <stdint.h>
 #include "errors.h"
 
-const char	*get_error_str(uint32_t error_code)
+const char	*get_error_msg(enum e_exit_status err_code)
 {
-	if (error_code == ARGC_ERROR)
-		return (ARGC_ERROR_MSG);
-	if (error_code == SCHEDULER_ERROR)
-		return (SCHEDULER_ERROR_MSG);
-	if (error_code == NONNUMERIC_ERROR)
-		return (NONNUMERIC_ERROR_MSG);
-	if (error_code == NEGATIVE_INT_ERROR)
-		return (NEGATIVE_INT_ERROR_MSG);
-	if (error_code == INT_OVERFLOW_ERROR)
-		return (INT_OVERFLOW_ERROR_MSG);
+	if (err_code == ERR_PARSER_ARGC)
+		return (ERR_PARSER_ARGC_MSG);
+	if (err_code == ERR_PARSER_SCHEDULER)
+		return (ERR_PARSER_SCHEDULER_MSG);
+	if (err_code == ERR_PARSER_NOT_DIGIT)
+		return (ERR_PARSER_NOT_DIGIT_MSG);
+	if (err_code == ERR_PARSER_NEG_INT)
+		return (ERR_PARSER_NEG_INT_MSG);
+	if (err_code == ERR_PARSER_OVERFLOW)
+		return (ERR_PARSER_OVERFLOW_MSG);
 	return (NULL);
 }

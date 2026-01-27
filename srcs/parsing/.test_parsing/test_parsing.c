@@ -30,9 +30,9 @@ void	argv_print(char *argv[])
 
 void	test_cases(int size, char *argv[size][MAX_SIZE])
 {
-	t_codexion	codexion;
-	int			exit_status;
-	int			i;
+	t_codexion			codexion;
+	enum e_exit_status	exit_status;
+	int					i;
 
 	i = -1;
 	while (++i < size)
@@ -42,7 +42,7 @@ void	test_cases(int size, char *argv[size][MAX_SIZE])
 		if (exit_status != SUCCESS)
 		{
 			printf("\e[0;31m");
-			printf("%s\n", get_error_str(exit_status));
+			printf("%s\n", get_error_msg(exit_status));
 			//printf("%s\n", PROGRAM_USAGE);
 		}
 		else
