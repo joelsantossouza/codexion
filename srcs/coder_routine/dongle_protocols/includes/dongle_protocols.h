@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   release_two_dongles.c                              :+:      :+:    :+:   */
+/*   dongle_protocols.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/28 10:57:46 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/28 12:40:19 by joesanto         ###   ########.fr       */
+/*   Created: 2026/01/28 12:32:28 by joesanto          #+#    #+#             */
+/*   Updated: 2026/01/28 12:38:56 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dongle_protocols.h"
+#ifndef DONGLE_PROTOCOLS_H
+# define DONGLE_PROTOCOLS_H
 
-static inline
-void	release_dongle(t_dongle *dongle)
-{
-	pthread_mutex_lock();
-	dongle->last_release_ms = millis();
-	dequeue(dongle->queue);
-	pthread_mutex_unlock();
-}
+# include <stdint.h>
 
-void	release_two_dongles(t_coder *coder)
+# define QUEUE_SIZE	3
+
+typedef struct s_dongle_queue
 {
-	release_dongle(coder->left_dongle);
-	release_dongle(coder->right_dongle);
-	pthread_cond_broadcast();
-	pthread_cond_broadcast();
-}
+	t_coder		*coders[QUEUE_SIZE];
+	uint32_t	head;
+	uint32_t	tail;
+}	t_dongle_queue;
+
+typedef struct s_dongle
+{
+	uint64_t		last_release_ms;
+	t_dongle_queue	queue;
+}	t_dongle;
+
+#endif

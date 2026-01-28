@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:10:53 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/27 17:35:21 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/28 12:22:04 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ enum	e_exit_status
 {
 	SUCCESS = 0,
 
-	// PARSER ERRROS
 	ERR_PARSER_ARGC,
 	ERR_PARSER_SCHEDULER,
 	ERR_PARSER_NOT_DIGIT,
