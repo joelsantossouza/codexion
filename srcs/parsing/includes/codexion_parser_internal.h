@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   private_codexion_parser.h                          :+:      :+:    :+:   */
+/*   codexion_parser_internal.h                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 19:21:57 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/27 17:39:14 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/28 16:23:23 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRIVATE_CODEXION_PARSER_H
-# define PRIVATE_CODEXION_PARSER_H
+#ifndef CODEXION_PARSER_INTERNAL_H
+# define CODEXION_PARSER_INTERNAL_H
 
 # include <stdbool.h>
-# include "public_codexion_parser.h"
+# include "codexion_parser.h"
 
 # define INT_MAX	"2147483647"
 # define PROGRAM_USAGE \

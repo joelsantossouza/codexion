@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   release_two_dongles.c                              :+:      :+:    :+:   */
+/*   coder.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/28 10:57:46 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/28 16:04:57 by joesanto         ###   ########.fr       */
+/*   Created: 2026/01/28 16:24:01 by joesanto          #+#    #+#             */
+/*   Updated: 2026/01/28 16:26:37 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dongle_protocols.h"
+#ifndef CODER_H
+# define CODER_H
 
-static inline
-void	release_dongle(t_dongle *dongle)
-{
-	pthread_mutex_lock();
-	dongle->cooldown_end_ms = millis() + dongle->cooldown;
-	dequeue(&dongle->queue);
-	pthread_mutex_unlock();
-}
+# include <stdint.h>
 
-void	release_two_dongles(t_coder *coder)
+typedef struct s_dongle t_dongle;
+
+typedef struct s_coder
 {
-	release_dongle(coder->left_dongle);
-	release_dongle(coder->right_dongle);
-	pthread_cond_broadcast();
-	pthread_cond_broadcast();
-}
+	uint32_t		id;
+	t_dongle		*left_dongle;
+	t_dongle		*right_dongle;
+	uint64_t		deadline_ms;
+	struct timespec	deadline_ts;
+}	t_coder;
+
+#endif

@@ -6,13 +6,13 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 00:03:14 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/28 11:51:25 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/28 15:29:38 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "simulation_control.h"
 
-enum e_simulation_status	wait_fifo_turn(t_coder *coder)
+enum e_simulation_status	wait_fifo_turn(const t_coder *coder)
 {
 	t_dongle_queue	*left_queue;
 	t_dongle_queue	*right_queue;
