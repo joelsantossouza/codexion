@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 16:03:28 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/27 17:18:41 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/28 12:19:04 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 typedef struct s_codexion
 {
 	uint32_t		number_of_coders;
-	uint32_t		time_to_burnout;
-	uint32_t		time_to_compile;
-	uint32_t		time_to_debug;
-	uint32_t		time_to_refactor;
+	uint64_t		time_to_burnout;
+	uint64_t		time_to_compile;
+	uint64_t		time_to_debug;
+	uint64_t		time_to_refactor;
 	uint32_t		number_of_compiles_required;
-	uint32_t		dongle_cooldown;
+	uint64_t		dongle_cooldown;
 	//t_wait_turn_f	wait_turn;
 }	t_codexion;
 

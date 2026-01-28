@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 00:03:14 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/28 00:41:13 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/28 11:51:25 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 enum e_simulation_status	wait_fifo_turn(t_coder *coder)
 {
-	t_dongle	*left_dongle;
-	t_dongle	*right_dongle;
+	t_dongle_queue	*left_queue;
+	t_dongle_queue	*right_queue;
 
-	left_dongle = coder->left_dongle;
-	right_dongle = coder->right_dongle;
-	enqueue(left_dongle, coder);
-	enqueue(right_dongle, coder);
+	left_queue = &coder->left_dongle->queue;
+	right_queue = &coder->right_dongle->queue;
 	pthread_mutex_lock();
-	while (queue_top(left_dongle) != coder || queue_top(right_dongle) != coder)
+	enqueue(left_queue, coder);
+	enqueue(right_queue, coder);
+	while (queue_top(left_queue) != coder || queue_top(right_queue) != coder)
 	{
 		if (is_simulation_running() == false)
 		{
