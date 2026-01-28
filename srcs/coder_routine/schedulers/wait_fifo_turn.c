@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   request_two_dongles.c                              :+:      :+:    :+:   */
+/*   wait_fifo_turn.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/27 17:56:47 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/28 00:29:56 by joesanto         ###   ########.fr       */
+/*   Created: 2026/01/28 00:03:14 by joesanto          #+#    #+#             */
+/*   Updated: 2026/01/28 00:25:34 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "simulation_control.h"
 
-enum e_simulation_status request_two_dongles(t_coder *coder)
+enum e_simulation_status	wait_fifo_turn(t_coder *coder)
 {
-	if (coder->wait_my_turn(coder) == SIMULATION_STOPPED)
-		return (SIMULATION_STOPPED);
-	if (coder->wait_dongle_cooldown(coder->right_dongle) == SIMULATION_STOPPED)
-		return (SIMULATION_STOPPED);
-	if (coder->wait_dongle_cooldown(coder->left_dongle) == SIMULATION_STOPPED)
-		return (SIMULATION_STOPPED);
+	t_dongle	left_dongle;
+	t_dongle	right_dongle;
+
+	left_dongle = coder->left_dongle;
+	right_dongle = coder->right_dongle;
+	enqueue(left_dongle, coder);
+	enqueue(right_dongle, coder);
+	while (queue_top(left_dongle) != coder || queue_top(right_dongle) != coder)
+		if (pthread_cond_timedwait())
+			return (SIMULATION_STOPPED);
 	return (SIMULATION_RUNNING);
 }

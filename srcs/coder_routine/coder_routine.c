@@ -6,11 +6,13 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 16:21:50 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/27 18:59:46 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/27 23:56:06 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <stdbool.h>
+#include "simulation_control.h"
 
 void	*coder_routine(t_coder *coder)
 {
