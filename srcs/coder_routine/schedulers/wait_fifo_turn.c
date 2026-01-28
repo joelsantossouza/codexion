@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 00:03:14 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/28 15:29:38 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/28 16:40:25 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ enum e_simulation_status	wait_fifo_turn(const t_coder *coder)
 	pthread_mutex_lock();
 	enqueue(left_queue, coder);
 	enqueue(right_queue, coder);
-	while (queue_top(left_queue) != coder || queue_top(right_queue) != coder)
+	while (queue_head(left_queue) != coder || queue_head(right_queue) != coder)
 	{
 		if (is_simulation_running() == false)
 		{

@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 12:32:28 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/28 16:27:59 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/28 16:40:13 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,17 @@ t_coder	*dequeue(t_dongle_queue *queue)
 	if (head == queue->tail)
 		return (NULL);
 	queue->head = (head + 1) & QUEUE_MASK;
+	return (queue->coders[head]);
+}
+
+static inline
+__attribute__((always_inline))
+t_coder	*queue_head(t_dongle_queue *queue)
+{
+	const uint32_t	head = queue->head;
+
+	if (head == queue->tail)
+		return (NULL);
 	return (queue->coders[head]);
 }
 
