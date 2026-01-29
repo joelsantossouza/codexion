@@ -55,3 +55,24 @@ monitor_routine:
 				simulation_is_running = false
 				print(WHO_DIED)
 				return;
+
+void	stop_simulation(void)
+{
+	const bool stop = false;
+
+	is_simulation_running(&stop);
+}
+
+bool	is_simulation_running(const bool *set_simulation_state)
+{
+	static bool simulation_running = true;
+	static pthread_mutex_t simulation_state_mutex = PTHREAD_MUTEX_INITIALIZE
+	bool	is_running;
+
+	pthread_mutex_lock(&simulation_state_mutex);
+	is_running = simulation_running;
+	if (set_simulation_state)
+		simulation_running = *set_simulation_state;
+	pthread_mutex_unlock(&simulation_state_mutex);
+	return (is_running);
+}

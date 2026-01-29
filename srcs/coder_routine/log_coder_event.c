@@ -6,13 +6,15 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 16:51:51 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/29 13:11:29 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/29 16:11:32 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdint.h>
+#include <stdbool.h>
 #include "coder_internal.h"
+#include "simulation_control.h"
 #include "time_utils.h"
 
 static inline
@@ -30,23 +32,23 @@ uint64_t	udigit_count(uint64_t nbr)
 }
 
 static inline
-uint64_t	buffer_ultoa(uint64_t nbr, char buffer[UINT64_MAXLEN])
+char	*buffer_ultoa(uint64_t nbr, char buffer[UINT64_MAXLEN])
 {
-	const uint64_t	nbr_len = udigit_count(nbr);
-	uint64_t		size;
+	uint64_t	nbr_len;
+	char		*endptr;
 
-	size = nbr_len;
-	buffer[size] = 0;
-	while (size-- > 0)
+	nbr_len = udigit_count(nbr);
+	endptr = buffer + nbr_len;
+	while (nbr_len-- > 0)
 	{
-		buffer[size] = nbr % 10 + '0';
+		buffer[nbr_len] = nbr % 10 + '0';
 		nbr /= 10;
 	}
-	return (nbr_len);
+	return (endptr);
 }
 
 static inline
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	*ft_mempcpy(void *dest, const void *src, size_t n)
 {
 	unsigned char		*pdest;
 	const unsigned char	*psrc;
@@ -68,7 +70,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	}
 	while (n--)
 		*pdest++ = *psrc++;
-	return (dest);
+	return (pdest);
 }
 
 void	init_coder_log(void)
@@ -76,38 +78,31 @@ void	init_coder_log(void)
 	timestamp_ms(millis());
 }
 
-int	log_coder_event(t_coder *coder, enum e_event_id event_id)
+enum e_exit_status	log_coder_event(const t_coder *coder, enum e_event_id event_id)
 {
 	char			log[LOG_BUFFER_SIZE];
-	uint32_t		log_len;
+	char			*log_ptr;
 	static const char	*events_msg[MAX_EVENTS] = {
-		MSG_TAKEN_DONGLE,
-		MSG_COMPILING,
-		MSG_DEBUGGING,
-		MSG_REFACTORING,
-		MSG_BURNOUT
+		MSG_TAKEN_DONGLE, MSG_COMPILING, MSG_DEBUGGING,
+		MSG_REFACTORING, MSG_BURNOUT
 	};
 	static const uint32_t	events_msg_len[MAX_EVENTS] = {
-		MSG_TAKEN_DONGLE_STRLEN,
-		MSG_COMPILING_STRLEN,
-		MSG_DEBUGGING_STRLEN,
-		MSG_REFACTORING_STRLEN,
-		MSG_BURNOUT_STRLEN
+		MSG_TAKEN_DONGLE_STRLEN, MSG_COMPILING_STRLEN, MSG_DEBUGGING_STRLEN,
+		MSG_REFACTORING_STRLEN, MSG_BURNOUT_STRLEN
 	};
 
-	if (event_id >= MAX_EVENTS)  //WARNING:
-		return (-1);
-	//if (event_id >= MAX_EVENTS || is_simulation_running() == false)  WARNING:
-	//	return (-1);
-	log_len = buffer_ultoa(timestamp_ms(0), log);
-	log[log_len++] = ' ';
-	log_len += buffer_ultoa(coder->id, log + log_len);
-	log[log_len++] = ' ';
-	ft_memcpy(log + log_len, events_msg[event_id], events_msg_len[event_id]);
-	log_len += events_msg_len[event_id];
-	log[log_len++] = '\n';
+	if (event_id < 0 || event_id >= MAX_EVENTS)
+		return (ERR_LOG_INVALID_EVENT);
+	log_ptr = buffer_ultoa(timestamp_ms(0), log);
+	*log_ptr++ = ' ';
+	log_ptr = buffer_ultoa(coder->id, log_ptr);
+	*log_ptr++ = ' ';
+	log_ptr = ft_mempcpy(log_ptr, events_msg[event_id], events_msg_len[event_id]);
+	*log_ptr++ = '\n';
 	pthread_mutex_lock(coder->log_mutex);
-	write(STDOUT_FILENO, log, log_len);
+	if (is_simulation_running() == false)
+		return (pthread_mutex_unlock(coder->log_mutex), ERR_LOG_SIM_STOPPED);
+	write(STDOUT_FILENO, log, log_ptr - log);
 	pthread_mutex_unlock(coder->log_mutex);
-	return (log_len);
+	return (SUCCESS);
 }

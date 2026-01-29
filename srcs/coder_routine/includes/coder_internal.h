@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 20:42:30 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/29 12:09:38 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/29 15:37:17 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CODER_INTERNAL_H
 
 # include "coder.h"
+# include "errors.h"
 
 # define UINT64_MAXLEN				21
 # define LOG_BUFFER_SIZE			64
@@ -43,7 +44,7 @@ enum e_event_id
 	MAX_EVENTS
 };
 
-void	init_coder_log(void);
-int	log_coder_event(t_coder *coder, enum e_event_id event_id);
+void				init_coder_log(void);
+enum e_exit_status	log_coder_event(const t_coder *coder, enum e_event_id event_id);
 
 #endif
