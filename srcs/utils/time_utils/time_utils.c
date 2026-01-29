@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   coder.h                                            :+:      :+:    :+:   */
+/*   time_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/28 16:24:01 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/29 11:55:21 by joesanto         ###   ########.fr       */
+/*   Created: 2026/01/29 11:35:37 by joesanto          #+#    #+#             */
+/*   Updated: 2026/01/29 11:38:52 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CODER_H
-# define CODER_H
+#include <stdint.h>
+#include "time_utils.h"
 
-# include <pthread.h>
-# include <stdint.h>
-
-typedef struct s_dongle t_dongle;
-
-typedef struct s_coder
+uint64_t	timestamp_ms(uint64_t set_start)
 {
-	uint32_t		id;
-	pthread_t		thread;
-	pthread_mutex_t	*log_mutex;
-	t_dongle		*left_dongle;
-	t_dongle		*right_dongle;
-	uint64_t		deadline_ms;
-	struct timespec	deadline_ts;
-}	t_coder;
+	static uint64_t	start = 0;
 
-#endif
+	if (set_start > 0)
+		start = set_start;
+	return (millis() - start);
+}

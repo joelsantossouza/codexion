@@ -6,13 +6,14 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 16:51:51 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/28 22:58:12 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/29 11:55:49 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdint.h>
 #include "coder_internal.h"
+#include "time_utils.h"
 
 static inline
 uint64_t	udigit_count(uint64_t nbr)
@@ -64,6 +65,11 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
+void	init_coder_log(void)
+{
+	timestamp_ms(millis());
+}
+
 int	log_coder_event(t_coder *coder, enum e_event_id event_id)
 {
 	char			log[LOG_BUFFER_SIZE];
@@ -83,15 +89,15 @@ int	log_coder_event(t_coder *coder, enum e_event_id event_id)
 		MSG_BURNOUT_STRLEN
 	};
 
-	if (event_id >= MAX_EVENTS || is_simulation_running() == false)
-		return (-1);
+	//if (event_id >= MAX_EVENTS || is_simulation_running() == false)  WARNING:
+	//	return (-1);
 	log_len = buffer_ultoa(timestamp_ms(0), log);
 	log_len += buffer_ultoa(coder->id, log + log_len);
 	ft_memcpy(log + log_len, events_msg[event_id], events_msg_len[event_id]);
 	log_len += events_msg_len[event_id];
 	log[log_len++] = '\n';
-	pthread_mutex_lock();
+	pthread_mutex_lock(coder->log_mutex);
 	write(STDOUT_FILENO, log, log_len);
-	pthread_mutex_unlock();
+	pthread_mutex_unlock(coder->log_mutex);
 	return (log_len);
 }
