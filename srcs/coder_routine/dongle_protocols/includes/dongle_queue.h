@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:34:39 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/29 16:45:41 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/29 19:45:56 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,5 @@ typedef struct s_dongle_queue
 
 enum e_enqueue_status	enqueue(t_dongle_queue *queue, t_coder *coder);
 t_coder					*dequeue(t_dongle_queue *queue);
-t_coder					*queue_head(t_dongle_queue *queue);
 
 #endif

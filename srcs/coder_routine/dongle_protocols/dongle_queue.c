@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:38:07 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/29 16:54:18 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/29 19:58:04 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,4 @@ t_coder	*dequeue(t_dongle_queue *queue)
 	queue->head = (head + 1) & QUEUE_MASK;
 	pthread_mutex_unlock(&queue->mutex);
 	return (dequeued_coder);
-}
-
-t_coder	*queue_head(t_dongle_queue *queue)
-{
-	uint32_t	head;
-	t_coder		*head_coder;
-
-	pthread_mutex_lock(&queue->mutex);
-	head = queue->head;
-	if (head == queue->tail)
-	{
-		pthread_mutex_unlock(&queue->mutex);
-		return (NULL);
-	}
-	head_coder = queue->coders[head];
-	pthread_mutex_unlock(&queue->mutex);
-	return (head_coder);
 }

@@ -6,14 +6,14 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 17:56:47 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/28 16:05:50 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/29 20:22:59 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dongle_protocols.h"
 #include "simulation_control.h"
 
-static inline
+static
 enum e_simulation_status	wait_dongle_cooldown(const t_coder *coder, const t_dongle *dongle)
 {
 	uint64_t	dongle_cooldown_end_ms;

@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 12:32:28 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/29 16:42:03 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/29 19:55:10 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define DONGLE_PROTOCOLS_H
 
 # include <stdint.h>
+# include "dongle_queue.h"
 # include "simulation_control.h"
 
 typedef struct s_coder t_coder;
