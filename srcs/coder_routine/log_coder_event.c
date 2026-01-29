@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 16:51:51 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/29 11:55:49 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/29 13:11:29 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,15 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	unsigned char		*pdest;
 	const unsigned char	*psrc;
+	const size_t		ptr_mask = sizeof(uintptr_t) - 1;
 
 	pdest = (unsigned char *) dest;
 	psrc = (const unsigned char *) src;
+	while (n > 0 && (((uintptr_t)pdest | (uintptr_t)psrc) & ptr_mask))
+	{
+		*pdest++ = *psrc++;
+		n--;
+	}
 	while (n >= 8)
 	{
 		*(size_t *) pdest = *(size_t *) psrc;
@@ -89,10 +95,14 @@ int	log_coder_event(t_coder *coder, enum e_event_id event_id)
 		MSG_BURNOUT_STRLEN
 	};
 
+	if (event_id >= MAX_EVENTS)  //WARNING:
+		return (-1);
 	//if (event_id >= MAX_EVENTS || is_simulation_running() == false)  WARNING:
 	//	return (-1);
 	log_len = buffer_ultoa(timestamp_ms(0), log);
+	log[log_len++] = ' ';
 	log_len += buffer_ultoa(coder->id, log + log_len);
+	log[log_len++] = ' ';
 	ft_memcpy(log + log_len, events_msg[event_id], events_msg_len[event_id]);
 	log_len += events_msg_len[event_id];
 	log[log_len++] = '\n';

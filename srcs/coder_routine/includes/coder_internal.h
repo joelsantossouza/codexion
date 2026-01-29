@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 20:42:30 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/29 11:49:48 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/29 12:09:38 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "coder.h"
 
+# define UINT64_MAXLEN				21
 # define LOG_BUFFER_SIZE			64
 
 # define MSG_TAKEN_DONGLE			"has taken a dongle"
