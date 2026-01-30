@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 16:03:28 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/28 14:51:15 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/29 23:21:49 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # include <stdint.h>
 # include "errors.h"
+# include "simulation_control.h"
+
+typedef struct s_coder	t_coder;
+typedef enum e_simulation_status	(*t_wait_turn_f)(t_coder *coder);
 
 typedef struct s_codexion
 {
@@ -25,7 +29,7 @@ typedef struct s_codexion
 	uint64_t		time_to_refactor;
 	uint32_t		number_of_compiles_required;
 	uint64_t		dongle_cooldown;
-	//t_wait_turn_f	wait_turn;
+	t_wait_turn_f	wait_turn;
 }	t_codexion;
 
 enum e_exit_status	codexion_parser(t_codexion *codexion, int argc, char **argv);

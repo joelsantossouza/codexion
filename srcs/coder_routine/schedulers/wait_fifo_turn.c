@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 00:03:14 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/29 20:19:01 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/29 22:53:05 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,22 @@ bool	is_my_turn(t_coder *me)
 
 enum e_simulation_status	wait_fifo_turn(t_coder *coder)
 {
-	pthread_mutex_lock();
+	pthread_mutex_lock(&coder->mutex);
 	enqueue(&coder->left_dongle->queue, coder);
 	enqueue(&coder->right_dongle->queue, coder);
 	while (is_my_turn(coder) == false)
 	{
 		if (is_simulation_running() == false)
 		{
-			pthread_mutex_unlock();
+			pthread_mutex_unlock(&coder->mutex);
 			return (SIMULATION_STOPPED);
 		}
-		if (pthread_cond_timedwait())
+		if (pthread_cond_timedwait(&coder->cond, &coder->mutex, &coder->deadline_ts))
 		{
-			pthread_mutex_unlock();
+			pthread_mutex_unlock(&coder->mutex);
 			return (SIMULATION_STOPPED);
 		}
 	}
-	pthread_mutex_unlock();
+	pthread_mutex_unlock(&coder->mutex);
 	return (SIMULATION_RUNNING);
 }

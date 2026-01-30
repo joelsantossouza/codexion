@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dongle_protocols.h                                 :+:      :+:    :+:   */
+/*   schedulers.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/28 12:32:28 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/29 23:35:39 by joesanto         ###   ########.fr       */
+/*   Created: 2026/01/29 23:30:51 by joesanto          #+#    #+#             */
+/*   Updated: 2026/01/29 23:32:59 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DONGLE_PROTOCOLS_H
-# define DONGLE_PROTOCOLS_H
+#ifndef SCHEDULERS_H
+# define SCHEDULERS_H
 
-# include <stdint.h>
-# include "dongle_queue.h"
 # include "simulation_control.h"
 
-typedef struct s_coder t_coder;
+typedef struct s_coder	t_coder;
 
-typedef struct s_dongle
-{
-	pthread_mutex_t	mutex;
-	const uint64_t	*cooldown;
-	uint64_t		cooldown_end_ms;
-	t_dongle_queue	queue;
-}	t_dongle;
-
-enum e_simulation_status	request_two_dongles(t_coder *coder);
-void						release_two_dongles(t_coder *coder);
+enum e_simulation_status	wait_fifo_turn(t_coder *coder);
 
 #endif

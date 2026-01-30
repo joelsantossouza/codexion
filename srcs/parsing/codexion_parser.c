@@ -6,13 +6,14 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:06:06 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/27 17:43:46 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/29 23:33:26 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 #include <stdlib.h>
-#include "private_codexion_parser.h"
+#include "codexion_parser_internal.h"
+#include "schedulers.h"
 
 enum e_exit_status	codexion_parser(t_codexion *codexion, int argc, char **argv)
 {
@@ -35,8 +36,7 @@ enum e_exit_status	codexion_parser(t_codexion *codexion, int argc, char **argv)
 	codexion->number_of_compiles_required = atoi(argv[5]);
 	codexion->dongle_cooldown = atoi(argv[6]);
 	if (strcmp(argv[7], "fifo") == 0)
-		;
-		//codexion->wait_turn = NULL;
+		codexion->wait_turn = wait_fifo_turn;
 	else if (strcmp(argv[7], "edf") == 0)
 		;
 		//codexion->wait_turn = NULL;
