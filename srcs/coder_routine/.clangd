@@ -4,3 +4,5 @@ CompileFlags:
     - "-I./includes"
     - "-I../utils/time_utils"
     - "-I../errors/includes/"
+    - "-I./dongle_protocols/includes/"
+    - "-I../utils/time_utils/"

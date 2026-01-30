@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 16:21:50 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/29 16:21:18 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/30 17:56:07 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdbool.h>
 #include "coder_internal.h"
 #include "simulation_control.h"
+#include "dongle_protocols.h"
 
 void	*coder_routine(t_coder *coder)
 {

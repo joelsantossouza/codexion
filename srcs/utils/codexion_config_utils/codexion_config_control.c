@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion_parser.h                                  :+:      :+:    :+:   */
+/*   codexion_config_control.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/06 16:03:28 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/30 18:21:08 by joesanto         ###   ########.fr       */
+/*   Created: 2026/01/30 18:26:20 by joesanto          #+#    #+#             */
+/*   Updated: 2026/01/30 18:34:59 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CODEXION_PARSER_H
-# define CODEXION_PARSER_H
+#include "codexion.h"
 
-# include "errors.h"
+const t_codexion_config	*codexion_config_control(const t_codexion_config *set_config)
+{
+	static t_codexion_config	codexion_config;
 
-typedef struct s_codexion_config t_codexion_config;
-
-enum e_exit_status	codexion_parser(t_codexion_config *config, int argc, const char **argv);
-
-#endif
+	if (set_config)
+		codexion_config = *set_config;
+	return ((const t_codexion_config *)&codexion_config);
+}

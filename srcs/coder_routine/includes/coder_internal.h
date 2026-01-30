@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 20:42:30 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/29 15:37:17 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/30 18:02:09 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "coder.h"
 # include "errors.h"
+# include "simulation_control.h"
+# include "time_utils.h"
 
 # define UINT64_MAXLEN				21
 # define LOG_BUFFER_SIZE			64
@@ -46,5 +48,12 @@ enum e_event_id
 
 void				init_coder_log(void);
 enum e_exit_status	log_coder_event(const t_coder *coder, enum e_event_id event_id);
+
+static inline
+__attribute__((always_inline))
+enum e_simulation_status	execute_task(const t_coder *coder, uint64_t task_duration_ms)
+{
+	return (monitored_wait_until(millis() + task_duration_ms, coder->deadline_ms));
+}
 
 #endif

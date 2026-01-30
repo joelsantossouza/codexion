@@ -3,12 +3,12 @@
 #include "../../utils/time_utils/time_utils.h"
 #include "../../schedulers/includes/schedulers.h"
 
-#define SLEEP_TIME_US	3000
+#define SLEEP_TIME_MS	100
 #define ODD				0
 #define EVEN			1
 
 pthread_mutex_t	log_mutex = PTHREAD_MUTEX_INITIALIZER;
-uint64_t		cooldown = 100;
+uint64_t		cooldown = 500;
 
 void	*coder_loop(void *arg)
 {
@@ -18,7 +18,8 @@ void	*coder_loop(void *arg)
 	{
 		request_two_dongles(coder);
 		log_coder_event(coder, EVENT_COMPILING);
-		usleep(SLEEP_TIME_US);
+		usleep(SLEEP_TIME_MS * 1000);
+		log_coder_event(coder, EVENT_REFACTORING);
 		release_two_dongles(coder);
 	}
 }
@@ -34,7 +35,7 @@ void	start_coders(int start, int size, t_coder coders[size], t_dongle dongles[si
 		coders[i].right_dongle = &dongles[(i + 1) % size];
 		coders[i].right_neighboor = &coders[(i + 1) % size];
 
-		coders[i].left_dongle = &dongles[(i - 1 + size) % size];
+		coders[i].left_dongle = &dongles[i];
 		coders[i].left_neighboor = &coders[(i - 1 + size) % size];
 
 		coders[i].deadline_ms = millis() + 1000000000;
@@ -62,16 +63,18 @@ void	init_dongles(int size, t_dongle dongles[size])
 		dongles[i].queue.head = 0;
 		dongles[i].queue.tail = 0;
 		pthread_mutex_init(&dongles[i].queue.mutex, NULL);
+		i++;
 	}
 }
 
 int	main(void)
 {
-	int			ncoders = 2;
+	int			ncoders = 5;
 	t_dongle	dongles[ncoders];
 	t_coder		coders[ncoders];
 
 	init_dongles(ncoders, dongles);
+	init_coder_log();
 	start_coders(ODD, ncoders, coders, dongles);
 	start_coders(EVEN, ncoders, coders, dongles);
 	for (int i = 0; i < ncoders; i++)

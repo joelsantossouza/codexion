@@ -6,3 +6,4 @@ CompileFlags:
     - "-I../utils/time_manipulation"
     - "-I../monitor_routine/simulation_control/includes/"
     - "-I../coder_routine/schedulers/includes/"
+    - "-I../../includes"
