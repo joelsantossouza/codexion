@@ -1,0 +1,4 @@
+CompileFlags:
+  Add:
+    - "-I../../../monitor_routine/simulation_control/includes/"
+    - "-I../../../errors/includes/"

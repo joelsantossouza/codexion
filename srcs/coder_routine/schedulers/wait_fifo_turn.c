@@ -6,11 +6,12 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 00:03:14 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/29 22:53:05 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/30 17:29:44 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
+#include <errno.h>
 #include "coder.h"
 #include "dongle_protocols.h"
 
@@ -27,13 +28,13 @@ bool	is_my_turn(t_coder *me)
 	pthread_mutex_lock(&left_queue->mutex);
 	head = left_queue->head;
 	if (head == left_queue->tail || left_queue->coders[head] != me)
-		return (false);
+		return (pthread_mutex_unlock(&left_queue->mutex), false);
 	pthread_mutex_unlock(&left_queue->mutex);
 
 	pthread_mutex_lock(&right_queue->mutex);
 	head = right_queue->head;
 	if (head == right_queue->tail || right_queue->coders[head] != me)
-		return (false);
+		return (pthread_mutex_unlock(&right_queue->mutex), false);
 	pthread_mutex_unlock(&right_queue->mutex);
 
 	return (true);
@@ -51,7 +52,7 @@ enum e_simulation_status	wait_fifo_turn(t_coder *coder)
 			pthread_mutex_unlock(&coder->mutex);
 			return (SIMULATION_STOPPED);
 		}
-		if (pthread_cond_timedwait(&coder->cond, &coder->mutex, &coder->deadline_ts))
+		if (pthread_cond_timedwait(&coder->cond, &coder->mutex, &coder->deadline_ts) == ETIMEDOUT)
 		{
 			pthread_mutex_unlock(&coder->mutex);
 			return (SIMULATION_STOPPED);
