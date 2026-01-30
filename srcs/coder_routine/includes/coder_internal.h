@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 20:42:30 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/30 18:02:09 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/30 19:42:45 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,14 @@ __attribute__((always_inline))
 enum e_simulation_status	execute_task(const t_coder *coder, uint64_t task_duration_ms)
 {
 	return (monitored_wait_until(millis() + task_duration_ms, coder->deadline_ms));
+}
+
+static inline
+__attribute__((always_inline))
+void	reset_deadline(t_coder *coder, uint64_t time_to_burnout_ms)
+{
+	coder->deadline_ms = millis() + time_to_burnout_ms;
+	set_abstime(&coder->deadline_ts, time_to_burnout_ms);
 }
 
 #endif

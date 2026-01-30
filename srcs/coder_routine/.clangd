@@ -6,3 +6,5 @@ CompileFlags:
     - "-I../errors/includes/"
     - "-I./dongle_protocols/includes/"
     - "-I../utils/time_utils/"
+    - "-I../utils/codexion_config_utils/"
+    - "-I../../includes"
