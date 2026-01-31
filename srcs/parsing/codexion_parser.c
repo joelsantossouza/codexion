@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:06:06 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/30 18:22:41 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/31 19:38:54 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "codexion_parser_internal.h"
 #include "schedulers.h"
 
-enum e_exit_status	codexion_parser(t_codexion_config *config, int argc, const char **argv)
+enum e_exit_status	codexion_parser(t_codexion_config *config, int argc, char **argv)
 {
 	if (argc-- != 8)
 		return (ERR_PARSER_ARGC);
@@ -26,10 +26,12 @@ enum e_exit_status	codexion_parser(t_codexion_config *config, int argc, const ch
 			return (ERR_PARSER_NOT_DIGIT);
 		if (nbrcmp(argv[argc], "0") < 0)
 			return (ERR_PARSER_NEG_INT);
-		if (nbrcmp(argv[argc], INT_MAX) > 0)
+		if (nbrcmp(argv[argc], INT_MAX_STR) > 0)
 			return (ERR_PARSER_OVERFLOW);
 	}
 	config->number_of_coders = atoi(argv[0]);
+	if (config->number_of_coders > MAX_CODERS)
+		return (ERR_PARSER_MAX_CODERS);
 	config->time_to_burnout = atoi(argv[1]);
 	config->time_to_compile = atoi(argv[2]);
 	config->time_to_debug = atoi(argv[3]);

@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 19:21:57 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/28 16:23:23 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/31 19:25:27 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 # include <stdbool.h>
 # include "codexion_parser.h"
 
-# define INT_MAX	"2147483647"
+# define INT_MAX_STR	"2147483647"
+
 # define PROGRAM_USAGE \
 	"Usage:\n" \
 	" - <number_of_coders>\n" \

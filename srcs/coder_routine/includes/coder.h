@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 16:24:01 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/29 23:21:26 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/31 20:03:23 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # include <pthread.h>
 # include <stdint.h>
 # include "simulation_control.h"
+# include "dongle_protocols.h"
 
 typedef struct s_coder	t_coder;
-typedef struct s_dongle t_dongle;
 typedef enum e_simulation_status	(*t_wait_turn_f)(t_coder *coder);
 
 typedef struct s_coder
@@ -41,5 +41,10 @@ typedef struct s_coder
 
 	t_wait_turn_f	wait_my_turn;
 }	t_coder;
+
+int		init_coders(uint32_t ncoders, t_coder coders[ncoders], t_dongle dongles[ncoders], pthread_mutex_t *log_mutex);
+void	init_coder_log(void);
+int		destroy_coders(uint32_t ncoders, t_coder coders[ncoders]);
+void	*coder_routine(t_coder *coder);
 
 #endif

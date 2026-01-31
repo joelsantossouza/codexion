@@ -1,5 +1,6 @@
-#include "../includes/public_codexion_parser.h"
+#include "../includes/codexion_parser.h"
 #include "../../errors/includes/errors.h"
+#include "../../../includes/codexion.h"
 #include <stdio.h>
 
 #define MAX_SIZE	100
@@ -30,7 +31,7 @@ void	argv_print(char *argv[])
 
 void	test_cases(int size, char *argv[size][MAX_SIZE])
 {
-	t_codexion			codexion;
+	t_codexion_config	codexion;
 	enum e_exit_status	exit_status;
 	int					i;
 
@@ -49,12 +50,12 @@ void	test_cases(int size, char *argv[size][MAX_SIZE])
 		{
 			printf("\e[0;32m");
 			printf("number_of_coders: %d\n", codexion.number_of_coders);
-			printf("time_to_burnout: %d\n", codexion.time_to_burnout);
-			printf("time_to_compile: %d\n", codexion.time_to_compile);
-			printf("time_to_debug: %d\n", codexion.time_to_debug);
-			printf("time_to_refactor: %d\n", codexion.time_to_refactor);
+			printf("time_to_burnout: %lu\n", codexion.time_to_burnout);
+			printf("time_to_compile: %lu\n", codexion.time_to_compile);
+			printf("time_to_debug: %lu\n", codexion.time_to_debug);
+			printf("time_to_refactor: %lu\n", codexion.time_to_refactor);
 			printf("number_of_compiles_required: %d\n", codexion.number_of_compiles_required);
-			printf("dongle_cooldown: %d\n", codexion.dongle_cooldown);
+			printf("dongle_cooldown: %lu\n", codexion.dongle_cooldown);
 		}
 		printf("----------------------------\n");
 		printf("\e[0m");

@@ -7,3 +7,7 @@ CompileFlags:
     - "-I../monitor_routine/simulation_control/includes/"
     - "-I../coder_routine/schedulers/includes/"
     - "-I../../includes"
+    - "-I../../includes"
+    - "-I../utils/codexion_config_utils/"
+    - "-I../coder_routine/includes"
+    - "-I../coder_routine/dongle_protocols/includes"

@@ -1,3 +1,7 @@
 CompileFlags:
   Add:
     - "-I../srcs/monitor_routine/simulation_control/includes/"
+    - "-I../srcs/errors/includes/"
+    - "-I../srcs/parsing/includes/"
+    - "-I../srcs/utils/codexion_config_utils/"
+    - "-I../srcs/coder_routine/includes/"

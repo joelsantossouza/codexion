@@ -3,3 +3,4 @@ CompileFlags:
     - "-I../../errors/includes"
     - "-I../../monitor_routine/simulation_control/includes/"
     - "-I../../utils/time_utils/"
+    - "-I../dongle_protocols/includes/"

@@ -1,0 +1,9 @@
+CompileFlags:
+  Add:
+    - "-I../includes"
+    - "-I./monitor_routine/simulation_control/includes/"
+    - "-I./errors/includes/"
+    - "-I./parsing/includes/"
+    - "-I./utils/codexion_config_utils/"
+    - "-I./coder_routine/includes/"
+    - "-I./coder_routine/dongle_protocols/includes/"
