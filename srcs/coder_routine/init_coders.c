@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 16:21:38 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/31 17:00:12 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/31 17:14:29 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	destroy_coders(uint32_t ncoders, t_coder coders[ncoders])
 	return (pthread_cond_destroy(&coders[i].cond));
 }
 
-int	init_coders(uint32_t ncoders, t_coder coders[ncoders], t_dongle dongles[ncoders])
+int	init_coders(uint32_t ncoders, t_coder coders[ncoders], t_dongle dongles[ncoders], pthread_mutex_t *log_mutex)
 {
 	const t_codexion_config	*config = get_codexion_config();
 	int						exit_status;
@@ -53,6 +53,7 @@ int	init_coders(uint32_t ncoders, t_coder coders[ncoders], t_dongle dongles[ncod
 			return (destroy_coders(i, coders), exit_status);
 		}
 		reset_deadline(&coders[i], config->time_to_burnout);
+		coders[i].log_mutex = log_mutex;
 		coders[i].left_dongle = &dongles[i];
 		coders[i].right_dongle = &dongles[(i + 1) % ncoders];
 		coders[i].left_neighboor = &coders[(i - 1 + ncoders) % ncoders];
