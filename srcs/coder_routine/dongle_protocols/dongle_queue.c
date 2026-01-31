@@ -6,12 +6,24 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:38:07 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/30 17:18:19 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/31 15:41:15 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "dongle_queue.h"
+
+int	init_dongle_queue(t_dongle_queue *queue)
+{
+	queue->head = 0;
+	queue->tail = 0;
+	return (pthread_mutex_init(&queue->mutex, NULL));
+}
+
+int	destroy_dongle_queue(t_dongle_queue *queue)
+{
+	return (pthread_mutex_destroy(&queue->mutex));
+}
 
 enum e_enqueue_status	enqueue(t_dongle_queue *queue, t_coder *coder)
 {

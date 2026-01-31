@@ -4,3 +4,6 @@ CompileFlags:
     - "-I./includes/"
     - "-I../includes"
     - "-I../../utils/time_utils/"
+    - "-I../../errors/includes"
+    - "-I../../utils/codexion_config_utils/"
+    - "-I../../../includes"

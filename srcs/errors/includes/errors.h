@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:10:53 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/29 15:13:41 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/31 15:37:51 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ enum	e_exit_status
 	ERR_PARSER_OVERFLOW,
 
 	ERR_LOG_INVALID_EVENT,
-	ERR_LOG_SIM_STOPPED
+	ERR_LOG_SIM_STOPPED,
 };
 
 # define ERR_PARSER_ARGC_MSG		"Error: Wrong number of arguments\n"

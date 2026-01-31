@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:34:39 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/29 19:45:56 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/01/31 15:40:52 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <pthread.h>
 # include <stdint.h>
+# include "errors.h"
 
 typedef struct s_coder t_coder;
 
@@ -38,6 +39,8 @@ typedef struct s_dongle_queue
 	pthread_mutex_t	mutex;
 }	t_dongle_queue;
 
+int						init_dongle_queue(t_dongle_queue *queue);
+int						destroy_dongle_queue(t_dongle_queue *queue);
 enum e_enqueue_status	enqueue(t_dongle_queue *queue, t_coder *coder);
 t_coder					*dequeue(t_dongle_queue *queue);
 
