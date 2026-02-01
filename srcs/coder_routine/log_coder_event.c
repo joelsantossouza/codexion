@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 16:51:51 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/29 16:11:32 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/01 18:53:38 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ enum e_exit_status	log_coder_event(const t_coder *coder, enum e_event_id event_i
 	log_ptr = ft_mempcpy(log_ptr, events_msg[event_id], events_msg_len[event_id]);
 	*log_ptr++ = '\n';
 	pthread_mutex_lock(coder->log_mutex);
-	if (is_simulation_running() == false)
+	if (event_id != EVENT_BURNOUT && is_simulation_running() == false)
 		return (pthread_mutex_unlock(coder->log_mutex), ERR_LOG_SIM_STOPPED);
 	write(STDOUT_FILENO, log, log_ptr - log);
 	pthread_mutex_unlock(coder->log_mutex);

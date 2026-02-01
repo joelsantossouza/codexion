@@ -6,7 +6,7 @@
 #    By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/31 20:08:50 by joesanto          #+#    #+#              #
-#    Updated: 2026/02/01 17:11:40 by joesanto         ###   ########.fr        #
+#    Updated: 2026/02/01 18:47:59 by joesanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -g -pthread
 LDFLAGS		=
 SRCS_DIR	= srcs
+MAX_CODERS	= 200
 
 # ------------------------------ CODER ROUTINE ------------------------------- #
 CODER_ROUTINE_DIR		= $(SRCS_DIR)/coder_routine
@@ -163,7 +164,7 @@ $(NAME): $(OBJS)
 	$(CC) $^ $(LDFLAGS) -o $@
 
 %.o: %.c $(HEADERS)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -DMAX_CODERS=$(MAX_CODERS) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)
