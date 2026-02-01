@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 20:42:30 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/01 19:25:49 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/01 19:43:18 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ enum e_event_id
 	MAX_EVENTS
 };
 
+void				reset_deadline(t_coder *coder, uint64_t time_to_burnout_ms);
 void				update_compilations_done(t_coder *coder);
 enum e_exit_status	log_coder_event(const t_coder *coder, enum e_event_id event_id);
 
@@ -54,14 +55,6 @@ __attribute__((always_inline))
 enum e_simulation_status	execute_task(const t_coder *coder, uint64_t task_duration_ms)
 {
 	return (monitored_wait_until(millis() + task_duration_ms, coder->deadline_ms));
-}
-
-static inline
-__attribute__((always_inline))
-void	reset_deadline(t_coder *coder, uint64_t time_to_burnout_ms)
-{
-	coder->deadline_ms = millis() + time_to_burnout_ms;
-	set_abstime(&coder->deadline_ts, time_to_burnout_ms);
 }
 
 #endif

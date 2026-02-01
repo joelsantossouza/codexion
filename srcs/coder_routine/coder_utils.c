@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 16:21:38 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/01 19:25:27 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/01 19:42:29 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,21 @@
 #include "dongle_protocols.h"
 #include "codexion_config_control.h"
 #include "codexion.h"
+
+void	update_compilations_done(t_coder *coder)
+{
+	pthread_mutex_lock(&coder->mutex);
+	coder->compilations_done++;
+	pthread_mutex_unlock(&coder->mutex);
+}
+
+void	reset_deadline(t_coder *coder, uint64_t time_to_burnout_ms)
+{
+	pthread_mutex_lock(&coder->mutex);
+	coder->deadline_ms = millis() + time_to_burnout_ms;
+	pthread_mutex_unlock(&coder->mutex);
+	set_abstime(&coder->deadline_ts, time_to_burnout_ms);
+}
 
 int	destroy_coders(uint32_t ncoders, t_coder coders[ncoders])
 {
@@ -61,11 +76,4 @@ int	init_coders(uint32_t ncoders, t_coder coders[ncoders], t_dongle dongles[ncod
 		coders[i].wait_my_turn = config->wait_turn;
 	}
 	return (0);
-}
-
-void	update_compilations_done(t_coder *coder)
-{
-	pthread_mutex_lock(&coder->mutex);
-	coder->compilations_done++;
-	pthread_mutex_unlock(&coder->mutex);
 }
