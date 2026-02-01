@@ -6,13 +6,14 @@
 #    By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/31 20:08:50 by joesanto          #+#    #+#              #
-#    Updated: 2026/02/01 15:58:08 by joesanto         ###   ########.fr        #
+#    Updated: 2026/02/01 17:11:40 by joesanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= codexion
 CC			= cc
-FLAGS		= -Wall -Wextra -Werror -g -pthread
+CFLAGS		= -Wall -Wextra -Werror -g -pthread
+LDFLAGS		=
 SRCS_DIR	= srcs
 
 # ------------------------------ CODER ROUTINE ------------------------------- #
@@ -77,15 +78,20 @@ OBJS		+= $(ERRORS_SRCS:.c=.o)
 MONITOR_ROUTINE_DIR			= $(SRCS_DIR)/monitor_routine
 SIMULATION_CONTROL_DIR		= $(MONITOR_ROUTINE_DIR)/simulation_control
 
-MONITOR_ROUTINE_HEADERS		= $(SIMULATION_CONTROL_DIR)/includes/simulation_control.h
+MONITOR_ROUTINE_HEADERS		= \
+	$(MONITOR_ROUTINE_DIR)/includes/monitor.h \
+	$(SIMULATION_CONTROL_DIR)/includes/simulation_control.h
 
-MONITOR_ROUTINE_INCLUDES	= -I$(SIMULATION_CONTROL_DIR)/includes
+MONITOR_ROUTINE_INCLUDES	= \
+	-I$(MONITOR_ROUTINE_DIR)/includes \
+	-I$(SIMULATION_CONTROL_DIR)/includes
 
 MONITOR_ROUTINE_SRCS		= \
 $(addprefix $(SIMULATION_CONTROL_DIR)/, \
 	monitored_wait_until.c \
 	simulation_control.c \
-)
+) \
+	$(MONITOR_ROUTINE_DIR)/monitor_routine.c
 
 HEADERS		+= $(MONITOR_ROUTINE_HEADERS)
 INCLUDES	+= $(MONITOR_ROUTINE_INCLUDES)
@@ -149,11 +155,15 @@ OBJS		+= $(MAIN_SRCS:.c=.o)
 # ------------------------------- COMPILATION -------------------------------- #
 all: $(NAME)
 
+fsanitize: CFLAGS+=-fsanitize=thread
+fsanitize: LDFLAGS+=-fsanitize=thread
+fsanitize: fclean $(NAME)
+
 $(NAME): $(OBJS)
-	$(CC) $^ -o $@
+	$(CC) $^ $(LDFLAGS) -o $@
 
 %.o: %.c $(HEADERS)
-	$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)

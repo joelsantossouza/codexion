@@ -7,3 +7,4 @@ CompileFlags:
     - "-I./utils/codexion_config_utils/"
     - "-I./coder_routine/includes/"
     - "-I./coder_routine/dongle_protocols/includes/"
+    - "-I./monitor_routine/includes/"

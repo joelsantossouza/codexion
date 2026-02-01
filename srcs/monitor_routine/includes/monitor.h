@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion_parser.h                                  :+:      :+:    :+:   */
+/*   monitor.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/06 16:03:28 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/01 16:40:37 by joesanto         ###   ########.fr       */
+/*   Created: 2026/02/01 17:07:59 by joesanto          #+#    #+#             */
+/*   Updated: 2026/02/01 17:08:24 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CODEXION_PARSER_H
-# define CODEXION_PARSER_H
+#ifndef MONITOR_H
+# define MONITOR_H
 
-# include "errors.h"
+typedef struct s_coder	t_coder;
 
-typedef struct s_codexion_config t_codexion_config;
-
-enum e_exit_status	codexion_parser(t_codexion_config *config, int argc, char **argv);
+void	*monitor_routine(t_coder coders[]);
 
 #endif

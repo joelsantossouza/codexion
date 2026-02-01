@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:18:59 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/01 15:58:26 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/01 17:14:54 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 int	main(int argc, char **argv)
 {
-	t_coder						coders[MAX_CODERS];
-	t_dongle					dongles[MAX_CODERS];
+	t_coder						coders[200];
+	t_dongle					dongles[200];
 	t_codexion_config			config;
 	static pthread_mutex_t		log_mutex = PTHREAD_MUTEX_INITIALIZER;
 	const enum e_exit_status	parse_status = codexion_parser(
@@ -49,7 +49,11 @@ int	main(int argc, char **argv)
 		i += 2;
 	}
 	i = -1;
+	pthread_t	monitor_thread;
+	pthread_create(&monitor_thread, NULL, (t_routine)monitor_routine, coders);
+
 	while (++i < config.number_of_coders)
 		pthread_join(coders[i].thread, NULL);
+	pthread_join(monitor_thread, NULL);
 	return (0);
 }

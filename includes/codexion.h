@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 18:10:54 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/31 20:06:51 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/01 17:12:46 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "codexion_parser.h"
 # include "codexion_config_control.h"
 # include "coder.h"
+# include "monitor.h"
 # include "errors.h"
 
 typedef struct s_coder	t_coder;

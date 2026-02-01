@@ -5,3 +5,6 @@ CompileFlags:
     - "-I../srcs/parsing/includes/"
     - "-I../srcs/utils/codexion_config_utils/"
     - "-I../srcs/coder_routine/includes/"
+    - "-I../srcs/coder_routine/dongle_protocols/includes/"
+    - "-I../srcs/coder_routine/schedulers/includes/"
+    - "-I../srcs/monitor_routine/includes/"

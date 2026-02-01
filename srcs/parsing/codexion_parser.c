@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:06:06 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/31 19:38:54 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/01 16:41:30 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ enum e_exit_status	codexion_parser(t_codexion_config *config, int argc, char **a
 			return (ERR_PARSER_OVERFLOW);
 	}
 	config->number_of_coders = atoi(argv[0]);
-	if (config->number_of_coders > MAX_CODERS)
-		return (ERR_PARSER_MAX_CODERS);
 	config->time_to_burnout = atoi(argv[1]);
 	config->time_to_compile = atoi(argv[2]);
 	config->time_to_debug = atoi(argv[3]);
