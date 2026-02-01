@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 16:24:01 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/31 20:03:23 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/01 19:12:15 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_coder
 
 	uint64_t		deadline_ms;
 	struct timespec	deadline_ts;
+	uint32_t		compilations_done;
 
 	t_dongle		*left_dongle;
 	t_dongle		*right_dongle;

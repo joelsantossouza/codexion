@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 16:21:50 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/30 19:37:17 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/01 19:28:39 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	*coder_routine(t_coder *coder)
 		if (execute_task(coder, config->time_to_compile) == SIMULATION_STOPPED)
 			return (NULL);
 		release_two_dongles(coder);
+		update_compilations_done(coder);
 
 		log_coder_event(coder, EVENT_DEBUGGING);
 		if (execute_task(coder, config->time_to_debug) == SIMULATION_STOPPED)

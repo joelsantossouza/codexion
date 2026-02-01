@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 16:43:45 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/01 17:05:34 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/01 19:29:23 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*monitor_routine(t_coder coders[])
 		while (++i < config->number_of_coders)
 		{
 			pthread_mutex_lock(&coders[i].mutex);
-			//coders_done_compiling += coders[i].compilations_done >= config->number_of_compiles_required;
+			coders_done_compiling += coders[i].compilations_done >= config->number_of_compiles_required;
 			is_burned_out = millis() >= coders[i].deadline_ms;
 			pthread_mutex_unlock(&coders[i].mutex);
 			if (is_burned_out == true)

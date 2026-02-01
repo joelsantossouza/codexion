@@ -6,7 +6,7 @@
 #    By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/31 20:08:50 by joesanto          #+#    #+#              #
-#    Updated: 2026/02/01 18:47:59 by joesanto         ###   ########.fr        #
+#    Updated: 2026/02/01 19:27:46 by joesanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,11 +45,11 @@ CODER_ROUTINE_INCLUDES	= \
 CODER_ROUTINE_SRCS		= \
 $(addprefix $(CODER_ROUTINE_DIR)/, \
 	coder_routine.c \
-	init_coders.c \
+	coder_utils.c \
 	log_coder_event.c \
 ) \
 $(addprefix $(DONGLE_PROTOCOLS_DIR)/, \
-	init_dongles.c \
+	dongle_utils.c \
 	dongle_queue.c \
 	release_two_dongles.c \
 	request_two_dongles.c \

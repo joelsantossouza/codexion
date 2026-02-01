@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 20:42:30 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/31 20:03:09 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/01 19:25:49 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ enum e_event_id
 	MAX_EVENTS
 };
 
+void				update_compilations_done(t_coder *coder);
 enum e_exit_status	log_coder_event(const t_coder *coder, enum e_event_id event_id);
 
 static inline
