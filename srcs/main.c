@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:18:59 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/31 20:08:34 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/01 15:58:26 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char **argv)
 	}
 	init_coder_log();
 	// IMPROVE ME
-	int i = 0;
+	uint32_t	i = 0;
 	while (i < config.number_of_coders)
 	{
 		pthread_create(&coders[i].thread, NULL, (t_routine)coder_routine, &coders[i]);

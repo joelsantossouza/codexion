@@ -6,7 +6,7 @@
 #    By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/31 20:08:50 by joesanto          #+#    #+#              #
-#    Updated: 2026/02/01 15:49:59 by joesanto         ###   ########.fr        #
+#    Updated: 2026/02/01 15:58:08 by joesanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,15 +21,15 @@ DONGLE_PROTOCOLS_DIR	= $(CODER_ROUTINE_DIR)/dongle_protocols
 SCHEDULERS_DIR			= $(CODER_ROUTINE_DIR)/schedulers
 
 CODER_ROUTINE_HEADERS	= \
-$(addprefix $(CODER_ROUTINE_DIR)/includes, \
+$(addprefix $(CODER_ROUTINE_DIR)/includes/, \
 	coder.h \
 	coder_internal.h \
 ) \
-$(addprefix $(DONGLE_PROTOCOLS_DIR)/includes, \
+$(addprefix $(DONGLE_PROTOCOLS_DIR)/includes/, \
 	dongle_protocols.h \
 	dongle_queue.h \
 ) \
-$(addprefix $(SCHEDULERS_DIR)/includes, \
+$(addprefix $(SCHEDULERS_DIR)/includes/, \
 	schedulers.h \
 )
 
@@ -52,7 +52,7 @@ $(addprefix $(DONGLE_PROTOCOLS_DIR)/, \
 	release_two_dongles.c \
 	request_two_dongles.c \
 ) \
-$(addprefix $(SCHEDULERS_DIR), \
+$(addprefix $(SCHEDULERS_DIR)/, \
 	wait_fifo_turn.c \
 )
 
@@ -65,7 +65,7 @@ ERRORS_DIR		= $(SRCS_DIR)/errors
 
 ERRORS_HEADERS	= $(ERRORS_DIR)/includes/errors.h
 
-ERRORS_INCLUDES	= $(ERRORS_DIR)/includes
+ERRORS_INCLUDES	= -I$(ERRORS_DIR)/includes
 
 ERRORS_SRCS		= $(ERRORS_DIR)/get_error_msg.c
 
@@ -79,7 +79,7 @@ SIMULATION_CONTROL_DIR		= $(MONITOR_ROUTINE_DIR)/simulation_control
 
 MONITOR_ROUTINE_HEADERS		= $(SIMULATION_CONTROL_DIR)/includes/simulation_control.h
 
-MONITOR_ROUTINE_INCLUDES	= $(SIMULATION_CONTROL_DIR)/includes
+MONITOR_ROUTINE_INCLUDES	= -I$(SIMULATION_CONTROL_DIR)/includes
 
 MONITOR_ROUTINE_SRCS		= \
 $(addprefix $(SIMULATION_CONTROL_DIR)/, \
@@ -95,12 +95,12 @@ OBJS		+= $(MONITOR_ROUTINE_SRCS:.c=.o)
 PARSING_DIR			= $(SRCS_DIR)/parsing
 
 PARSING_HEADERS		= \
-$(addprefix $(PARSING_DIR)/includes, \
+$(addprefix $(PARSING_DIR)/includes/, \
 	codexion_parser.h \
 	codexion_parser_internal.h \
 )
 
-PARSING_INCLUDES	= $(PARSING_DIR)/includes
+PARSING_INCLUDES	= -I$(PARSING_DIR)/includes
 
 PARSING_SRCS		= \
 $(addprefix $(PARSING_DIR)/, \
@@ -122,8 +122,8 @@ UTILS_HEADERS	= \
 	$(TIME_UTILS_DIR)/time_utils.h
 
 UTILS_INCLUDES	= \
-	$(CODEXION_CONFIG_UTILS_DIR) \
-	$(TIME_UTILS_DIR)
+	-I$(CODEXION_CONFIG_UTILS_DIR) \
+	-I$(TIME_UTILS_DIR)
 
 UTILS_SRCS		= \
 	$(CODEXION_CONFIG_UTILS_DIR)/codexion_config_control.c \
@@ -132,6 +132,19 @@ UTILS_SRCS		= \
 HEADERS		+= $(UTILS_HEADERS)
 INCLUDES	+= $(UTILS_INCLUDES)
 OBJS		+= $(UTILS_SRCS:.c=.o)
+
+# ---------------------------------- MAIN ------------------------------------ #
+MAIN_DIR		= $(SRCS_DIR)
+
+MAIN_HEADERS	= includes/codexion.h
+
+MAIN_INCLUDES	= -Iincludes
+
+MAIN_SRCS		= $(MAIN_DIR)/main.c
+
+HEADERS		+= $(MAIN_HEADERS)
+INCLUDES	+= $(MAIN_INCLUDES)
+OBJS		+= $(MAIN_SRCS:.c=.o)
 
 # ------------------------------- COMPILATION -------------------------------- #
 all: $(NAME)
