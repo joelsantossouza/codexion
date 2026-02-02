@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 16:51:51 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/01 18:53:38 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/02 14:12:00 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,19 @@
 #include "time_utils.h"
 
 static inline
-uint64_t	udigit_count(uint64_t nbr)
-{
-	uint64_t	len;
-
-	len = 1;
-	while (nbr >= 10)
-	{
-		nbr /= 10;
-		len++;
-	}
-	return (len);
-}
-
-static inline
 char	*buffer_ultoa(uint64_t nbr, char buffer[UINT64_MAXLEN])
 {
 	uint64_t	nbr_len;
+	uint64_t	nbr_tmp;
 	char		*endptr;
 
-	nbr_len = udigit_count(nbr);
+	nbr_len = 1;
+	nbr_tmp = nbr;
+	while (nbr_tmp >= 10)
+	{
+		nbr_tmp /= 10;
+		nbr_len++;
+	}
 	endptr = buffer + nbr_len;
 	while (nbr_len-- > 0)
 	{
