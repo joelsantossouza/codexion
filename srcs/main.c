@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:18:59 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/01 19:31:46 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:54:13 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ int	main(int argc, char **argv)
 	}
 	init_coder_log();
 	// IMPROVE ME
-	pthread_t	monitor_thread;
-	pthread_create(&monitor_thread, NULL, (t_routine)monitor_routine, coders);
-
+	if (config.number_of_compiles_required == 0)
+		return (0);
 	uint32_t	i = 0;
 	while (i < config.number_of_coders)
 	{
 		pthread_create(&coders[i].thread, NULL, (t_routine)coder_routine, &coders[i]);
 		i += 2;
 	}
+	usleep(100);
 	i = 1;
 	while (i < config.number_of_coders)
 	{
@@ -52,6 +52,9 @@ int	main(int argc, char **argv)
 		i += 2;
 	}
 	i = -1;
+
+	pthread_t	monitor_thread;
+	pthread_create(&monitor_thread, NULL, (t_routine)monitor_routine, coders);
 
 	while (++i < config.number_of_coders)
 		pthread_join(coders[i].thread, NULL);

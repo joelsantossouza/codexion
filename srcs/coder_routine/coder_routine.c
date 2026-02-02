@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 16:21:50 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/01 19:28:39 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:48:05 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	*coder_routine(t_coder *coder)
 {
 	const t_codexion_config	*config = get_codexion_config();
 
+	reset_deadline(coder, config->time_to_burnout);
 	while (true)
 	{
 		if (request_two_dongles(coder) == SIMULATION_STOPPED)
