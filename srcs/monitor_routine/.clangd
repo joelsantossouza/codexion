@@ -9,3 +9,4 @@ CompileFlags:
     - "-I../../includes/"
     - "-I../parsing/includes/"
     - "-I../utils/time_utils/"
+    - "-I./includes"

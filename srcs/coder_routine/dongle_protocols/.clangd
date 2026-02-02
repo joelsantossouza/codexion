@@ -7,3 +7,11 @@ CompileFlags:
     - "-I../../errors/includes"
     - "-I../../utils/codexion_config_utils/"
     - "-I../../../includes"
+    - "-I../../parsing/includes/"
+    - "-I../../coder_routine/includes/"
+    - "-I../../coder_routine/dongle_protocols/includes/"
+    - "-I../../coder_routine/schedulers/includes/"
+    - "-I../../monitor_routine/includes/"
+    - "-I../../utils/codexion_config_utils/"
+    - "-I../../utils/time_utils/"
+
