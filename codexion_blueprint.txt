@@ -55,6 +55,3 @@ monitor_routine:
 				simulation_is_running = false
 				print(WHO_DIED)
 				return;
-
-USING STACK TO CODERS AND DONGLES ALLOCATION, IS BAD
-IT CAN EASILY GIVE SEGFAULT!

@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 16:21:38 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/02 13:05:05 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/02 13:50:40 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,27 @@ void	update_compilations_done(t_coder *coder)
 
 void	reset_deadline(t_coder *coder, uint64_t time_to_burnout_ms)
 {
+	struct timeval	now;
+	struct timespec	*deadline_ts;
+
+	if (gettimeofday(&now, NULL) == -1)
+	{
+		coder->deadline_ms = 0;
+		coder->deadline_ts = (struct timespec){0};
+		return ;
+	}
 	pthread_mutex_lock(&coder->mutex);
-	coder->deadline_ms = millis() + time_to_burnout_ms;
+	coder->deadline_ms = now.tv_sec * 1000 + now.tv_usec / 1000 + time_to_burnout_ms;
 	pthread_mutex_unlock(&coder->mutex);
-	set_abstime(&coder->deadline_ts, time_to_burnout_ms);
+
+	deadline_ts = &coder->deadline_ts;
+	deadline_ts->tv_sec = now.tv_sec + time_to_burnout_ms / 1000;
+	deadline_ts->tv_nsec = now.tv_usec * 1000 + (time_to_burnout_ms % 1000 * 1000000);
+	if (deadline_ts->tv_nsec >= 1000000000)
+	{
+		deadline_ts->tv_sec += deadline_ts->tv_nsec / 1000000000;
+		deadline_ts->tv_nsec %= 1000000000;
+	}
 }
 
 int	destroy_coders(uint32_t ncoders, t_coder coders[ncoders])
