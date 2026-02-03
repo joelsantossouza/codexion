@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:52:40 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/03 17:13:20 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/03 17:26:43 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	is_my_turn(t_coder *me)
 	if (me->deadline_ms < left_neighbor->deadline_ms)
 		have_left_priority = true;
 	else if (me->deadline_ms == left_neighbor->deadline_ms)
-		have_left_priority = me->compilations_done < left_neighbor->compilations_done;
+		have_left_priority = me->compilations_done <= left_neighbor->compilations_done;
 
 	if (me->deadline_ms < right_neighbor->deadline_ms)
 		have_right_priority = true;
