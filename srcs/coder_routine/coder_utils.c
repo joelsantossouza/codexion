@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 16:21:38 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/02 13:50:40 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/03 15:49:36 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ int	init_coders(uint32_t ncoders, t_coder coders[ncoders], t_dongle dongles[ncod
 		coders[i].log_mutex = log_mutex;
 		coders[i].left_dongle = &dongles[i];
 		coders[i].right_dongle = &dongles[(i + 1) % ncoders];
-		coders[i].left_neighboor = &coders[(i - 1 + ncoders) % ncoders];
-		coders[i].right_neighboor = &coders[(i + 1) % ncoders];
+		coders[i].left_neighbor = &coders[(i - 1 + ncoders) % ncoders];
+		coders[i].right_neighbor = &coders[(i + 1) % ncoders];
 		coders[i].wait_my_turn = config->wait_turn;
 	}
 	return (0);

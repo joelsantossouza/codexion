@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 16:24:01 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/01 19:12:15 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/03 15:49:12 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ typedef struct s_coder
 	t_dongle		*left_dongle;
 	t_dongle		*right_dongle;
 
-	struct s_coder	*left_neighboor;
-	struct s_coder	*right_neighboor;
+	struct s_coder	*left_neighbor;
+	struct s_coder	*right_neighbor;
 
 	t_wait_turn_f	wait_my_turn;
 }	t_coder;
