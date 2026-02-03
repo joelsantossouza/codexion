@@ -6,7 +6,7 @@
 #    By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/31 20:08:50 by joesanto          #+#    #+#              #
-#    Updated: 2026/02/01 19:27:46 by joesanto         ###   ########.fr        #
+#    Updated: 2026/02/03 15:30:40 by joesanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,6 +91,7 @@ MONITOR_ROUTINE_SRCS		= \
 $(addprefix $(SIMULATION_CONTROL_DIR)/, \
 	monitored_wait_until.c \
 	simulation_control.c \
+	round_table_control.c \
 ) \
 	$(MONITOR_ROUTINE_DIR)/monitor_routine.c
 

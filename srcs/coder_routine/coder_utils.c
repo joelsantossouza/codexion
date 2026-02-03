@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 16:21:38 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/02 21:55:52 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/03 15:21:51 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,8 @@ int	destroy_coders(uint32_t ncoders, t_coder coders[ncoders])
 		return (0);
 	i = -1;
 	while (++i < last_coder)
-	{
 		pthread_mutex_destroy(&coders[i].mutex);
-		pthread_cond_destroy(&coders[i].cond);
-	}
-	pthread_mutex_destroy(&coders[i].mutex);
-	return (pthread_cond_destroy(&coders[i].cond));
+	return (pthread_mutex_destroy(&coders[i].mutex));
 }
 
 int	init_coders(uint32_t ncoders, t_coder coders[ncoders], t_dongle dongles[ncoders], pthread_mutex_t *log_mutex)
@@ -78,19 +74,11 @@ int	init_coders(uint32_t ncoders, t_coder coders[ncoders], t_dongle dongles[ncod
 		exit_status = pthread_mutex_init(&coders[i].mutex, NULL);
 		if (exit_status != 0)
 			return (destroy_coders(i, coders), exit_status);
-		exit_status = pthread_cond_init(&coders[i].cond, NULL);
-		if (exit_status != 0)
-		{
-			pthread_mutex_destroy(&coders[i].mutex);
-			return (destroy_coders(i, coders), exit_status);
-		}
 		coders[i].deadline_ms = UINT64_MAX;
 		coders[i].compilations_done = 0;
 		coders[i].log_mutex = log_mutex;
 		coders[i].left_dongle = &dongles[i];
 		coders[i].right_dongle = &dongles[(i + 1) % ncoders];
-		coders[i].left_neighbor = &coders[(i - 1 + ncoders) % ncoders];
-		coders[i].right_neighbor = &coders[(i + 1) % ncoders];
 		coders[i].wait_my_turn = config->wait_turn;
 	}
 	return (0);

@@ -2,3 +2,5 @@ CompileFlags:
   Add:
     - "-I./includes"
     - "-I../../utils/time_utils/"
+    - "-I../../parsing/includes/"
+    - "-I../../errors/includes/"

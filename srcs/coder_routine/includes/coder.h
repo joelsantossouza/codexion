@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 16:24:01 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/02 21:55:34 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/03 15:20:17 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct s_coder
 
 	pthread_t		thread;
 	pthread_mutex_t	mutex;
-	pthread_cond_t	cond;
 	pthread_mutex_t	*log_mutex;
 
 	uint64_t		deadline_ms;
@@ -36,9 +35,6 @@ typedef struct s_coder
 
 	t_dongle		*left_dongle;
 	t_dongle		*right_dongle;
-
-	struct s_coder	*left_neighbor;
-	struct s_coder	*right_neighbor;
 
 	t_wait_turn_f	wait_my_turn;
 }	t_coder;

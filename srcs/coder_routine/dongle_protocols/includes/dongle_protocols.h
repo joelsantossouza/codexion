@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 12:32:28 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/31 16:15:03 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/03 15:28:48 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ typedef struct s_dongle
 int							init_dongles(uint32_t ndongles, t_dongle dongles[ndongles]);
 int							destroy_dongles(uint32_t ndongles, t_dongle dongles[ndongles]);
 enum e_simulation_status	request_two_dongles(t_coder *coder);
-void						release_two_dongles(t_coder *coder);
+void						release_two_dongles(t_coder *coder, uint32_t ncoders);
 
 #endif

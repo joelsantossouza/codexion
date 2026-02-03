@@ -55,3 +55,51 @@ monitor_routine:
 				simulation_is_running = false
 				print(WHO_DIED)
 				return;
+
+
+enum e_simulation_status	request_two_dongles(t_coder *coder)
+{
+	if (coder->wait_my_turn(coder, coder->left_dongle) == SIMULATION_STOPPED)
+		return (SIMULATION_STOPPED);
+	if (wait_dongle_cooldown(coder, coder->left_dongle) == SIMULATION_STOPPED)
+		return (SIMULATION_STOPPED);
+	if (coder->wait_my_turn(coder, coder->right_dongle) == SIMULATION_STOPPED)
+		return (SIMULATION_STOPPED);
+	if (wait_dongle_cooldown(coder, coder->right_dongle) == SIMULATION_STOPPED)
+		return (SIMULATION_STOPPED);
+	return (SIMULATION_RUNNING);
+}
+
+static
+bool	is_my_turn(t_coder *me, t_dongle_queue *queue)
+{
+	uint32_t	head;
+
+	pthread_mutex_lock(&queue->mutex);
+	head = queue->head;
+	if (head == queue->tail || queue->coders[head] != me)
+		return (pthread_mutex_unlock(&queue->mutex), false);
+	pthread_mutex_unlock(&queue->mutex);
+
+	return (true);
+}
+
+enum e_simulation_status	wait_fifo_turn(t_coder *coder, t_dongle *dongle)
+{
+	pthread_mutex_lock(&dongle->mutex);
+	while (is_my_turn(coder) == false)
+	{
+		if (is_simulation_running() == false)
+		{
+			pthread_mutex_unlock(&dongle->mutex);
+			return (SIMULATION_STOPPED);
+		}
+		if (pthread_cond_timedwait(&dongle->cond, &dongle->mutex, &coder->deadline_ts) == ETIMEDOUT)
+		{
+			pthread_mutex_unlock(&dongle->mutex);
+			return (SIMULATION_STOPPED);
+		}
+	}
+	pthread_mutex_unlock(&dongle->mutex);
+	return (SIMULATION_RUNNING);
+}

@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 10:57:46 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/02 21:57:33 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/03 15:42:46 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,23 @@ void	release_dongle(t_dongle *dongle)
 	dequeue(&dongle->queue);
 }
 
-void	release_two_dongles(t_coder *coder)
+void	release_two_dongles(t_coder *coder, uint32_t ncoders)
 {
-	t_coder	*left_neighbor;
-	t_coder	*right_neighbor;
+	const uint32_t	coder_idx = coder->id - 1;
+	t_signal		*left_signal;
+	t_signal		*right_signal;
 
 	release_dongle(coder->left_dongle);
 	release_dongle(coder->right_dongle);
 
-	left_neighbor = coder->left_neighbor;
-	right_neighbor = coder->right_neighbor;
+	left_signal = table_get_signal((coder_idx - 1 + ncoders) % ncoders);
+	right_signal = table_get_signal((coder_idx + 1) % ncoders);
 
-	pthread_mutex_lock(&left_neighbor->mutex);
-	pthread_cond_broadcast(&left_neighbor->cond);
-	pthread_mutex_unlock(&left_neighbor->mutex);
+	pthread_mutex_lock(&left_signal->mutex);
+	pthread_cond_broadcast(&left_signal->cond);
+	pthread_mutex_unlock(&left_signal->mutex);
 
-	pthread_mutex_lock(&right_neighbor->mutex);
-	pthread_cond_broadcast(&right_neighbor->cond);
-	pthread_mutex_unlock(&right_neighbor->mutex);
+	pthread_mutex_lock(&right_signal->mutex);
+	pthread_cond_broadcast(&right_signal->cond);
+	pthread_mutex_unlock(&right_signal->mutex);
 }

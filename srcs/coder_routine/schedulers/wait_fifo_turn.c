@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 00:03:14 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/30 17:29:44 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/03 15:43:12 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,25 @@ bool	is_my_turn(t_coder *me)
 
 enum e_simulation_status	wait_fifo_turn(t_coder *coder)
 {
-	pthread_mutex_lock(&coder->mutex);
+	t_signal	*dongle_signal;
+
+	dongle_signal = table_get_signal(coder->id - 1);
+	pthread_mutex_lock(&dongle_signal->mutex);
 	enqueue(&coder->left_dongle->queue, coder);
 	enqueue(&coder->right_dongle->queue, coder);
 	while (is_my_turn(coder) == false)
 	{
 		if (is_simulation_running() == false)
 		{
-			pthread_mutex_unlock(&coder->mutex);
+			pthread_mutex_unlock(&dongle_signal->mutex);
 			return (SIMULATION_STOPPED);
 		}
-		if (pthread_cond_timedwait(&coder->cond, &coder->mutex, &coder->deadline_ts) == ETIMEDOUT)
+		if (pthread_cond_timedwait(&dongle_signal->cond, &dongle_signal->mutex, &coder->deadline_ts) == ETIMEDOUT)
 		{
-			pthread_mutex_unlock(&coder->mutex);
+			pthread_mutex_unlock(&dongle_signal->mutex);
 			return (SIMULATION_STOPPED);
 		}
 	}
-	pthread_mutex_unlock(&coder->mutex);
+	pthread_mutex_unlock(&dongle_signal->mutex);
 	return (SIMULATION_RUNNING);
 }
