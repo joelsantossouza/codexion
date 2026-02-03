@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:06:06 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/01 18:45:31 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/03 16:02:12 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ enum e_exit_status	codexion_parser(t_codexion_config *config, int argc, char **a
 	if (strcmp(argv[7], "fifo") == 0)
 		config->wait_turn = wait_fifo_turn;
 	else if (strcmp(argv[7], "edf") == 0)
-		;
-		//codexion->wait_turn = NULL;
+		config->wait_turn = wait_edf_turn;
 	else
 		return (ERR_PARSER_SCHEDULER);
 	return (SUCCESS);

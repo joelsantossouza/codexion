@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 23:30:51 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/29 23:32:59 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/03 16:01:38 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@
 typedef struct s_coder	t_coder;
 
 enum e_simulation_status	wait_fifo_turn(t_coder *coder);
+enum e_simulation_status	wait_edf_turn(t_coder *coder);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/31 20:08:50 by joesanto          #+#    #+#              #
-#    Updated: 2026/02/01 19:27:46 by joesanto         ###   ########.fr        #
+#    Updated: 2026/02/03 16:01:21 by joesanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ $(addprefix $(DONGLE_PROTOCOLS_DIR)/, \
 ) \
 $(addprefix $(SCHEDULERS_DIR)/, \
 	wait_fifo_turn.c \
+	wait_edf_turn.c \
 )
 
 HEADERS		+= $(CODER_ROUTINE_HEADERS)
