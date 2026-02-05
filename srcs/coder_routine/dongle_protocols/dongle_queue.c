@@ -6,12 +6,11 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:38:07 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/05 16:55:25 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/05 18:34:56 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "coder_internal.h"
 #include "dongle_queue.h"
 
 int	init_dongle_queue(t_dongle_queue *queue)
@@ -60,6 +59,7 @@ enum e_enqueue_status	priority_enqueue(t_dongle_queue *queue, t_coder *coder)
 	}
 	queue->coders[curr_tail] = coder;
 	queue->tail = next_tail;
+	bubble_up_priority(queue, curr_tail);
 	pthread_mutex_unlock(&queue->mutex);
 	return (ENQUEUE_SUCCESS);
 }

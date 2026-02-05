@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 17:56:47 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/05 18:02:10 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/05 18:23:42 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,29 @@
 static
 bool	is_first_on_queues(t_coder *me)
 {
-	t_dongle_queue	*left_queue;
-	t_dongle_queue	*right_queue;
+	t_dongle_queue	*first;
+	t_dongle_queue	*second;
 	uint32_t		head;
 
-	left_queue = &me->left_dongle->queue;
-	right_queue = &me->right_dongle->queue;
+	first = &me->left_dongle->queue;
+	second = &me->right_dongle->queue;
+	if (first > second)
+	{
+		first = &me->right_dongle->queue;
+		second = &me->left_dongle->queue;
+	}
 
-	pthread_mutex_lock(&left_queue->mutex);
-	head = left_queue->head;
-	if (head == left_queue->tail || left_queue->coders[head] != me)
-		return (pthread_mutex_unlock(&left_queue->mutex), false);
-	pthread_mutex_unlock(&left_queue->mutex);
+	pthread_mutex_lock(&first->mutex);
+	head = first->head;
+	if (head == first->tail || first->coders[head] != me)
+		return (pthread_mutex_unlock(&first->mutex), false);
+	pthread_mutex_unlock(&first->mutex);
 
-	pthread_mutex_lock(&right_queue->mutex);
-	head = right_queue->head;
-	if (head == right_queue->tail || right_queue->coders[head] != me)
-		return (pthread_mutex_unlock(&right_queue->mutex), false);
-	pthread_mutex_unlock(&right_queue->mutex);
+	pthread_mutex_lock(&second->mutex);
+	head = second->head;
+	if (head == second->tail || second->coders[head] != me)
+		return (pthread_mutex_unlock(&second->mutex), false);
+	pthread_mutex_unlock(&second->mutex);
 
 	return (true);
 }
