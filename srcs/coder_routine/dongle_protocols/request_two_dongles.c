@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 17:56:47 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/05 18:23:42 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/05 19:05:32 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ bool	are_dongles_available(t_coder *me)
 	t_dongle	*first;
 	t_dongle	*second;
 	bool		are_available;
-	uint64_t	now;
 
 	first = me->left_dongle;
 	second = me->right_dongle;
@@ -64,19 +63,17 @@ bool	are_dongles_available(t_coder *me)
 
 	pthread_mutex_lock(&first->mutex);
 	pthread_mutex_lock(&second->mutex);
-	now = millis();
 	are_available =
 		first->is_being_used == false
-		&& now >= first->cooldown_end_ms
-		&& second->is_being_used == false
-		&& now >= second->cooldown_end_ms;
+		&& second->is_being_used == false;
 	pthread_mutex_unlock(&first->mutex);
 	pthread_mutex_unlock(&second->mutex);
 
 	return (are_available);
 }
 
-enum e_simulation_status	request_two_dongles(t_coder *coder)
+static
+enum e_simulation_status	wait_my_turn(t_coder *coder)
 {
 	t_dongle	*left_dongle;
 	t_dongle	*right_dongle;
@@ -99,10 +96,40 @@ enum e_simulation_status	request_two_dongles(t_coder *coder)
 			return (SIMULATION_STOPPED);
 		}
 	}
-	set_as_being_used(left_dongle);
-	set_as_being_used(right_dongle);
 	dequeue(&left_dongle->queue);
 	dequeue(&right_dongle->queue);
 	pthread_mutex_unlock(&coder->mutex);
+	return (SIMULATION_RUNNING);
+}
+
+static
+enum e_simulation_status	wait_dongle_cooldown(const t_coder *coder, t_dongle *dongle)
+{
+	uint64_t	dongle_cooldown_end_ms;
+
+	pthread_mutex_lock(&dongle->mutex);
+	dongle_cooldown_end_ms = dongle->cooldown_end_ms;
+	pthread_mutex_unlock(&dongle->mutex);
+	if (millis() >= dongle_cooldown_end_ms)
+		return (SIMULATION_RUNNING);
+	return (monitored_wait_until(dongle_cooldown_end_ms, coder->deadline_ms));
+}
+
+enum e_simulation_status	request_two_dongles(t_coder *coder)
+{
+	t_dongle	*left_dongle;
+	t_dongle	*right_dongle;
+
+	left_dongle = coder->left_dongle;
+	right_dongle = coder->right_dongle;
+
+	if (wait_my_turn(coder) == SIMULATION_STOPPED)
+		return (SIMULATION_STOPPED);
+	if (wait_dongle_cooldown(coder, left_dongle) == SIMULATION_STOPPED)
+		return (SIMULATION_STOPPED);
+	if (wait_dongle_cooldown(coder, right_dongle) == SIMULATION_STOPPED)
+		return (SIMULATION_STOPPED);
+	set_as_being_used(left_dongle);
+	set_as_being_used(right_dongle);
 	return (SIMULATION_RUNNING);
 }
