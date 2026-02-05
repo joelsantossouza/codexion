@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 12:32:28 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/31 16:15:03 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/05 17:38:05 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,13 @@ typedef struct s_dongle
 	pthread_mutex_t	mutex;
 	const uint64_t	*cooldown;
 	uint64_t		cooldown_end_ms;
+	bool			is_being_used;
 	t_dongle_queue	queue;
 }	t_dongle;
 
 int							init_dongles(uint32_t ndongles, t_dongle dongles[ndongles]);
 int							destroy_dongles(uint32_t ndongles, t_dongle dongles[ndongles]);
+void						set_as_being_used(t_dongle *dongle);
 enum e_simulation_status	request_two_dongles(t_coder *coder);
 void						release_two_dongles(t_coder *coder);
 

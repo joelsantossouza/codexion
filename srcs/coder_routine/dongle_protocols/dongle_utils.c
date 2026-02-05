@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:41:45 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/31 16:57:28 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/05 17:37:37 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,15 @@ int	init_dongles(uint32_t ndongles, t_dongle dongles[ndongles])
 		dongles[i].cooldown_end_ms = 0;
 	}
 	return (0);
+}
+
+void	set_as_being_used(t_dongle *dongle)
+{
+	pthread_mutex_lock(&dongle->mutex);
+	dongle->is_being_used = true;
+	pthread_mutex_unlock(&dongle->mutex);
+}
+
+void	bubble_up_priority(t_dongle_queue *queue, uint64_t curr_idx)
+{
 }

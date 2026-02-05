@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:06:06 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/03 16:02:12 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/05 16:32:37 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include "codexion.h"
 #include "codexion_parser_internal.h"
-#include "schedulers.h"
 
 enum e_exit_status	codexion_parser(t_codexion_config *config, int argc, char **argv)
 {
@@ -39,9 +38,9 @@ enum e_exit_status	codexion_parser(t_codexion_config *config, int argc, char **a
 	config->number_of_compiles_required = atoi(argv[5]);
 	config->dongle_cooldown = atoi(argv[6]);
 	if (strcmp(argv[7], "fifo") == 0)
-		config->wait_turn = wait_fifo_turn;
+		config->scheduler = enqueue;
 	else if (strcmp(argv[7], "edf") == 0)
-		config->wait_turn = wait_edf_turn;
+		config->scheduler = priority_enqueue;
 	else
 		return (ERR_PARSER_SCHEDULER);
 	return (SUCCESS);

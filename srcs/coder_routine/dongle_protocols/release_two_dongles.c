@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 10:57:46 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/03 15:50:18 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/05 17:38:26 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static
 void	release_dongle(t_dongle *dongle)
 {
 	pthread_mutex_lock(&dongle->mutex);
+	dongle->is_being_used = false;
 	dongle->cooldown_end_ms = millis() + *dongle->cooldown;
 	pthread_mutex_unlock(&dongle->mutex);
-	dequeue(&dongle->queue);
 }
 
 void	release_two_dongles(t_coder *coder)
