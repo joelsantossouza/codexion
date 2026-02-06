@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 16:24:01 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/05 16:34:23 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/06 11:59:46 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct s_coder
 }	t_coder;
 
 int		init_coders(uint32_t ncoders, t_coder coders[ncoders], t_dongle dongles[ncoders], pthread_mutex_t *log_mutex);
-void	init_coder_log(void);
 int		destroy_coders(uint32_t ncoders, t_coder coders[ncoders]);
 void	*coder_routine(t_coder *coder);
 
