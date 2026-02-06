@@ -6,12 +6,12 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 17:56:47 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/06 11:10:07 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/06 23:57:53 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <errno.h>
-#include "coder.h"
+#include "coder_internal.h"
 #include "dongle_protocols.h"
 #include "simulation_control.h"
 #include "time_utils.h"
@@ -129,7 +129,9 @@ enum e_simulation_status	request_two_dongles(t_coder *coder)
 		return (SIMULATION_STOPPED);
 	if (wait_dongle_cooldown(coder, left_dongle) == SIMULATION_STOPPED)
 		return (SIMULATION_STOPPED);
+	log_coder_event(coder, EVENT_TAKEN_DONGLE);
 	if (wait_dongle_cooldown(coder, right_dongle) == SIMULATION_STOPPED)
 		return (SIMULATION_STOPPED);
+	log_coder_event(coder, EVENT_TAKEN_DONGLE);
 	return (SIMULATION_RUNNING);
 }
