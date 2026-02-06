@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 18:10:54 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/01 17:12:46 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/05 16:31:14 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,18 @@
 # include "monitor.h"
 # include "errors.h"
 
-typedef struct s_coder	t_coder;
-typedef enum e_simulation_status	(*t_wait_turn_f)(t_coder *coder);
+typedef enum e_enqueue_status	(*t_enter_on_queue_f)(t_dongle_queue *, t_coder *);
 
 typedef struct s_codexion_config
 {
-	uint32_t		number_of_coders;
-	uint64_t		time_to_burnout;
-	uint64_t		time_to_compile;
-	uint64_t		time_to_debug;
-	uint64_t		time_to_refactor;
-	uint32_t		number_of_compiles_required;
-	uint64_t		dongle_cooldown;
-	t_wait_turn_f	wait_turn;
+	uint32_t			number_of_coders;
+	uint64_t			time_to_burnout;
+	uint64_t			time_to_compile;
+	uint64_t			time_to_debug;
+	uint64_t			time_to_refactor;
+	uint32_t			number_of_compiles_required;
+	uint64_t			dongle_cooldown;
+	t_enter_on_queue_f	scheduler;
 }	t_codexion_config;
 
 typedef void *	(*t_routine)(void *);

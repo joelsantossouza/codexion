@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:38:07 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/31 15:41:15 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/05 18:34:56 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,26 @@ enum e_enqueue_status	enqueue(t_dongle_queue *queue, t_coder *coder)
 	}
 	queue->coders[curr_tail] = coder;
 	queue->tail = next_tail;
+	pthread_mutex_unlock(&queue->mutex);
+	return (ENQUEUE_SUCCESS);
+}
+
+enum e_enqueue_status	priority_enqueue(t_dongle_queue *queue, t_coder *coder)
+{
+	uint32_t	curr_tail;
+	uint32_t	next_tail;
+
+	pthread_mutex_lock(&queue->mutex);
+	curr_tail = queue->tail;
+	next_tail = (curr_tail + 1) & QUEUE_MASK;
+	if (next_tail == queue->head)
+	{
+		pthread_mutex_unlock(&queue->mutex);
+		return (ENQUEUE_FULL);
+	}
+	queue->coders[curr_tail] = coder;
+	queue->tail = next_tail;
+	bubble_up_priority(queue, curr_tail);
 	pthread_mutex_unlock(&queue->mutex);
 	return (ENQUEUE_SUCCESS);
 }
