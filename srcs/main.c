@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:18:59 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/06 11:58:57 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/06 12:47:21 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	main(int argc, char **argv)
 	// 	pthread_create(&coders[i].thread, NULL, (t_routine)coder_routine, &coders[i]);
 	// 	i += 2;
 	// }
+	//coders[3].deadline_ms -= 100;
 	uint32_t	i = -1;
 	while (++i < config.number_of_coders)
 		pthread_create(&coders[i].thread, NULL, (t_routine)coder_routine, &coders[i]);
