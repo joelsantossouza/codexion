@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 17:56:47 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/05 19:05:32 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/06 11:10:07 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ enum e_simulation_status	wait_my_turn(t_coder *coder)
 			return (SIMULATION_STOPPED);
 		}
 	}
+	set_as_being_used(left_dongle);
+	set_as_being_used(right_dongle);
 	dequeue(&left_dongle->queue);
 	dequeue(&right_dongle->queue);
 	pthread_mutex_unlock(&coder->mutex);
@@ -129,7 +131,5 @@ enum e_simulation_status	request_two_dongles(t_coder *coder)
 		return (SIMULATION_STOPPED);
 	if (wait_dongle_cooldown(coder, right_dongle) == SIMULATION_STOPPED)
 		return (SIMULATION_STOPPED);
-	set_as_being_used(left_dongle);
-	set_as_being_used(right_dongle);
 	return (SIMULATION_RUNNING);
 }

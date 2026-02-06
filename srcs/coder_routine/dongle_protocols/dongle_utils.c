@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:41:45 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/05 18:33:22 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/06 11:03:36 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,15 @@ void	set_as_being_used(t_dongle *dongle)
 
 void	bubble_up_priority(t_dongle_queue *queue, uint32_t curr_idx)
 {
+	const t_coder	**coders = (const t_coder **)queue->coders;
 	const uint32_t	head = queue->head;
 	uint32_t		prev_idx;
-	uint32_t		prev_deadline_ms;
 	t_coder			*coder_temp;
 
 	while (curr_idx != head)
 	{
 		prev_idx = (curr_idx - 1 + QUEUE_SIZE) & QUEUE_MASK;
-		pthread_mutex_lock(&queue->coders[prev_idx]->mutex);
-		prev_deadline_ms = queue->coders[prev_idx]->deadline_ms;
-		pthread_mutex_unlock(&queue->coders[prev_idx]->mutex);
-		if (queue->coders[curr_idx]->deadline_ms >= prev_deadline_ms)
+		if (coders[curr_idx]->deadline_ms >= coders[prev_idx]->deadline_ms)
 			break ;
 		coder_temp = queue->coders[curr_idx];
 		queue->coders[curr_idx] = queue->coders[prev_idx];
