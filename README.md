@@ -163,8 +163,7 @@ All event logging (compilation start/end, burnout, etc.) is protected by a dedic
 
 **`pthread_cond_t`:**
 - Signal dongle availability to waiting coders
-- Notify state changes (simulation stop)
-- Coordinate between coders and monitor
+- Notify state changes
 
 ### Shared Resource Coordination
 
@@ -184,8 +183,7 @@ pthread_mutex_unlock(&left_dongle->mutex);
 
 **Monitor State:**
 - Mutex protects shared simulation state (RUNNING/STOPPED)
-- Condition variable broadcasts stop signal to all threads
-- Ensures consistent view of termination conditions
+- Broadcasts simulation termination to all threads
 
 **Logging:**
 - Single global mutex serializes all output
@@ -194,7 +192,7 @@ pthread_mutex_unlock(&left_dongle->mutex);
 ### Race Condition Prevention Examples
 
 **Dongle Acquisition:**
-- Check queue position and dongle availability under same mutex
+- Check dongle availability under same mutex
 - Prevents time-of-check-to-time-of-use (TOCTOU) race
 
 **Burnout Detection:**
@@ -214,9 +212,7 @@ pthread_mutex_unlock(&left_dongle->mutex);
 - [Threading Fundamentals](https://youtu.be/0sVGnxg6Z3k?si=3CKEkPrFnZHnR23F) - POSIX threads tutorial
 
 **AI Usage:**
-- AI assisted with project organization and code structure planning
-- Used for initial architecture design and naming conventions
-- All concurrency mechanisms and synchronization logic implemented manually
+AI assisted with project organization and code structure planning
 
 ---
 
