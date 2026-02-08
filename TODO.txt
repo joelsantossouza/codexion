@@ -1,3 +1,4 @@
 1. Handle the special case of 1 coder
 2. Remove the ./codexion --help part from readme instructions section
 3. put the codexion_42 all files under coders/ dir.
+4. Think if will be better use the even/odd start and if it is, update the readme photo
