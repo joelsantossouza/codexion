@@ -6,12 +6,13 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:18:59 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/06 12:47:21 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/08 16:22:56 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pthread.h>
 #include <stdio.h>
+#include <string.h>
 #include "codexion.h"
 
 int	main(int argc, char **argv)
@@ -24,6 +25,8 @@ int	main(int argc, char **argv)
 		&config, argc - 1, argv + 1
 	);
 
+	if (argc == 2 && strcmp(argv[1], "--help") == 0)
+		return (printf("%s", PROGRAM_USAGE), 0);
 	if (parse_status != SUCCESS)
 		return (fprintf(stderr, "%s", get_error_msg(parse_status)), 1);
 	set_codexion_config(&config);

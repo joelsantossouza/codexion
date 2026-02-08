@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 16:03:28 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/01 18:50:02 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/08 16:22:31 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,17 @@
 # if MAX_CODERS < 0 || MAX_CODERS > 2147483647
 #  error "MAX_CODERS must be a positive integer!"
 # endif
+
+# define PROGRAM_USAGE \
+	"Usage:\n" \
+	" - <number_of_coders>\n" \
+	" - <time_to_burnout>\n" \
+	" - <time_to_compile>\n" \
+	" - <time_to_debug>\n" \
+	" - <time_to_refactor>\n" \
+	" - <number_of_compiles_required>\n" \
+	" - <dongle_cooldown>\n" \
+	" - <scheduler (\'fifo\' | \'edf\')>\n"
 
 typedef struct s_codexion_config t_codexion_config;
 
