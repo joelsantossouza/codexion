@@ -2,8 +2,6 @@
 
 # Codexion
 
-<img width="1480" height="905" alt="codexion" src="https://github.com/user-attachments/assets/7288cbff-09e8-4112-8b98-036913158880" />
-
 ---
 
 ## Description
@@ -48,8 +46,26 @@ Valid range: 0 to INT32_MAX
 
 **Example:**
 ```bash
-./codexion 3 800 200 100 100 5 100 fifo
+./codexion 9 1000 200 100 100 5 100 fifo
 ```
+
+### Output Format
+
+Each log message follows this structure:
+```
+<timestamp_ms> <coder_id> <event>
+```
+
+**Events:**
+- `has taken a dongle` - Acquired one dongle (printed twice per compilation)
+- `is compiling` - Started compilation phase
+- `is debugging` - Started debugging phase
+- `is refactoring` - Started refactoring phase
+- `burned out` - Exceeded deadline and terminated
+
+**Example output:**
+
+<img width="1480" height="905" alt="codexion" src="https://github.com/user-attachments/assets/7288cbff-09e8-4112-8b98-036913158880" />
 
 **Help:**
 ```bash
