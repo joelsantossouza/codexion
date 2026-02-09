@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 16:24:01 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/09 13:19:06 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/09 16:22:22 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,20 @@
 # include <stdint.h>
 # include "simulation_control.h"
 # include "dongle_protocols.h"
+
+enum e_start_pattern
+{
+	SEQUENTIAL = 1,
+	ODD_EVEN,
+};
+
+# ifndef START_PATTERN
+#  define START_PATTERN	ODD_EVEN
+# endif
+
+# ifndef START_INTERVAL_MS
+#  define START_INTERVAL_MS	1
+# endif
 
 typedef enum e_enqueue_status	(*t_enter_on_queue_f)(t_dongle_queue *, t_coder *);
 
@@ -43,8 +57,10 @@ typedef struct s_coder
 }	t_coder;
 
 void	init_coder_log(void);
-int		init_coders(uint32_t ncoders, t_coder coders[ncoders], t_dongle dongles[ncoders])
+int		init_coders(uint32_t ncoders, t_coder coders[ncoders], t_dongle dongles[ncoders]);
 int		destroy_coders(uint32_t ncoders, t_coder coders[ncoders]);
+
+int		start_coders(uint32_t size, t_coder coders[size], uint32_t stride);
 void	*coder_routine(t_coder *coder);
 
 #endif

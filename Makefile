@@ -6,7 +6,7 @@
 #    By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/31 20:08:50 by joesanto          #+#    #+#              #
-#    Updated: 2026/02/05 16:39:51 by joesanto         ###   ########.fr        #
+#    Updated: 2026/02/09 16:23:23 by joesanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,10 @@ CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -g -pthread
 LDFLAGS		=
 SRCS_DIR	= srcs
+
+# MACROS CONFIG
 MAX_CODERS	= 200
+START_PATTERN = ODD_EVEN
 
 # ------------------------------ CODER ROUTINE ------------------------------- #
 CODER_ROUTINE_DIR		= $(SRCS_DIR)/coder_routine
@@ -39,6 +42,7 @@ CODER_ROUTINE_INCLUDES	= \
 CODER_ROUTINE_SRCS		= \
 $(addprefix $(CODER_ROUTINE_DIR)/, \
 	coder_routine.c \
+	start_coders.c \
 	coder_utils.c \
 	log_coder_event.c \
 ) \
@@ -60,7 +64,11 @@ ERRORS_HEADERS	= $(ERRORS_DIR)/includes/errors.h
 
 ERRORS_INCLUDES	= -I$(ERRORS_DIR)/includes
 
-ERRORS_SRCS		= $(ERRORS_DIR)/get_error_msg.c
+ERRORS_SRCS		= \
+$(addprefix $(ERRORS_DIR)/, \
+	get_error_msg.c \
+	err_log.c \
+)
 
 HEADERS		+= $(ERRORS_HEADERS)
 INCLUDES	+= $(ERRORS_INCLUDES)
@@ -83,7 +91,10 @@ $(addprefix $(SIMULATION_CONTROL_DIR)/, \
 	monitored_wait_until.c \
 	simulation_control.c \
 ) \
-	$(MONITOR_ROUTINE_DIR)/monitor_routine.c
+$(addprefix $(MONITOR_ROUTINE_DIR)/, \
+	monitor_routine.c \
+	start_monitor.c \
+)
 
 HEADERS		+= $(MONITOR_ROUTINE_HEADERS)
 INCLUDES	+= $(MONITOR_ROUTINE_INCLUDES)
@@ -155,7 +166,7 @@ $(NAME): $(OBJS)
 	$(CC) $^ $(LDFLAGS) -o $@
 
 %.o: %.c $(HEADERS)
-	$(CC) $(CFLAGS) $(INCLUDES) -DMAX_CODERS=$(MAX_CODERS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -DMAX_CODERS=$(MAX_CODERS) -DSTART_PATTERN=$(START_PATTERN) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)

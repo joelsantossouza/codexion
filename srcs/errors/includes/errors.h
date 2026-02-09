@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:10:53 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/09 13:17:01 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/09 15:26:35 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ enum	e_exit_status
 # define ERR_THREAD_INIT_MSG		"Error: Failed to create thread\n"
 
 const char	*get_error_msg(enum e_exit_status err_code);
-void		error(enum e_exit_status err_code);
+void		err_log(enum e_exit_status err_code);
 
 #endif

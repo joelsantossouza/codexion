@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:18:59 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/09 13:24:31 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/09 17:17:21 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "codexion.h"
-
-static
-int	start_monitor(pthread_t *monitor_thread, t_coder coders[])
-{
-	return (pthread_create(
-		monitor_thread, NULL, (t_routine)monitor_routine, coders
-	));
-}
 
 static
 void	clean(t_coder coders[], t_dongle dongles[])
@@ -42,9 +34,25 @@ void	join_all(pthread_t *monitor_thread, t_coder coders[])
 
 	i = -1;
 	while (++i < config->number_of_coders)
+		pthread_join(coders[i].thread, NULL);
+	pthread_join(*monitor_thread, NULL);
+}
+
+static
+int	handle_special_cases(void)
+{
+	const t_codexion_config	*config = get_codexion_config();
+
+	if (config->number_of_coders == 0 || config->number_of_compiles_required == 0)
+		return (1);
+	if (config->number_of_coders == 1)
 	{
-		if (pthread_join(coders[i].thread, NULL) != 0)
+		printf("0 1 has taken a dongle\n");
+		usleep(config->time_to_burnout * 1000);
+		printf("%lu 1 burned out\n", config->time_to_burnout);
+		return (1);
 	}
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -60,40 +68,18 @@ int	main(int argc, char **argv)
 	if (argc == 2 && strcmp(argv[1], "--help") == 0)
 		return (printf("%s", PROGRAM_USAGE), 0);
 	if (parse_status != SUCCESS)
-		return (error(parse_status), 1);
+		return (err_log(parse_status), 1);
 	set_codexion_config(&config);
+	if (handle_special_cases() != 0)
+		return (0);
 	if (init_dongles(config.number_of_coders, dongles) != 0)
-		return (error(ERR_DONGLES_INIT), 1);
+		return (err_log(ERR_DONGLES_INIT), 1);
 	if (init_coders(config.number_of_coders, coders, dongles) != 0)
-		return (clean(NULL, dongles), error(ERR_CODERS_INIT), 1);
+		return (clean(NULL, dongles), err_log(ERR_CODERS_INIT), 1);
 	if (start_monitor(&monitor_thread, coders) != 0)
-		return (clean(coders, dongles), error(ERR_THREAD_INIT), 1);
-	// IMPROVE ME
-	// if (config.number_of_compiles_required == 0)
-	// 	return (0);
-	// uint32_t	i = 0;
-	// while (i < config.number_of_coders)
-	// {
-	// 	pthread_create(&coders[i].thread, NULL, (t_routine)coder_routine, &coders[i]);
-	// 	i += 2;
-	// }
-	// usleep(100);
-	// i = 1;
-	// while (i < config.number_of_coders)
-	// {
-	// 	pthread_create(&coders[i].thread, NULL, (t_routine)coder_routine, &coders[i]);
-	// 	i += 2;
-	// }
-	//coders[3].deadline_ms -= 100;
-	uint32_t	i = -1;
-	while (++i < config.number_of_coders)
-		pthread_create(&coders[i].thread, NULL, (t_routine)coder_routine, &coders[i]);
-	pthread_t	monitor_thread;
-	pthread_create(&monitor_thread, NULL, (t_routine)monitor_routine, coders);
-
-	i = -1;
-	while (++i < config.number_of_coders)
-		pthread_join(coders[i].thread, NULL);
-	pthread_join(monitor_thread, NULL);
-	return (0);
+		return (clean(coders, dongles), err_log(ERR_THREAD_INIT), 1);
+	init_coder_log();
+	if (start_coders(config.number_of_coders, coders, START_PATTERN) != 0)
+		return (clean(coders, dongles), err_log(ERR_THREAD_INIT), 1);
+	return (join_all(&monitor_thread, coders), clean(coders, dongles), 0);
 }

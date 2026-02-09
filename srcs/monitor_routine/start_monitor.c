@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   monitor.h                                          :+:      :+:    :+:   */
+/*   start_monitor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/01 17:07:59 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/09 15:12:35 by joesanto         ###   ########.fr       */
+/*   Created: 2026/02/09 15:11:46 by joesanto          #+#    #+#             */
+/*   Updated: 2026/02/09 16:36:55 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MONITOR_H
-# define MONITOR_H
+#include "codexion.h"
 
-# include <pthread.h>
-
-typedef struct s_coder	t_coder;
-
-int		start_monitor(pthread_t *monitor_thread, t_coder coders[]);
-void	*monitor_routine(t_coder coders[]);
-
-#endif
+int	start_monitor(pthread_t *monitor_thread, t_coder coders[])
+{
+	return (pthread_create(
+		monitor_thread, NULL, (t_routine)monitor_routine, coders
+	));
+}
