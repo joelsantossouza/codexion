@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 16:51:51 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/09 12:31:49 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/09 20:26:07 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,12 @@ void	*ft_mempcpy(void *dest, const void *src, size_t n)
 
 void	init_coder_log(void)
 {
-	timestamp_ms(millis());
+	const t_codexion_config	*config = get_codexion_config();
+
+	if (DEADLINE_START == PROGRAM_START)
+		timestamp_ms(config->program_start_ms);
+	else
+		timestamp_ms(millis());
 }
 
 enum e_exit_status	log_coder_event(const t_coder *coder, enum e_event_id event_id)

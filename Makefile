@@ -6,7 +6,7 @@
 #    By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/31 20:08:50 by joesanto          #+#    #+#              #
-#    Updated: 2026/02/09 16:23:23 by joesanto         ###   ########.fr        #
+#    Updated: 2026/02/09 19:13:59 by joesanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,8 @@ SRCS_DIR	= srcs
 # MACROS CONFIG
 MAX_CODERS	= 200
 START_PATTERN = ODD_EVEN
+START_INTERVAL_MS = 1
+DEADLINE_START = CODER_START
 
 # ------------------------------ CODER ROUTINE ------------------------------- #
 CODER_ROUTINE_DIR		= $(SRCS_DIR)/coder_routine
@@ -166,7 +168,7 @@ $(NAME): $(OBJS)
 	$(CC) $^ $(LDFLAGS) -o $@
 
 %.o: %.c $(HEADERS)
-	$(CC) $(CFLAGS) $(INCLUDES) -DMAX_CODERS=$(MAX_CODERS) -DSTART_PATTERN=$(START_PATTERN) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -DMAX_CODERS=$(MAX_CODERS) -DSTART_PATTERN=$(START_PATTERN) -DSTART_INTERVAL_MS=$(START_INTERVAL_MS) -DDEADLINE_START=$(DEADLINE_START) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)

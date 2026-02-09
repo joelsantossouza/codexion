@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:18:59 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/09 17:17:21 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/09 20:25:48 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	main(int argc, char **argv)
 		return (printf("%s", PROGRAM_USAGE), 0);
 	if (parse_status != SUCCESS)
 		return (err_log(parse_status), 1);
+	set_program_start(&config);
 	set_codexion_config(&config);
 	if (handle_special_cases() != 0)
 		return (0);

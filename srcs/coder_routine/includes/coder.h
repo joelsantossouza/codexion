@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 16:24:01 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/09 16:22:22 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/09 18:36:09 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ enum e_start_pattern
 # ifndef START_INTERVAL_MS
 #  define START_INTERVAL_MS	1
 # endif
+
+# if START_INTERVAL_MS < 0 || START_INTERVAL_MS > 2147483647
+#  error "START_INTERVAL must be in range of 0 and INT32_MAX"
+# endif
+
 
 typedef enum e_enqueue_status	(*t_enter_on_queue_f)(t_dongle_queue *, t_coder *);
 

@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 16:21:38 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/09 13:06:49 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/09 20:20:02 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	init_coders(uint32_t ncoders, t_coder coders[ncoders], t_dongle dongles[ncod
 			pthread_mutex_destroy(&coders[i].mutex);
 			return (destroy_coders(i, coders), exit_status);
 		}
-		coders[i].deadline_ms = UINT64_MAX;
+		init_deadline(&coders[i], config);
 		coders[i].compilations_done = 0;
 		coders[i].log_mutex = &log_mutex;
 		coders[i].left_dongle = &dongles[i];

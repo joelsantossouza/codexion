@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 18:35:44 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/30 19:27:47 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/09 20:28:51 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 typedef struct s_codexion_config	t_codexion_config;
 
 const t_codexion_config	*codexion_config_control(const t_codexion_config *set_config);
+void					set_program_start(t_codexion_config *config);
 
 static inline
 void	set_codexion_config(const t_codexion_config *set_config)

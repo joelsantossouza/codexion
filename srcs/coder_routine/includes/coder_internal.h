@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 20:42:30 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/09 12:33:24 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/09 20:18:41 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "errors.h"
 # include "simulation_control.h"
 # include "time_utils.h"
+# include "codexion.h"
 
 # define UINT64_MAXLEN				21
 # define LOG_BUFFER_SIZE			64
@@ -56,6 +57,18 @@ __attribute__((always_inline))
 enum e_simulation_status	execute_task(const t_coder *coder, uint64_t task_duration_ms)
 {
 	return (monitored_wait_until(millis() + task_duration_ms, coder->deadline_ms));
+}
+
+static inline
+void	init_deadline(t_coder *coder, const t_codexion_config *config)
+{
+	if (DEADLINE_START == PROGRAM_START)
+	{
+		coder->deadline_ms = config->start_deadline_ms;
+		coder->deadline_ts = config->start_deadline_ts;
+	}
+	else
+		coder->deadline_ms = UINT64_MAX;
 }
 
 #endif
