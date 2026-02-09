@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:18:59 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/08 16:22:56 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/09 13:24:31 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,44 @@
 #include <string.h>
 #include "codexion.h"
 
+static
+int	start_monitor(pthread_t *monitor_thread, t_coder coders[])
+{
+	return (pthread_create(
+		monitor_thread, NULL, (t_routine)monitor_routine, coders
+	));
+}
+
+static
+void	clean(t_coder coders[], t_dongle dongles[])
+{
+	const t_codexion_config	*config = get_codexion_config();
+
+	if (coders)
+		destroy_coders(config->number_of_coders, coders);
+	if (dongles)
+		destroy_dongles(config->number_of_coders, dongles);
+}
+
+static
+void	join_all(pthread_t *monitor_thread, t_coder coders[])
+{
+	const t_codexion_config	*config = get_codexion_config();
+	uint32_t				i;
+
+	i = -1;
+	while (++i < config->number_of_coders)
+	{
+		if (pthread_join(coders[i].thread, NULL) != 0)
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_codexion_config			config;
+	pthread_t					monitor_thread;
 	static	t_coder				coders[MAX_CODERS];
 	static	t_dongle			dongles[MAX_CODERS];
-	static pthread_mutex_t		log_mutex = PTHREAD_MUTEX_INITIALIZER;
 	const enum e_exit_status	parse_status = codexion_parser(
 		&config, argc - 1, argv + 1
 	);
@@ -28,15 +60,14 @@ int	main(int argc, char **argv)
 	if (argc == 2 && strcmp(argv[1], "--help") == 0)
 		return (printf("%s", PROGRAM_USAGE), 0);
 	if (parse_status != SUCCESS)
-		return (fprintf(stderr, "%s", get_error_msg(parse_status)), 1);
+		return (error(parse_status), 1);
 	set_codexion_config(&config);
 	if (init_dongles(config.number_of_coders, dongles) != 0)
-		return (fprintf(stderr, ERR_DONGLES_INIT_MSG), 1);
-	if (init_coders(config.number_of_coders, coders, dongles, &log_mutex) != 0)
-	{
-		destroy_dongles(config.number_of_coders, dongles);
-		return (fprintf(stderr, ERR_CODERS_INIT_MSG), 1);
-	}
+		return (error(ERR_DONGLES_INIT), 1);
+	if (init_coders(config.number_of_coders, coders, dongles) != 0)
+		return (clean(NULL, dongles), error(ERR_CODERS_INIT), 1);
+	if (start_monitor(&monitor_thread, coders) != 0)
+		return (clean(coders, dongles), error(ERR_THREAD_INIT), 1);
 	// IMPROVE ME
 	// if (config.number_of_compiles_required == 0)
 	// 	return (0);

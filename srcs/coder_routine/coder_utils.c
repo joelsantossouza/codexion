@@ -6,10 +6,11 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 16:21:38 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/06 12:32:14 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/09 13:06:49 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <pthread.h>
 #include <stdint.h>
 #include "coder_internal.h"
 #include "dongle_protocols.h"
@@ -33,14 +34,13 @@ int	destroy_coders(uint32_t ncoders, t_coder coders[ncoders])
 	return (pthread_cond_destroy(&coders[i].cond));
 }
 
-int	init_coders(uint32_t ncoders, t_coder coders[ncoders], t_dongle dongles[ncoders], pthread_mutex_t *log_mutex)
+int	init_coders(uint32_t ncoders, t_coder coders[ncoders], t_dongle dongles[ncoders])
 {
 	const t_codexion_config	*config = get_codexion_config();
-	const uint64_t			program_start_ms = millis();
+	static pthread_mutex_t	log_mutex = PTHREAD_MUTEX_INITIALIZER;
 	int						exit_status;
 	uint32_t				i;
 
-	timestamp_ms(program_start_ms);
 	i = -1;
 	while (++i < ncoders)
 	{
@@ -54,9 +54,9 @@ int	init_coders(uint32_t ncoders, t_coder coders[ncoders], t_dongle dongles[ncod
 			pthread_mutex_destroy(&coders[i].mutex);
 			return (destroy_coders(i, coders), exit_status);
 		}
-		set_deadline(&coders[i], program_start_ms, config->time_to_burnout);
+		coders[i].deadline_ms = UINT64_MAX;
 		coders[i].compilations_done = 0;
-		coders[i].log_mutex = log_mutex;
+		coders[i].log_mutex = &log_mutex;
 		coders[i].left_dongle = &dongles[i];
 		coders[i].right_dongle = &dongles[(i + 1) % ncoders];
 		coders[i].left_neighbor = &coders[(i - 1 + ncoders) % ncoders];

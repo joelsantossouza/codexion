@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 20:42:30 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/06 12:32:39 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/09 12:33:24 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,6 @@ void				reset_deadline(t_coder *coder, uint64_t time_to_burnout_ms);
 bool				am_i_alive(t_coder *coder);
 void				update_compilations_done(t_coder *coder);
 enum e_exit_status	log_coder_event(const t_coder *coder, enum e_event_id event_id);
-
-static inline
-void	set_deadline(t_coder *coder, uint64_t start_time_ms, uint64_t time_to_burnout_ms)
-{
-	struct timespec	*deadline_ts;
-
-	coder->deadline_ms = start_time_ms + time_to_burnout_ms;
-	deadline_ts = &coder->deadline_ts;
-	deadline_ts->tv_sec = coder->deadline_ms / 1000;
-	deadline_ts->tv_nsec = coder->deadline_ms % 1000 * 1000000;
-	if (deadline_ts->tv_nsec >= 1000000000)
-	{
-		deadline_ts->tv_sec += deadline_ts->tv_nsec / 1000000000;
-		deadline_ts->tv_nsec %= 1000000000;
-	}
-}
 
 static inline
 __attribute__((always_inline))

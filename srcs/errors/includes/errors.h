@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:10:53 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/01 18:46:17 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/09 13:17:01 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ enum	e_exit_status
 
 	ERR_LOG_INVALID_EVENT,
 	ERR_LOG_SIM_STOPPED,
+
+	ERR_DONGLES_INIT,
+	ERR_CODERS_INIT,
+
+	ERR_THREAD_INIT
 };
 
 # define ERR_PARSER_ARGC_MSG		"Error: Wrong number of arguments\n"
@@ -38,6 +43,9 @@ enum	e_exit_status
 # define ERR_DONGLES_INIT_MSG		"Error: Failed to initialize dongles\n"
 # define ERR_CODERS_INIT_MSG		"Error: Failed to initialize coders\n"
 
+# define ERR_THREAD_INIT_MSG		"Error: Failed to create thread\n"
+
 const char	*get_error_msg(enum e_exit_status err_code);
+void		error(enum e_exit_status err_code);
 
 #endif

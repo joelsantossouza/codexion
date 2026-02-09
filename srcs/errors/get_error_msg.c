@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:49:52 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/01 18:46:35 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/09 13:18:19 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,11 @@ const char	*get_error_msg(enum e_exit_status err_code)
 		return (ERR_PARSER_OVERFLOW_MSG);
 	if (err_code == ERR_PARSER_MAX_CODERS)
 		return (ERR_PARSER_MAX_CODERS_MSG);
+	if (err_code == ERR_DONGLES_INIT)
+		return (ERR_DONGLES_INIT_MSG);
+	if (err_code == ERR_CODERS_INIT)
+		return (ERR_CODERS_INIT_MSG);
+	if (err_code == ERR_THREAD_INIT)
+		return (ERR_THREAD_INIT_MSG);
 	return (NULL);
 }
