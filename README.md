@@ -80,9 +80,9 @@ Each log message follows this structure:
 
 **Example output:**
 
-<img width="1480" height="905" alt="codexion" src="https://github.com/user-attachments/assets/7288cbff-09e8-4112-8b98-036913158880" />
 
----
+---<img width="1666" height="900" alt="codexion" src="https://github.com/user-attachments/assets/cbd950e1-cb2b-4cdd-80b5-0d0d34720b94" />
+
 
 ## How It Works
 
