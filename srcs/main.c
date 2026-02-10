@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:18:59 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/10 09:58:32 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/10 10:04:29 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	handle_special_cases(void)
 		return (1);
 	if (config->num_coders == 1)
 	{
-		printf("0 1 has taken a dongle\n");
 		usleep(config->time_to_burnout * 1000);
 		printf("%lu 1 burned out\n", config->time_to_burnout);
 		return (1);
