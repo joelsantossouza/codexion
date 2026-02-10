@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 20:42:30 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/09 20:18:41 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/10 07:44:55 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ enum e_simulation_status	execute_task(const t_coder *coder, uint64_t task_durati
 static inline
 void	init_deadline(t_coder *coder, const t_codexion_config *config)
 {
-	if (DEADLINE_START == PROGRAM_START)
+	if (DEADLINE_START == CODER_START)
+		coder->deadline_ms = UINT64_MAX;
+	else
 	{
 		coder->deadline_ms = config->start_deadline_ms;
 		coder->deadline_ts = config->start_deadline_ts;
 	}
-	else
-		coder->deadline_ms = UINT64_MAX;
 }
 
 #endif
