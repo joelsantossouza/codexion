@@ -16,16 +16,28 @@ Codexion is a multi-threaded simulation inspired by the Dining Philosophers Prob
 
 ### Compilation
 
-**Standard build** (supports up to 200 coders):
+**Standard build:**
 ```bash
 make
 ```
+Defaults: `MAX_CODERS=200`, `START_PATTERN=ODD_EVEN`, `START_INTERVAL_MS=1`, `DEADLINE_START=CODER_START`
 
-**Custom maximum coders:**
+**Custom configuration:**
 ```bash
-make MAX_CODERS=100
+make MAX_CODERS=100 START_PATTERN=SEQUENTIAL DEADLINE_START=PROGRAM_START
 ```
-Valid range: 0 to INT32_MAX
+
+**Build Parameters:**
+
+- `MAX_CODERS` - Maximum number of coders supported (0 to INT32_MAX)
+- `START_PATTERN` - Coder initialization strategy:
+  - `SEQUENTIAL` - All coders start one after another
+  - `ODD_EVEN` - Odd coders start first, even coders after `START_INTERVAL_MS` delay
+  - Custom patterns for n-group staggered starts
+- `START_INTERVAL_MS` - Delay between coder group starts (milliseconds)
+- `DEADLINE_START` - When coder deadlines begin:
+  - `PROGRAM_START` - All coders share same initial deadline from program start
+  - `CODER_START` - Each coder's deadline starts when their routine begins
 
 ### Execution
 ```bash
@@ -47,6 +59,11 @@ Valid range: 0 to INT32_MAX
 ./codexion 9 1000 200 100 100 5 100 fifo
 ```
 
+**Help:**
+```bash
+./codexion --help
+```
+
 ### Output Format
 
 Each log message follows this structure:
@@ -64,11 +81,6 @@ Each log message follows this structure:
 **Example output:**
 
 <img width="1480" height="905" alt="codexion" src="https://github.com/user-attachments/assets/7288cbff-09e8-4112-8b98-036913158880" />
-
-**Help:**
-```bash
-./codexion --help
-```
 
 ---
 
@@ -119,13 +131,21 @@ Continuously checks:
 
 ### Deadlock Prevention
 
-**Problem:** Circular dependency if all coders lock dongles in the same order (left→right).
+**Lock Ordering Strategy:**
 
-**Solution - Lock by Address Order:**
-- Lock dongles based on memory address, not position
-- Most coders: left→right (left has lower address)
-- Last coder: right→left (right wraps to first dongle, lower address)
-- Breaks circular wait (Coffman's fourth condition)
+Dongles are locked by memory address rather than position to break circular dependencies:
+- Most coders: lock left→right (left has lower memory address)
+- Last coder: lock right→left (right wraps to first dongle with lower address)
+- Breaks circular wait condition (Coffman's 4th condition)
+
+**Odd-Even Start Pattern:**
+
+When `START_PATTERN=ODD_EVEN`:
+- Odd-numbered coders start their routines first
+- Even-numbered coders start after `START_INTERVAL_MS` delay
+- Prevents simultaneous neighbor dongle disputes at initialization
+- Allows more coders to compile concurrently
+- Reduces early starvation risk
 
 ### Starvation Prevention
 
@@ -136,6 +156,10 @@ Continuously checks:
 **EDF Scheduler:**
 - Deadline-based priority prevents starvation
 - Coders closest to burnout always get priority
+
+**Start Pattern Impact:**
+- `ODD_EVEN` pattern reduces initial resource contention
+- Staggered starts give coders time to establish workflow before competition
 
 ### Cooldown Handling
 
@@ -163,7 +187,7 @@ All event logging (compilation start/end, burnout, etc.) is protected by a dedic
 
 **`pthread_cond_t`:**
 - Signal dongle availability to waiting coders
-- Notify state changes
+- Broadcast simulation termination to all threads
 
 ### Shared Resource Coordination
 
@@ -183,7 +207,8 @@ pthread_mutex_unlock(&left_dongle->mutex);
 
 **Monitor State:**
 - Mutex protects shared simulation state (RUNNING/STOPPED)
-- Broadcasts simulation termination to all threads
+- Condition variable broadcasts stop signal to all waiting threads
+- Ensures consistent termination across all threads
 
 **Logging:**
 - Single global mutex serializes all output
@@ -192,7 +217,7 @@ pthread_mutex_unlock(&left_dongle->mutex);
 ### Race Condition Prevention Examples
 
 **Dongle Acquisition:**
-- Check dongle availability under same mutex
+- Dongle availability checked under mutex lock
 - Prevents time-of-check-to-time-of-use (TOCTOU) race
 
 **Burnout Detection:**
@@ -212,7 +237,8 @@ pthread_mutex_unlock(&left_dongle->mutex);
 - [Threading Fundamentals](https://youtu.be/0sVGnxg6Z3k?si=3CKEkPrFnZHnR23F) - POSIX threads tutorial
 
 **AI Usage:**
-AI assisted with project organization and code structure planning
+
+AI assisted with project organization and code structure planning.
 
 ---
 
