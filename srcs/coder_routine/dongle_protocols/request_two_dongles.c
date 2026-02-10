@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 17:56:47 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/06 23:57:53 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/10 09:38:24 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,7 @@ bool	are_dongles_available(t_coder *me)
 
 	pthread_mutex_lock(&first->mutex);
 	pthread_mutex_lock(&second->mutex);
-	are_available =
-		first->is_being_used == false
+	are_available = first->is_being_used == false
 		&& second->is_being_used == false;
 	pthread_mutex_unlock(&first->mutex);
 	pthread_mutex_unlock(&second->mutex);
@@ -105,7 +104,8 @@ enum e_simulation_status	wait_my_turn(t_coder *coder)
 }
 
 static
-enum e_simulation_status	wait_dongle_cooldown(const t_coder *coder, t_dongle *dongle)
+enum e_simulation_status	wait_dongle_cooldown(const t_coder *coder,
+												t_dongle *dongle)
 {
 	uint64_t	dongle_cooldown_end_ms;
 
@@ -124,7 +124,6 @@ enum e_simulation_status	request_two_dongles(t_coder *coder)
 
 	left_dongle = coder->left_dongle;
 	right_dongle = coder->right_dongle;
-
 	if (wait_my_turn(coder) == SIMULATION_STOPPED)
 		return (SIMULATION_STOPPED);
 	if (wait_dongle_cooldown(coder, left_dongle) == SIMULATION_STOPPED)

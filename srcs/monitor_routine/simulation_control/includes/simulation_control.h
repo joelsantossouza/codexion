@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 18:13:34 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/30 15:57:22 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/10 09:49:00 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ enum e_simulation_status
 	SIMULATION_STOPPED,
 };
 
-enum e_simulation_status	monitored_wait_until(uint64_t wait_until_ms, uint64_t limit_ms);
+enum e_simulation_status	monitored_wait_until(uint64_t wait_until_ms,
+								uint64_t limit_ms);
 bool						simulation_control(const bool *set_state);
 void						stop_simulation(void);
 

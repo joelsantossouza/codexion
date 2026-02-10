@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 23:45:22 by joesanto          #+#    #+#             */
-/*   Updated: 2026/01/30 00:08:56 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/10 09:48:41 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 
 #define MONITOR_INTERVAL_US	500
 
-enum e_simulation_status	monitored_wait_until(uint64_t wait_until_ms, uint64_t limit_ms)
+enum e_simulation_status	monitored_wait_until(uint64_t wait_until_ms,
+												uint64_t limit_ms)
 {
 	if (wait_until_ms > limit_ms)
 		wait_until_ms = limit_ms;

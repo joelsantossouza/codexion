@@ -6,14 +6,14 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:10:53 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/09 15:26:35 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/10 09:41:04 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERRORS_H
 # define ERRORS_H
 
-enum	e_exit_status
+enum e_exit_status
 {
 	SUCCESS = 0,
 

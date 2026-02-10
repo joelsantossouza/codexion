@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 16:43:45 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/02 13:03:30 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/10 09:44:55 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	*monitor_routine(t_coder coders[])
 	{
 		i = -1;
 		coders_done_compiling = 0;
-		while (++i < config->number_of_coders)
+		while (++i < config->num_coders)
 		{
 			pthread_mutex_lock(&coders[i].mutex);
-			coders_done_compiling += coders[i].compilations_done >= config->number_of_compiles_required;
+			coders_done_compiling += coders[i].compilations_done >= config->num_compiles_required;
 			is_burned_out = millis() >= coders[i].deadline_ms;
 			pthread_mutex_unlock(&coders[i].mutex);
 			if (is_burned_out == true)
@@ -39,7 +39,7 @@ void	*monitor_routine(t_coder coders[])
 				return (NULL);
 			}
 		}
-		if (coders_done_compiling == config->number_of_coders)
+		if (coders_done_compiling == config->num_coders)
 			return (stop_simulation(), NULL);
 	}
 }

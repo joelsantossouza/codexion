@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 16:21:38 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/09 20:20:02 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/10 09:22:08 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	destroy_coders(uint32_t ncoders, t_coder coders[ncoders])
 	return (pthread_cond_destroy(&coders[i].cond));
 }
 
-int	init_coders(uint32_t ncoders, t_coder coders[ncoders], t_dongle dongles[ncoders])
+int	init_coders(uint32_t ncoders, t_coder coders[ncoders],
+				t_dongle dongles[ncoders])
 {
 	const t_codexion_config	*config = get_codexion_config();
 	static pthread_mutex_t	log_mutex = PTHREAD_MUTEX_INITIALIZER;

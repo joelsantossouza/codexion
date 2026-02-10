@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 16:24:01 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/09 18:36:09 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/10 09:33:06 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ enum e_start_pattern
 #  error "START_INTERVAL must be in range of 0 and INT32_MAX"
 # endif
 
-
-typedef enum e_enqueue_status	(*t_enter_on_queue_f)(t_dongle_queue *, t_coder *);
+typedef enum e_enqueue_status	(*t_enter_on_queue_f)(t_dongle_queue *,
+													t_coder *);
 
 typedef struct s_coder
 {
@@ -62,7 +62,8 @@ typedef struct s_coder
 }	t_coder;
 
 void	init_coder_log(void);
-int		init_coders(uint32_t ncoders, t_coder coders[ncoders], t_dongle dongles[ncoders]);
+int		init_coders(uint32_t ncoders, t_coder coders[ncoders],
+			t_dongle dongles[ncoders]);
 int		destroy_coders(uint32_t ncoders, t_coder coders[ncoders]);
 
 int		start_coders(uint32_t size, t_coder coders[size], uint32_t stride);

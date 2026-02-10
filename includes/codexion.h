@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 18:10:54 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/09 20:29:31 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/10 10:00:22 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,23 @@ enum e_deadline_start
 #  define DEADLINE_START	CODER_START
 # endif
 
-typedef enum e_enqueue_status	(*t_enter_on_queue_f)(t_dongle_queue *, t_coder *);
+typedef void *					(*t_routine)(void *);
+typedef enum e_enqueue_status	(*t_enter_on_queue_f)(t_dongle_queue *,
+													t_coder *);
 
 typedef struct s_codexion_config
 {
-	uint32_t			number_of_coders;
+	uint32_t			num_coders;
 	uint64_t			time_to_burnout;
 	uint64_t			time_to_compile;
 	uint64_t			time_to_debug;
 	uint64_t			time_to_refactor;
-	uint32_t			number_of_compiles_required;
+	uint32_t			num_compiles_required;
 	uint64_t			dongle_cooldown;
 	t_enter_on_queue_f	scheduler;
 	uint64_t			program_start_ms;
 	uint64_t			start_deadline_ms;
 	struct timespec		start_deadline_ts;
 }	t_codexion_config;
-
-typedef void *	(*t_routine)(void *);
 
 #endif

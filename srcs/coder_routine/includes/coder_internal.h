@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 20:42:30 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/10 07:44:55 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/10 09:31:37 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,17 @@ enum e_event_id
 void				reset_deadline(t_coder *coder, uint64_t time_to_burnout_ms);
 bool				am_i_alive(t_coder *coder);
 void				update_compilations_done(t_coder *coder);
-enum e_exit_status	log_coder_event(const t_coder *coder, enum e_event_id event_id);
+enum e_exit_status	log_coder_event(const t_coder *coder,
+						enum e_event_id event_id);
 
 static inline
 __attribute__((always_inline))
-enum e_simulation_status	execute_task(const t_coder *coder, uint64_t task_duration_ms)
+enum e_simulation_status	execute_task(const t_coder *coder,
+										uint64_t task_duration_ms)
 {
-	return (monitored_wait_until(millis() + task_duration_ms, coder->deadline_ms));
+	return (monitored_wait_until(
+		millis() + task_duration_ms, coder->deadline_ms
+	));
 }
 
 static inline
