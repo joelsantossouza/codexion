@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:38:07 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/05 18:34:56 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/10 12:01:25 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	destroy_dongle_queue(t_dongle_queue *queue)
 	return (pthread_mutex_destroy(&queue->mutex));
 }
 
-enum e_enqueue_status	enqueue(t_dongle_queue *queue, t_coder *coder)
+enum e_enqueue_status	fifo_enqueue(t_dongle_queue *queue, t_coder *coder)
 {
 	uint32_t	curr_tail;
 	uint32_t	next_tail;
@@ -44,7 +44,7 @@ enum e_enqueue_status	enqueue(t_dongle_queue *queue, t_coder *coder)
 	return (ENQUEUE_SUCCESS);
 }
 
-enum e_enqueue_status	priority_enqueue(t_dongle_queue *queue, t_coder *coder)
+enum e_enqueue_status	edf_enqueue(t_dongle_queue *queue, t_coder *coder)
 {
 	uint32_t	curr_tail;
 	uint32_t	next_tail;

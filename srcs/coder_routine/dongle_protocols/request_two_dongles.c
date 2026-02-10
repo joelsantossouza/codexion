@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 17:56:47 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/10 09:38:24 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/10 12:03:59 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ enum e_simulation_status	wait_my_turn(t_coder *coder)
 	left_dongle = coder->left_dongle;
 	right_dongle = coder->right_dongle;
 	pthread_mutex_lock(&coder->mutex);
-	coder->enter_on_dongle_queue(&left_dongle->queue, coder);
-	coder->enter_on_dongle_queue(&right_dongle->queue, coder);
+	coder->enqueue(&left_dongle->queue, coder);
+	coder->enqueue(&right_dongle->queue, coder);
 	while (is_first_on_queues(coder) == false || are_dongles_available(coder) == false)
 	{
 		if (is_simulation_running() == false)

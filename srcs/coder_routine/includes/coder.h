@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 16:24:01 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/10 09:33:06 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/10 12:02:55 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,28 @@ enum e_start_pattern
 #  error "START_INTERVAL must be in range of 0 and INT32_MAX"
 # endif
 
-typedef enum e_enqueue_status	(*t_enter_on_queue_f)(t_dongle_queue *,
-													t_coder *);
+typedef enum e_enqueue_status	(*t_enqueue_f)(t_dongle_queue *, t_coder *);
 
 typedef struct s_coder
 {
-	uint32_t			id;
+	uint32_t		id;
 
-	pthread_t			thread;
-	pthread_mutex_t		mutex;
-	pthread_cond_t		cond;
-	pthread_mutex_t		*log_mutex;
+	pthread_t		thread;
+	pthread_mutex_t	mutex;
+	pthread_cond_t	cond;
+	pthread_mutex_t	*log_mutex;
 
-	uint64_t			deadline_ms;
-	struct timespec		deadline_ts;
-	uint32_t			compilations_done;
+	uint64_t		deadline_ms;
+	struct timespec	deadline_ts;
+	uint32_t		compilations_done;
 
-	t_dongle			*left_dongle;
-	t_dongle			*right_dongle;
+	t_dongle		*left_dongle;
+	t_dongle		*right_dongle;
 
-	struct s_coder		*left_neighbor;
-	struct s_coder		*right_neighbor;
+	struct s_coder	*left_neighbor;
+	struct s_coder	*right_neighbor;
 
-	t_enter_on_queue_f	enter_on_dongle_queue;
+	t_enqueue_f		enqueue;
 }	t_coder;
 
 void	init_coder_log(void);

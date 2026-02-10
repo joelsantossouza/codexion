@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:06:06 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/10 09:46:17 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/10 12:04:24 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ enum e_exit_status	codexion_parser(t_codexion_config *config,
 	config->num_compiles_required = atoi(argv[5]);
 	config->dongle_cooldown = atoi(argv[6]);
 	if (strcmp(argv[7], "fifo") == 0)
-		config->scheduler = enqueue;
+		config->scheduler = fifo_enqueue;
 	else if (strcmp(argv[7], "edf") == 0)
-		config->scheduler = priority_enqueue;
+		config->scheduler = edf_enqueue;
 	else
 		return (ERR_PARSER_SCHEDULER);
 	return (SUCCESS);

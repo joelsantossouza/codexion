@@ -6,7 +6,7 @@
 /*   By: joesanto <joesanto@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 16:21:38 by joesanto          #+#    #+#             */
-/*   Updated: 2026/02/10 09:22:08 by joesanto         ###   ########.fr       */
+/*   Updated: 2026/02/10 12:03:33 by joesanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	init_coders(uint32_t ncoders, t_coder coders[ncoders],
 		coders[i].right_dongle = &dongles[(i + 1) % ncoders];
 		coders[i].left_neighbor = &coders[(i - 1 + ncoders) % ncoders];
 		coders[i].right_neighbor = &coders[(i + 1) % ncoders];
-		coders[i].enter_on_dongle_queue = config->scheduler;
+		coders[i].enqueue = config->scheduler;
 	}
 	return (0);
 }
